@@ -218,7 +218,9 @@ def repair(source, out, target, assets_dir=None, hide_mode="alpha"):
             el["font_size"] = max(1, int(round(_num(el.get("font_size"), _num(s.get("font_size"), 12)))))
         _clamp(el, W, H)
         if el["type"] == "text" and visible(el):
+            _scale_ls(el, s)
             _honest_text(el, W, H)
+            _scale_ls(el, s)
         if visible(el) and abs(float(el.get("rotation", 0) or 0)) > 0.1:
             _clamp_rot(el, W, H)
     # groups all-or-nothing; labels back inside their shapes
@@ -252,6 +254,13 @@ def repair(source, out, target, assets_dir=None, hide_mode="alpha"):
             el["opacity"] = float(min(1.0, max(0.0, _num(el["opacity"], 1.0))))
     out["elements"] = els
     return out
+
+
+def _scale_ls(el, s):
+    """letter_spacing follows the font size (source value belongs to the source size)."""
+    ls0 = _num(s.get("letter_spacing"), 0.0)
+    if ls0 and el["type"] == "text":
+        el["letter_spacing"] = round(ls0 * float(el["font_size"]) / max(1.0, _num(s.get("font_size"), el["font_size"])), 2)
 
 
 def _clamp(el, W, H):

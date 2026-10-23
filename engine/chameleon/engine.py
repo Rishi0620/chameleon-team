@@ -129,6 +129,30 @@ def _run(src, target, assets_dir, report):
         if nveto == 0 or rep.get("stage") != "ok":
             break
         level = int(rep.get("relax_level", level)) + 1
+    # dense case (floors had to be relaxed a lot): also try sharing transparent image padding and keep the
+    # result whose type came out larger (a fixed point of the same rules, only the box packing differs)
+    global DISJOINT_BOXES
+    if DISJOINT_BOXES and best[2].get("relax_level", 0) >= 3 and best[2].get("stage") == "ok":
+        DISJOINT_BOXES = False
+        try:
+            alt = None
+            level2 = 0
+            while level2 < 11:
+                rep2 = {}
+                res2 = _run_from(src, target, assets_dir, rep2, level2)
+                n2 = len((rep2.get("chosen") or {}).get("vetoes") or []) if rep2.get("stage") == "ok" else 99
+                if alt is None or n2 < alt[0]:
+                    alt = (n2, res2, rep2)
+                if n2 == 0 or rep2.get("stage") != "ok":
+                    break
+                level2 = int(rep2.get("relax_level", level2)) + 1
+        finally:
+            DISJOINT_BOXES = True
+        if alt is not None and alt[2].get("stage") == "ok":
+            z0 = (best[2].get("chosen") or {}).get("z", 0)
+            z1 = (alt[2].get("chosen") or {}).get("z", 0)
+            if alt[0] < best[0] or (alt[0] == best[0] and z1 > 1.15 * z0):
+                best = alt
     report.update(best[2])
     return best[1]
 

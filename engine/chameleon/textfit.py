@@ -64,12 +64,23 @@ def reset_caches():
             c.clear()
 
 
+def _ls(el, f):
+    """letter_spacing scales with the font size (the source value belongs to the source size)."""
+    ls = float(el.get("letter_spacing", 0) or 0)
+    if not ls:
+        return 0.0
+    try:
+        return ls * float(f) / max(1.0, float(el.get("font_size", f)))
+    except (TypeError, ValueError):
+        return ls
+
+
 def cwidths(el, f):
     """Per-char advances used for WRAPPING. If `capitalize` is set the renderer draws upper-case, so
     the larger of lower- and upper-case advances is used (conservative), and letter_spacing is added."""
     f = max(1, int(f))
     content = str(el.get("content", ""))
-    ls = float(el.get("letter_spacing", 0) or 0)
+    ls = _ls(el, f)
     key = (font_args(el), f, content, bool(el.get("capitalize")), ls)
     if key not in _CW:
         if not content:
@@ -156,7 +167,7 @@ def W_k(el, f, k):
     """Minimal box width so that the greedy wrap at int font f yields <= k lines."""
     f = max(1, int(f))
     # keyed by VALUE only (never id(): ids are recycled after GC -> wrong widths; JUDGE r3 finding)
-    key = (str(el.get("content", "")), font_args(el), f, k, float(el.get("letter_spacing", 0) or 0),
+    key = (str(el.get("content", "")), font_args(el), f, k, _ls(el, f),
            bool(el.get("capitalize")))
     if key in _WK:
         return _WK[key]
@@ -228,7 +239,7 @@ def drawn_widths(el, f, box_w):
     wrap_ws = char_widths(fm(), fam, w, s, float(f), content)
     lines = wrap_text(content, wrap_ws, float(box_w))
     draw = char_widths(fm(), fam, w, s, int(f), content.upper() if el.get("capitalize") else content)
-    ls = float(el.get("letter_spacing", 0) or 0)
+    ls = _ls(el, f)
     out, cur, n = [], 0.0, 0
     for c, dw in zip(lines, draw):
         if c == "\n":
