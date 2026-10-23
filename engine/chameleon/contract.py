@@ -260,7 +260,8 @@ def _scale_ls(el, s):
     """letter_spacing follows the font size (source value belongs to the source size)."""
     ls0 = _num(s.get("letter_spacing"), 0.0)
     if ls0 and el["type"] == "text":
-        el["letter_spacing"] = round(ls0 * float(el["font_size"]) / max(1.0, _num(s.get("font_size"), el["font_size"])), 2)
+        k = min(1.0, float(el["font_size"]) / max(1.0, _num(s.get("font_size"), el["font_size"])))
+        el["letter_spacing"] = round(ls0 * k, 2)         # source spacing is kept unless the font shrank
 
 
 def _clamp(el, W, H):

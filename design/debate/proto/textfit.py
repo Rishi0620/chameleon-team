@@ -70,7 +70,7 @@ def _ls(el, f):
     if not ls:
         return 0.0
     try:
-        return ls * float(f) / max(1.0, float(el.get("font_size", f)))
+        return ls * min(1.0, float(f) / max(1.0, float(el.get("font_size", f))))     # only ever scaled down
     except (TypeError, ValueError):
         return ls
 
