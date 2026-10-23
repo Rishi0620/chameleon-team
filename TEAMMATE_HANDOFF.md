@@ -121,7 +121,16 @@ Then regenerate the scoreboard with `bench/report.py`.
 
 Tests: `pytest` is not in the venv. The test files in `proto/tests/` (`test_critic.py`, `test_finisher.py`) were written for pytest. Install it into the venv (`.venv/bin/pip install pytest`) and run `.venv/bin/python -m pytest design/debate/proto/tests`.
 
-Docker check, as the organisers run it:
+Ship the engine: the Docker image only copies `engine/`, so after changing anything under `design/debate/proto/` run `./scripts/sync_engine.sh`. It copies the modules into `engine/chameleon/`, which `engine/resize.py` calls (falling back to the stretch baseline if it ever fails). Never edit `engine/chameleon/` by hand.
+
+Tests and fuzz (pytest is installed in the venv):
+
+```bash
+.venv/bin/python -m pytest design/debate/proto/tests -q
+.venv/bin/python design/debate/proto/tests/fuzz_engine.py 60 1   # N cases, seed; must print failures=0
+```
+
+Docker check, as the organisers run it (verified working, network none, all three samples OK):
 
 ```bash
 docker build --platform linux/amd64 -t chameleon .
