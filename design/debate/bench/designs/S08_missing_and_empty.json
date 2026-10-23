@@ -1,0 +1,154 @@
+{
+ "task_id": "S08_missing_and_empty",
+ "features": [
+  "LARGE missing hero asset",
+  "empty / whitespace / newline-only text",
+  "emoji + CJK (tofu)",
+  "HTML entity &amp;"
+ ],
+ "source": {
+  "canvas": {
+   "width": 1080,
+   "height": 1080
+  },
+  "elements": [
+   {
+    "type": "text",
+    "x": 140,
+    "y": 780,
+    "width": 800,
+    "height": 40,
+    "z_index": 3,
+    "content": "Salt &amp; Pepper popcorn pairing - \u65e5\u672c\u8a9e edition",
+    "font_family": "Solstice Sans",
+    "font_size": 28,
+    "color": "rgba(255,255,255,1)",
+    "text_align": "center",
+    "id": "e5f512bd"
+   },
+   {
+    "type": "shape",
+    "x": 0,
+    "y": 0,
+    "width": 1080,
+    "height": 1080,
+    "z_index": 0,
+    "shape_type": "rectangle",
+    "fill_color": "rgba(30,40,60,1)",
+    "id": "e52822b2"
+   },
+   {
+    "type": "text",
+    "x": 100,
+    "y": 840,
+    "width": 300,
+    "height": 40,
+    "z_index": 3,
+    "content": "",
+    "font_family": "Solstice Sans",
+    "font_size": 30,
+    "color": "rgba(255,255,255,1)",
+    "text_align": "center",
+    "id": "e0e2927c"
+   },
+   {
+    "type": "text",
+    "x": 390,
+    "y": 921.2,
+    "width": 300,
+    "height": 33.6,
+    "z_index": 4,
+    "content": "Discover",
+    "font_family": "Solstice Sans",
+    "font_size": 28,
+    "color": "rgba(255,255,255,1)",
+    "text_align": "center",
+    "font_weight": "bold",
+    "group_id": "g8db1e",
+    "id": "eb7a0227"
+   },
+   {
+    "type": "image",
+    "x": 140,
+    "y": 140,
+    "width": 800,
+    "height": 500,
+    "z_index": 1,
+    "asset_id": "summer_campaign_hero_v2.png",
+    "fit": "cover",
+    "id": "e03d3de2"
+   },
+   {
+    "type": "image",
+    "x": 40,
+    "y": 30,
+    "width": 210,
+    "height": 70,
+    "z_index": 3,
+    "asset_id": "solstice_logo_lockup.png",
+    "fit": "contain",
+    "id": "ee6f7e1f"
+   },
+   {
+    "type": "shape",
+    "x": 390,
+    "y": 900,
+    "width": 300,
+    "height": 76,
+    "z_index": 3,
+    "shape_type": "rectangle",
+    "fill_color": "rgba(232,106,58,1)",
+    "corner_radius": 38.0,
+    "group_id": "g8db1e",
+    "id": "ef322281"
+   },
+   {
+    "type": "text",
+    "x": 400,
+    "y": 1000,
+    "width": 200,
+    "height": 40,
+    "z_index": 3,
+    "content": "\n",
+    "font_family": "Solstice Sans",
+    "font_size": 30,
+    "color": "rgba(255,255,255,1)",
+    "text_align": "center",
+    "id": "e5df22e0"
+   },
+   {
+    "type": "text",
+    "x": 600,
+    "y": 840,
+    "width": 300,
+    "height": 40,
+    "z_index": 3,
+    "content": "   ",
+    "font_family": "Solstice Sans",
+    "font_size": 30,
+    "color": "rgba(255,255,255,1)",
+    "text_align": "center",
+    "id": "ee7acf8d"
+   },
+   {
+    "type": "text",
+    "x": 90,
+    "y": 680,
+    "width": 900,
+    "height": 80,
+    "z_index": 3,
+    "content": "Caf\u00e9 culture, bottled \ud83c\udf79",
+    "font_family": "Solstice Serif",
+    "font_size": 64,
+    "color": "rgba(255,255,255,1)",
+    "text_align": "center",
+    "font_weight": "bold",
+    "id": "eedaadc8"
+   }
+  ]
+ },
+ "target_canvas": {
+  "width": 1080,
+  "height": 1080
+ }
+}

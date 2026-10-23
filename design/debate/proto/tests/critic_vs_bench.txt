@@ -1,0 +1,24 @@
+386 cases (DESIGNER outputs regenerated, bench issues as stored); critic median 49 ms, p90 184 ms, max 470 ms; total 61 s
+case level (critic any-veto vs bench any veto-class issue):
+  both 116, critic only 4, bench only 5, neither 261  -> agreement 98%
+per class (bench class: cases flagged by bench | of those, critic co-fires | critic fires when bench silent):
+  unreadable_text      bench   0 | critic agrees   0 | critic-only   0
+  text_overflow        bench  48 | critic agrees  48 | critic-only   0
+  text_off_canvas      bench   7 | critic agrees   7 | critic-only   0
+  rotated_clip         bench   0 | critic agrees   0 | critic-only   7
+  placeholder_visible  bench   0 | critic agrees   0 | critic-only   0
+  hidden_leak          bench   0 | critic agrees   0 | critic-only   0
+  text_collision       bench  32 | critic agrees  32 | critic-only  40
+  image_collision      bench  38 | critic agrees  38 | critic-only  30
+  low_contrast         bench  53 | critic agrees  39 | critic-only   1
+  busy_under_text      bench   1 | critic agrees   0 | critic-only   0
+disagreements (9):
+  L1_warmup                    skyscraper         critic=[] bench=['low_contrast']
+  S01_split_photo              large_mobile       critic=['INK_COLLISION'] bench=[]
+  S02_text_over_photo          fb_cover           critic=[] bench=['low_contrast']
+  S02_text_over_photo          x_header           critic=[] bench=['low_contrast']
+  S02_text_over_photo          half_page          critic=[] bench=['low_contrast']
+  S07_lines_zties_spacing      large_mobile       critic=['INK_COLLISION'] bench=[]
+  S07_lines_zties_spacing      email_header       critic=['INK_COLLISION'] bench=[]
+  S10_story_source             half_page          critic=[] bench=['low_contrast']
+  S12_many_badges              large_mobile       critic=['INK_COLLISION'] bench=[]

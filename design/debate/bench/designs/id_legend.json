@@ -1,0 +1,510 @@
+{
+"e06553d1": [
+"S01_split_photo",
+"bg"
+],
+"ebbdd41c": [
+"S01_split_photo",
+"photo"
+],
+"e9e40331": [
+"S01_split_photo",
+"logo"
+],
+"ecb33c6f": [
+"S01_split_photo",
+"headline"
+],
+"e958b267": [
+"S01_split_photo",
+"subhead"
+],
+"e79b90f3": [
+"S01_split_photo",
+"cta_bg"
+],
+"e456876f": [
+"S01_split_photo",
+"cta_label"
+],
+"e125264a": [
+"S02_text_over_photo",
+"photo"
+],
+"e252ebb4": [
+"S02_text_over_photo",
+"scrim"
+],
+"e8563198": [
+"S02_text_over_photo",
+"headline"
+],
+"eec2f75b": [
+"S02_text_over_photo",
+"subhead"
+],
+"e5c8c646": [
+"S02_text_over_photo",
+"cta_bg"
+],
+"e5e1b882": [
+"S02_text_over_photo",
+"cta_label"
+],
+"e2f7f6db": [
+"S02_text_over_photo",
+"logo"
+],
+"ece17df5": [
+"S03_multi_product_grid",
+"bg"
+],
+"e63c59d5": [
+"S03_multi_product_grid",
+"headline"
+],
+"e790e379": [
+"S03_multi_product_grid",
+"prod_a"
+],
+"eae4ca44": [
+"S03_multi_product_grid",
+"prod_b"
+],
+"eb1509ee": [
+"S03_multi_product_grid",
+"prod_c"
+],
+"e07e968c": [
+"S03_multi_product_grid",
+"cap0"
+],
+"e7668822": [
+"S03_multi_product_grid",
+"price0"
+],
+"e67550d5": [
+"S03_multi_product_grid",
+"cap1"
+],
+"efad312f": [
+"S03_multi_product_grid",
+"price1"
+],
+"e250481a": [
+"S03_multi_product_grid",
+"cap2"
+],
+"ebe4da51": [
+"S03_multi_product_grid",
+"price2"
+],
+"e3526dca": [
+"S03_multi_product_grid",
+"cta_bg"
+],
+"ec2e7c04": [
+"S03_multi_product_grid",
+"cta_label"
+],
+"ed328b10": [
+"S03_multi_product_grid",
+"logo"
+],
+"e850d43d": [
+"S04_long_copy_editorial",
+"bg"
+],
+"e4b29beb": [
+"S04_long_copy_editorial",
+"kicker"
+],
+"ede9c7bc": [
+"S04_long_copy_editorial",
+"headline"
+],
+"e34618ce": [
+"S04_long_copy_editorial",
+"divider"
+],
+"efd117e5": [
+"S04_long_copy_editorial",
+"body1"
+],
+"e72f8317": [
+"S04_long_copy_editorial",
+"body2"
+],
+"e2eddca7": [
+"S04_long_copy_editorial",
+"byline"
+],
+"ee362441": [
+"S04_long_copy_editorial",
+"cta_bg"
+],
+"eff57104": [
+"S04_long_copy_editorial",
+"cta_label"
+],
+"e6962194": [
+"S05_rotated_sticker_bleed",
+"bg"
+],
+"e9974ac4": [
+"S05_rotated_sticker_bleed",
+"deco"
+],
+"e7d6cf2f": [
+"S05_rotated_sticker_bleed",
+"product"
+],
+"e27e38c4": [
+"S05_rotated_sticker_bleed",
+"headline"
+],
+"e7fb0abc": [
+"S05_rotated_sticker_bleed",
+"subhead"
+],
+"eb2e8849": [
+"S05_rotated_sticker_bleed",
+"st_bg"
+],
+"e9f02b63": [
+"S05_rotated_sticker_bleed",
+"st_big"
+],
+"e8d008be": [
+"S05_rotated_sticker_bleed",
+"st_small"
+],
+"e37ec9e9": [
+"S05_rotated_sticker_bleed",
+"cta_bg"
+],
+"e480ba4f": [
+"S05_rotated_sticker_bleed",
+"cta_label"
+],
+"ef8a4f7e": [
+"S06_ungrouped_text_backgrounds",
+"bg"
+],
+"ea753949": [
+"S06_ungrouped_text_backgrounds",
+"frame"
+],
+"e6f5c96f": [
+"S06_ungrouped_text_backgrounds",
+"headline"
+],
+"e58a246e": [
+"S06_ungrouped_text_backgrounds",
+"hl_bar"
+],
+"eec37fd3": [
+"S06_ungrouped_text_backgrounds",
+"hl_text"
+],
+"eab5bc4c": [
+"S06_ungrouped_text_backgrounds",
+"product"
+],
+"ed2dfc59": [
+"S06_ungrouped_text_backgrounds",
+"tag_bg"
+],
+"ee7aa020": [
+"S06_ungrouped_text_backgrounds",
+"tag_text"
+],
+"e13a70c6": [
+"S06_ungrouped_text_backgrounds",
+"cta_bg"
+],
+"e3794408": [
+"S06_ungrouped_text_backgrounds",
+"cta_label"
+],
+"e897bf1a": [
+"S06_ungrouped_text_backgrounds",
+"legal"
+],
+"e2f505a5": [
+"S07_lines_zties_spacing",
+"bg"
+],
+"ea4fd1f2": [
+"S07_lines_zties_spacing",
+"kicker"
+],
+"e26dde00": [
+"S07_lines_zties_spacing",
+"rule"
+],
+"e9e0764f": [
+"S07_lines_zties_spacing",
+"headline"
+],
+"ed167da8": [
+"S07_lines_zties_spacing",
+"vrule"
+],
+"e623d2bc": [
+"S07_lines_zties_spacing",
+"date"
+],
+"ef611c3d": [
+"S07_lines_zties_spacing",
+"logo"
+],
+"ef3c4e76": [
+"S07_lines_zties_spacing",
+"product"
+],
+"e7926c2c": [
+"S07_lines_zties_spacing",
+"cta_bg"
+],
+"e2c32dc8": [
+"S07_lines_zties_spacing",
+"cta_label"
+],
+"e19104ef": [
+"S07_lines_zties_spacing",
+"legal"
+],
+"e52822b2": [
+"S08_missing_and_empty",
+"bg"
+],
+"e03d3de2": [
+"S08_missing_and_empty",
+"hero"
+],
+"ee6f7e1f": [
+"S08_missing_and_empty",
+"logo"
+],
+"eedaadc8": [
+"S08_missing_and_empty",
+"headline"
+],
+"e5f512bd": [
+"S08_missing_and_empty",
+"subhead"
+],
+"e0e2927c": [
+"S08_missing_and_empty",
+"empty"
+],
+"ee7acf8d": [
+"S08_missing_and_empty",
+"spaces"
+],
+"e5df22e0": [
+"S08_missing_and_empty",
+"newline"
+],
+"ef322281": [
+"S08_missing_and_empty",
+"cta_bg"
+],
+"eb7a0227": [
+"S08_missing_and_empty",
+"cta_label"
+],
+"e9851e65": [
+"S09_banner_source",
+"bg"
+],
+"eaba537b": [
+"S09_banner_source",
+"logo"
+],
+"e79ef245": [
+"S09_banner_source",
+"headline"
+],
+"e98a58c9": [
+"S09_banner_source",
+"cta_bg"
+],
+"e20d4ea8": [
+"S09_banner_source",
+"cta_label"
+],
+"e259b41e": [
+"S10_story_source",
+"photo"
+],
+"e372c078": [
+"S10_story_source",
+"scrim"
+],
+"ee1d8415": [
+"S10_story_source",
+"logo"
+],
+"e805084d": [
+"S10_story_source",
+"headline"
+],
+"e534ff71": [
+"S10_story_source",
+"product"
+],
+"e7d7f33d": [
+"S10_story_source",
+"st_bg"
+],
+"e9955c5f": [
+"S10_story_source",
+"st_label"
+],
+"e13a9b4b": [
+"S10_story_source",
+"cta_bg"
+],
+"eef61e46": [
+"S10_story_source",
+"cta_label"
+],
+"ee00356a": [
+"S10_story_source",
+"legal"
+],
+"e0477082": [
+"S11_card_overlay",
+"bg"
+],
+"e286a31b": [
+"S11_card_overlay",
+"overlay"
+],
+"e84dc3dc": [
+"S11_card_overlay",
+"card"
+],
+"ec803fd0": [
+"S11_card_overlay",
+"card_head"
+],
+"ed99c252": [
+"S11_card_overlay",
+"card_body"
+],
+"e7c35fb4": [
+"S11_card_overlay",
+"cta_bg"
+],
+"eb1f9366": [
+"S11_card_overlay",
+"cta_label"
+],
+"e716e930": [
+"S11_card_overlay",
+"logo"
+],
+"ee5517da": [
+"S11_card_overlay",
+"frame"
+],
+"e81ee375": [
+"S12_many_badges",
+"bg"
+],
+"e23211ea": [
+"S12_many_badges",
+"logo"
+],
+"e2a65c38": [
+"S12_many_badges",
+"price"
+],
+"eeef7b47": [
+"S12_many_badges",
+"old_price"
+],
+"e854a131": [
+"S12_many_badges",
+"product"
+],
+"e041221f": [
+"S12_many_badges",
+"bullet0"
+],
+"e2b657fb": [
+"S12_many_badges",
+"bullet1"
+],
+"e4d74ac2": [
+"S12_many_badges",
+"bullet2"
+],
+"e23a208b": [
+"S12_many_badges",
+"bullet3"
+],
+"e5490fc6": [
+"S12_many_badges",
+"badge0_bg"
+],
+"e54c6f9e": [
+"S12_many_badges",
+"badge0_label"
+],
+"ea571453": [
+"S12_many_badges",
+"badge1_bg"
+],
+"e5d3dcd1": [
+"S12_many_badges",
+"badge1_label"
+],
+"effd7745": [
+"S12_many_badges",
+"badge2_bg"
+],
+"e811f7c3": [
+"S12_many_badges",
+"badge2_label"
+],
+"e14e0732": [
+"S12_many_badges",
+"badge3_bg"
+],
+"e43c47ac": [
+"S12_many_badges",
+"badge3_label"
+],
+"e313784f": [
+"S12_many_badges",
+"badge4_bg"
+],
+"e3bc5dc1": [
+"S12_many_badges",
+"badge4_label"
+],
+"e6dcf9af": [
+"S12_many_badges",
+"badge5_bg"
+],
+"e55ddff1": [
+"S12_many_badges",
+"badge5_label"
+],
+"e0cb97fc": [
+"S12_many_badges",
+"cta_bg"
+],
+"e7af20f9": [
+"S12_many_badges",
+"cta_label"
+],
+"e49a36d6": [
+"S12_many_badges",
+"legal"
+]
+}

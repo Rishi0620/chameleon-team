@@ -1,0 +1,41 @@
+designer_photo_728x90         0.28s stage=ok relax=0 floor=- hard=0 render=ok | a91c | zz10 z=0.262 E=7.61 vetoes=[] rules=0/0 fin=True hidden=1
+designer_photo_1600x400       0.25s stage=ok relax=0 floor=- hard=0 render=ok | a91c / k03d | zz10 z=0.99 E=2.474 vetoes=[] rules=0/0 fin=True hidden=0
+designer_photo_1080x1920      0.71s stage=ok relax=0 floor=- hard=0 render=ok | a91c ¶ k03d | zz10 z=1.019 E=0.353 vetoes=[] rules=0/2 fin=True hidden=0
+designer_photo_160x600        0.07s stage=ok relax=0 floor=- hard=0 render=ok | a91c ¶ zz10 z=0.133 E=4.05 vetoes=[] rules=0/2 fin=True hidden=1
+designer_split_728x90         0.08s stage=ok relax=0 floor=- hard=0 render=ok | u2 | u3 z=0.262 E=3.915 vetoes=[] rules=0/0 fin=True hidden=0
+designer_split_1600x400       0.09s stage=ok relax=0 floor=- hard=0 render=ok | u2 | u3 z=0.99 E=0.617 vetoes=[] rules=0/1 fin=True hidden=0
+designer_split_1080x1920      0.39s stage=ok relax=0 floor=- hard=0 render=ok | u2 ¶ u3 z=1.636 E=0.909 vetoes=[] rules=0/2 fin=True hidden=0
+designer_split_160x600        0.04s stage=ok relax=0 floor=- hard=0 render=ok | u2 ¶ u3 z=0.322 E=4.039 vetoes=[] rules=0/2 fin=True hidden=0
+inventor_F1_728x90            0.24s stage=ok relax=0 floor=- hard=0 render=ok | p1 | p3 | p5 z=0.396 E=6.834 vetoes=['BUSY_BACKDROP'] rules=0/0 fin=True hidden=1
+inventor_F1_1600x400          0.23s stage=ok relax=0 floor=- hard=0 render=ok | p1 | p2 / p3 / p5 z=0.99 E=2.284 vetoes=['BUSY_BACKDROP'] rules=0/0 fin=True hidden=0
+inventor_F1_1080x1920         0.69s stage=ok relax=0 floor=- hard=0 render=ok | p1 ¶ p2 ¶ p3 ¶ p5 z=1.33 E=0.014 vetoes=[] rules=0/2 fin=True hidden=0
+inventor_F1_160x600           0.12s stage=ok relax=0 floor=- hard=0 render=ok | p1 ¶ p3 ¶ p5 z=0.313 E=2.983 vetoes=[] rules=0/3 fin=True hidden=1
+inventor_F2_728x90            0.16s stage=ok relax=0 floor=- hard=0 render=ok | s1 | s7 z=0.24 E=4.251 vetoes=[] rules=0/0 fin=True hidden=0
+inventor_F2_1600x400          0.09s stage=ok relax=0 floor=- hard=0 render=ok | s1 | s7 z=0.99 E=0.373 vetoes=[] rules=0/0 fin=True hidden=0
+inventor_F2_1080x1920         0.43s stage=ok relax=0 floor=- hard=0 render=ok | s1 ¶ s7 z=1.636 E=1.297 vetoes=[] rules=1/1 fin=True hidden=0
+inventor_F2_160x600           0.07s stage=ok relax=0 floor=- hard=0 render=ok | s1 ¶ s7 z=0.313 E=4.405 vetoes=[] rules=1/0 fin=True hidden=0
+inventor_U_728x90             0.10s stage=ok relax=0 floor=- hard=0 render=ok | e2 | e3 / e4 | e5 z=0.446 E=2.55 vetoes=[] rules=0/0 fin=True hidden=1
+inventor_U_1600x400           0.18s stage=ok relax=0 floor=- hard=0 render=ok | e1 | e2 / e3 / e4 / e5 z=0.879 E=0.437 vetoes=[] rules=0/0 fin=True hidden=0
+inventor_U_1080x1920          0.70s stage=ok relax=0 floor=- hard=0 render=ok | e1 ¶ e2 ¶ e3 ¶ e4 ¶ e5 z=1.636 E=0.246 vetoes=[] rules=0/0 fin=True hidden=0
+inventor_U_160x600            0.09s stage=ok relax=0 floor=- hard=0 render=ok | e2 ¶ e3 ¶ e4 ¶ e5 z=0.233 E=4.562 vetoes=[] rules=0/2 fin=True hidden=1
+optimizer_B_728x90            0.19s stage=ok relax=0 floor=- hard=0 render=ok | p1 | p7 z=0.27 E=5.403 vetoes=[] rules=0/0 fin=True hidden=0
+optimizer_B_1600x400          0.08s stage=ok relax=0 floor=- hard=0 render=ok | p1 | p7 z=0.99 E=0.671 vetoes=[] rules=0/0 fin=True hidden=0
+optimizer_B_1080x1920         0.52s stage=ok relax=0 floor=- hard=0 render=ok | p1 ¶ p7 z=1.636 E=1.063 vetoes=[] rules=0/0 fin=True hidden=0
+optimizer_B_160x600           0.07s stage=ok relax=0 floor=- hard=0 render=ok | p1 ¶ p7 z=0.408 E=5.153 vetoes=[] rules=1/0 fin=True hidden=0
+optimizer_S_728x90            0.14s stage=ok relax=0 floor=- hard=0 render=ok | q1 | q7 z=0.254 E=4.269 vetoes=[] rules=0/0 fin=True hidden=1
+optimizer_S_1600x400          0.28s stage=ok relax=0 floor=- hard=0 render=ok | q1 | q7 z=0.99 E=0.58 vetoes=[] rules=0/0 fin=True hidden=1
+optimizer_S_1080x1920         0.84s stage=ok relax=0 floor=- hard=0 render=ok | q1 / q7 | q8 z=1.33 E=0.347 vetoes=[] rules=0/2 fin=True hidden=0
+optimizer_S_160x600           0.06s stage=ok relax=0 floor=- hard=0 render=ok | q1 ¶ q7 z=0.213 E=4.597 vetoes=[] rules=0/2 fin=True hidden=1
+L1_728x90                     0.15s stage=ok relax=0 floor=- hard=0 render=ok | logo | headline | cta z=0.617 E=1.524 vetoes=[] rules=0/0 fin=True hidden=0
+L1_1600x400                   0.11s stage=ok relax=0 floor=- hard=0 render=ok | logo | headline / cta z=0.99 E=0.034 vetoes=[] rules=0/0 fin=True hidden=0
+L1_1080x1920                  0.31s stage=ok relax=0 floor=- hard=0 render=ok | logo ¶ headline ¶ cta z=1.33 E=0.001 vetoes=[] rules=0/1 fin=True hidden=0
+L1_160x600                    0.08s stage=ok relax=0 floor=- hard=0 render=ok | logo ¶ headline ¶ cta z=0.295 E=2.457 vetoes=[] rules=0/1 fin=True hidden=0
+L2_728x90                     0.14s stage=ok relax=0 floor=- hard=0 render=ok | logo | headline | cta_bg z=0.548 E=3.243 vetoes=[] rules=0/0 fin=True hidden=4
+L2_1600x400                   0.29s stage=ok relax=0 floor=- hard=0 render=ok | logo | product | headline / subhead / cta_bg z=0.99 E=0.481 vetoes=[] rules=0/0 fin=True hidden=0
+L2_1080x1920                  0.72s stage=ok relax=0 floor=- hard=0 render=ok | logo ¶ product ¶ headline ¶ subhead | cta_bg z=1.33 E=0.261 vetoes=[] rules=0/0 fin=True hidden=0
+L2_160x600                    0.12s stage=ok relax=2 floor=- hard=0 render=ok | logo ¶ product ¶ headline ¶ subhead ¶ cta_bg z=0.184 E=4.494 vetoes=['ILLEGIBLE'] rules=2/0 fin=True hidden=0
+L3_728x90                     0.21s stage=ok relax=0 floor=- hard=0 render=ok | logo | headline | cta_bg z=0.303 E=4.841 vetoes=[] rules=0/1 fin=True hidden=12
+L3_1600x400                   0.52s stage=ok relax=0 floor=- hard=0 render=ok | logo / product | headline / subhead / cta_bg z=0.759 E=1.301 vetoes=[] rules=0/1 fin=True hidden=8
+L3_1080x1920                  1.54s stage=ok relax=0 floor=- hard=0 render=ok | logo ¶ product ¶ headline ¶ subhead ¶ badge1_bg ¶ cta_bg z=1.182 E=0.715 vetoes=[] rules=0/1 fin=True hidden=2
+L3_160x600                    0.26s stage=ok relax=3 floor=- hard=0 render=ok | logo ¶ product ¶ headline z=0.207 E=6.445 vetoes=['ILLEGIBLE'] rules=2/1 fin=True hidden=11
+runs=40 fallback=0 contract_hard=0 vetoed_chosen=4 mean_time=0.29s max_time=1.54s

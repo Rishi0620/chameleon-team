@@ -1,0 +1,1760 @@
+{
+ "_doc": "Build proto/tests/critic_pairs.json, the labelled set for critic.py (owner: PERCEPTION).\n\nSources of labels (never the critic itself):\n  1. PERCEPTION's Round-2 eye rankings of all engines' outputs (spikes/perception/r2_out/eye_rankings.json),\n     plus per-output defect labels made by eye from the Round-2 contact sheets and native-resolution PNGs.\n  2. INVENTOR's 4 eye-known pairs (spikes/inventor/out_r2, Round 2 crosscheck).\n  3. PERCEPTION's BLIND near-tie picks on GALLEY top-10s (r2_out/near_ties_eye_BLIND.json; candidates regenerated).\n  4. Synthetic mutations of clean outputs, one per veto type (label = defect by construction).\nRun from repo root:  .venv/bin/python design/debate/proto/tests/build_critic_pairs.py\n",
+ "sources": {
+  "L1": {
+   "path": "input/chameleon_sample_level1_warmup.json",
+   "assets_dir": "brand_kit/assets",
+   "info": {
+    "roles": {
+     "bg": "background",
+     "headline": "headline",
+     "cta": "cta_label",
+     "logo": "logo"
+    },
+    "groups": {},
+    "containers": {},
+    "hidden": [],
+    "assets_dir": "brand_kit/assets",
+    "_note": "built by build_critic_pairs.py from PERCEPTION's spike role inference (engine info stand-in)"
+   }
+  },
+  "L2": {
+   "path": "input/chameleon_sample_level2_core.json",
+   "assets_dir": "brand_kit/assets",
+   "info": {
+    "roles": {
+     "bg": "background",
+     "headline": "headline",
+     "subhead": "subhead",
+     "cta_bg": "cta_shape",
+     "cta_label": "cta_label",
+     "badge_bg": "badge_shape",
+     "badge_label": "badge_label",
+     "logo": "logo",
+     "product": "hero",
+     "deco_circle_1": "decoration",
+     "deco_circle_2": "decoration"
+    },
+    "groups": {
+     "badge": [
+      "badge_bg",
+      "badge_label"
+     ],
+     "cta": [
+      "cta_bg",
+      "cta_label"
+     ]
+    },
+    "containers": {},
+    "hidden": [],
+    "assets_dir": "brand_kit/assets",
+    "_note": "built by build_critic_pairs.py from PERCEPTION's spike role inference (engine info stand-in)"
+   }
+  },
+  "L3": {
+   "path": "input/chameleon_sample_level3_advanced.json",
+   "assets_dir": "brand_kit/assets",
+   "info": {
+    "roles": {
+     "bg": "background",
+     "headline": "headline",
+     "subhead": "subhead",
+     "legal_text": "legal",
+     "ribbon_bg": "furniture",
+     "ribbon_label": "furniture",
+     "cta_bg": "cta_shape",
+     "cta_label": "cta_label",
+     "badge2_bg": "badge_shape",
+     "badge2_label": "badge_label",
+     "badge1_bg": "badge_shape",
+     "badge1_label": "badge_label",
+     "badge3_bg": "badge_shape",
+     "badge3_label": "badge_label",
+     "holiday_watermark": "unknown",
+     "logo": "logo",
+     "product": "hero"
+    },
+    "groups": {
+     "badge1": [
+      "badge1_bg",
+      "badge1_label"
+     ],
+     "badge2": [
+      "badge2_bg",
+      "badge2_label"
+     ],
+     "badge3": [
+      "badge3_bg",
+      "badge3_label"
+     ],
+     "cta": [
+      "cta_bg",
+      "cta_label"
+     ],
+     "ribbon": [
+      "ribbon_bg",
+      "ribbon_label"
+     ]
+    },
+    "containers": {},
+    "hidden": [],
+    "assets_dir": "brand_kit/assets",
+    "_note": "built by build_critic_pairs.py from PERCEPTION's spike role inference (engine info stand-in)"
+   }
+  },
+  "F1": {
+   "path": "design/debate/proto/fixtures/inventor_F1.json",
+   "assets_dir": "design/debate/proto/fixtures/assets",
+   "info": {
+    "roles": {
+     "p0": "background",
+     "p1": "headline",
+     "p2": "subhead",
+     "p3": "cta_shape",
+     "p4": "cta_label",
+     "p5": "logo"
+    },
+    "groups": {
+     "q": [
+      "p3",
+      "p4"
+     ]
+    },
+    "containers": {},
+    "hidden": [],
+    "assets_dir": "design/debate/proto/fixtures/assets",
+    "_note": "built by build_critic_pairs.py from PERCEPTION's spike role inference (engine info stand-in)"
+   }
+  },
+  "F2": {
+   "path": "design/debate/proto/fixtures/inventor_F2.json",
+   "assets_dir": "design/debate/proto/fixtures/assets",
+   "info": {
+    "roles": {
+     "s0": "background",
+     "s3": "headline",
+     "s4": "subhead",
+     "s5": "cta_shape",
+     "s6": "cta_label",
+     "s2": "logo",
+     "s7": "hero",
+     "s1": "panel"
+    },
+    "groups": {
+     "k": [
+      "s5",
+      "s6"
+     ]
+    },
+    "containers": {
+     "s1": [
+      "s2",
+      "s3",
+      "s4",
+      "s5",
+      "s6"
+     ]
+    },
+    "hidden": [],
+    "assets_dir": "design/debate/proto/fixtures/assets",
+    "_note": "built by build_critic_pairs.py from PERCEPTION's spike role inference (engine info stand-in)"
+   }
+  },
+  "U": {
+   "path": "design/debate/proto/fixtures/inventor_U.json",
+   "assets_dir": "design/debate/proto/fixtures/assets",
+   "info": {
+    "roles": {
+     "e0": "background",
+     "e3": "headline",
+     "e4": "subhead",
+     "e5": "cta_shape",
+     "e6": "cta_label",
+     "e2": "logo",
+     "e1": "hero"
+    },
+    "groups": {
+     "g7": [
+      "e5",
+      "e6"
+     ]
+    },
+    "containers": {},
+    "hidden": [],
+    "assets_dir": "design/debate/proto/fixtures/assets",
+    "_note": "built by build_critic_pairs.py from PERCEPTION's spike role inference (engine info stand-in)"
+   }
+  },
+  "U_galley_src": {
+   "path": "design/debate/proto/tests/data/U_galley_source.json",
+   "assets_dir": "brand_kit/assets",
+   "info": {
+    "roles": {
+     "e0": "background",
+     "e3": "headline",
+     "e4": "subhead",
+     "e5": "cta_shape",
+     "e6": "cta_label",
+     "e2": "logo",
+     "e1": "hero"
+    },
+    "groups": {
+     "g7": [
+      "e5",
+      "e6"
+     ]
+    },
+    "containers": {},
+    "hidden": [],
+    "assets_dir": "brand_kit/assets",
+    "_note": "built by build_critic_pairs.py from PERCEPTION's spike role inference (engine info stand-in)"
+   }
+  }
+ },
+ "outputs": [
+  {
+   "id": "r2:L2->1600x400:designer",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_1600x400_designer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->1600x400:optimizer",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_1600x400_optimizer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->1600x400:inventor",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_1600x400_inventor.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->1600x400:perception",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_1600x400_perception.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->1600x400:judge_safefit",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_1600x400_judge_safefit.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->1600x400:baseline_stretch",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_1600x400_baseline_stretch.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->728x90:designer",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_728x90_designer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->728x90:inventor",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_728x90_inventor.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->728x90:optimizer",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_728x90_optimizer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->728x90:perception",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_728x90_perception.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->728x90:judge_safefit",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_728x90_judge_safefit.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->728x90:baseline_stretch",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_728x90_baseline_stretch.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->728x90:optimizer",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_728x90_optimizer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->728x90:designer",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_728x90_designer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->728x90:inventor",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_728x90_inventor.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->728x90:perception",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_728x90_perception.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->728x90:judge_mock",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_728x90_judge_mock.json",
+   "label": "defect",
+   "defect_kinds": [
+    "SPILL"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->728x90:judge_safefit",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_728x90_judge_safefit.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->728x90:baseline_stretch",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_728x90_baseline_stretch.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE",
+    "CLIPPED",
+    "PLACEHOLDER"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L1->1080x1350:optimizer",
+   "source": "L1",
+   "output": "design/debate/proto/tests/data/r2_L1_1080x1350_optimizer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L1->1080x1350:designer",
+   "source": "L1",
+   "output": "design/debate/proto/tests/data/r2_L1_1080x1350_designer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L1->1080x1350:inventor",
+   "source": "L1",
+   "output": "design/debate/proto/tests/data/r2_L1_1080x1350_inventor.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L1->1080x1350:baseline_stretch",
+   "source": "L1",
+   "output": "design/debate/proto/tests/data/r2_L1_1080x1350_baseline_stretch.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L1->1080x1350:judge_safefit",
+   "source": "L1",
+   "output": "design/debate/proto/tests/data/r2_L1_1080x1350_judge_safefit.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->1600x400:designer",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_1600x400_designer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->1600x400:optimizer",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_1600x400_optimizer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->1600x400:inventor",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_1600x400_inventor.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->1600x400:judge_safefit",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_1600x400_judge_safefit.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->1600x400:baseline_stretch",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_1600x400_baseline_stretch.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE",
+    "PLACEHOLDER"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->1080x1920:optimizer",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_1080x1920_optimizer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->1080x1920:inventor",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_1080x1920_inventor.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->1080x1920:judge_safefit",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_1080x1920_judge_safefit.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->1080x1920:baseline_stretch",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_1080x1920_baseline_stretch.json",
+   "label": "defect",
+   "defect_kinds": [
+    "PLACEHOLDER"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->300x250:optimizer",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_300x250_optimizer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->300x250:designer",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_300x250_designer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->300x250:inventor",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_300x250_inventor.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->300x250:judge_safefit",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_300x250_judge_safefit.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L2->300x250:baseline_stretch",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/r2_L2_300x250_baseline_stretch.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->160x600:optimizer",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_160x600_optimizer.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->160x600:inventor",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_160x600_inventor.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->160x600:judge_safefit",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_160x600_judge_safefit.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "r2:L3->160x600:baseline_stretch",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/r2_L3_160x600_baseline_stretch.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE",
+    "PLACEHOLDER"
+   ],
+   "note": "",
+   "labeller": "perception-eye (round 2)"
+  },
+  {
+   "id": "inv:topo_F1_1600x400_calm",
+   "source": "F1",
+   "output": "design/debate/spikes/inventor/out_r2/topo_F1_1600x400_calm.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "inventor-eye (round 2)"
+  },
+  {
+   "id": "inv:topo_F1_1600x400_v1",
+   "source": "F1",
+   "output": "design/debate/spikes/inventor/out_r2/topo_F1_1600x400_v1.json",
+   "label": "defect",
+   "defect_kinds": [
+    "BUSY_BACKDROP"
+   ],
+   "note": "text set over striped trees",
+   "labeller": "inventor-eye (round 2)"
+  },
+  {
+   "id": "inv:topo_F2_1600x400",
+   "source": "F2",
+   "output": "design/debate/spikes/inventor/out_r2/topo_F2_1600x400.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "inventor-eye (round 2)"
+  },
+  {
+   "id": "inv:topo_F2_1600x400_v1",
+   "source": "F2",
+   "output": "design/debate/spikes/inventor/out_r2/topo_F2_1600x400_v1.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "inventor-eye (round 2)"
+  },
+  {
+   "id": "inv:U_1080x1920_optimizer",
+   "source": "U",
+   "output": "design/debate/spikes/inventor/out_r2/U_1080x1920_optimizer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "inventor-eye (round 2)"
+  },
+  {
+   "id": "inv:U_1080x1920_galley",
+   "source": "U",
+   "output": "design/debate/spikes/inventor/out_r2/U_1080x1920_galley.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "inventor-eye (round 2)"
+  },
+  {
+   "id": "inv:U_1600x400_galley",
+   "source": "U",
+   "output": "design/debate/spikes/inventor/out_r2/U_1600x400_galley.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "inventor-eye (round 2)"
+  },
+  {
+   "id": "inv:U_1600x400_optimizer",
+   "source": "U",
+   "output": "design/debate/spikes/inventor/out_r2/U_1600x400_optimizer.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "",
+   "labeller": "inventor-eye (round 2)"
+  },
+  {
+   "id": "nt:U_1080x1920:G",
+   "source": "U_galley_src",
+   "output": "design/debate/proto/tests/data/nt_U_1080x1920_G.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:U_1080x1920:E",
+   "source": "U_galley_src",
+   "output": "design/debate/proto/tests/data/nt_U_1080x1920_E.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:U_1080x1920:D",
+   "source": "U_galley_src",
+   "output": "design/debate/proto/tests/data/nt_U_1080x1920_D.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:U_1080x1920:F",
+   "source": "U_galley_src",
+   "output": "design/debate/proto/tests/data/nt_U_1080x1920_F.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:U_1080x1920:J",
+   "source": "U_galley_src",
+   "output": "design/debate/proto/tests/data/nt_U_1080x1920_J.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:U_1080x1920:H",
+   "source": "U_galley_src",
+   "output": "design/debate/proto/tests/data/nt_U_1080x1920_H.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L2_1080x1920:G",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/nt_L2_1080x1920_G.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L2_1080x1920:E",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/nt_L2_1080x1920_E.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L2_1080x1920:I",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/nt_L2_1080x1920_I.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L2_1080x1920:B",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/nt_L2_1080x1920_B.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L2_1080x1920:H",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/nt_L2_1080x1920_H.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L2_1080x1920:C",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/nt_L2_1080x1920_C.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:U_1080x1080:E",
+   "source": "U_galley_src",
+   "output": "design/debate/proto/tests/data/nt_U_1080x1080_E.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:U_1080x1080:A",
+   "source": "U_galley_src",
+   "output": "design/debate/proto/tests/data/nt_U_1080x1080_A.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:U_1080x1080:D",
+   "source": "U_galley_src",
+   "output": "design/debate/proto/tests/data/nt_U_1080x1080_D.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:U_1080x1080:B",
+   "source": "U_galley_src",
+   "output": "design/debate/proto/tests/data/nt_U_1080x1080_B.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:U_1080x1080:C",
+   "source": "U_galley_src",
+   "output": "design/debate/proto/tests/data/nt_U_1080x1080_C.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L3_1080x1350:G",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/nt_L3_1080x1350_G.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L3_1080x1350:E",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/nt_L3_1080x1350_E.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L3_1080x1350:A",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/nt_L3_1080x1350_A.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L3_1080x1350:D",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/nt_L3_1080x1350_D.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L3_1080x1350:H",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/nt_L3_1080x1350_H.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "nt:L3_1080x1350:C",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/nt_L3_1080x1350_C.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "near-tie candidate (taste only)",
+   "labeller": "perception-eye BLIND"
+  },
+  {
+   "id": "mut:L3_728_leak",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/mut_L3_728_leak.json",
+   "label": "defect",
+   "defect_kinds": [
+    "HIDDEN_LEAK"
+   ],
+   "note": "subhead hidden by opacity only",
+   "labeller": "synthetic mutation"
+  },
+  {
+   "id": "mut:L3_728_placeholder",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/mut_L3_728_placeholder.json",
+   "label": "defect",
+   "defect_kinds": [
+    "PLACEHOLDER"
+   ],
+   "note": "missing-asset image shown",
+   "labeller": "synthetic mutation"
+  },
+  {
+   "id": "mut:L3_728_clipped",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/mut_L3_728_clipped.json",
+   "label": "defect",
+   "defect_kinds": [
+    "CLIPPED"
+   ],
+   "note": "headline narrowed until it runs off canvas",
+   "labeller": "synthetic mutation"
+  },
+  {
+   "id": "mut:L2_728_illegible",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/mut_L2_728_illegible.json",
+   "label": "defect",
+   "defect_kinds": [
+    "ILLEGIBLE"
+   ],
+   "note": "subhead at 5 px",
+   "labeller": "synthetic mutation"
+  },
+  {
+   "id": "mut:L2_1600_collide",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/mut_L2_1600_collide.json",
+   "label": "defect",
+   "defect_kinds": [
+    "INK_COLLISION"
+   ],
+   "note": "badge dropped onto the headline",
+   "labeller": "synthetic mutation"
+  },
+  {
+   "id": "mut:L2_1600_spill",
+   "source": "L2",
+   "output": "design/debate/proto/tests/data/mut_L2_1600_spill.json",
+   "label": "defect",
+   "defect_kinds": [
+    "SPILL"
+   ],
+   "note": "CTA label pushed out of its pill",
+   "labeller": "synthetic mutation"
+  },
+  {
+   "id": "mut:L3_1600_rotclip",
+   "source": "L3",
+   "output": "design/debate/proto/tests/data/mut_L3_1600_rotclip.json",
+   "label": "defect",
+   "defect_kinds": [
+    "CLIPPED"
+   ],
+   "note": "ribbon kept, rotated corner off canvas",
+   "labeller": "synthetic mutation"
+  },
+  {
+   "id": "fx:F1_identity",
+   "source": "F1",
+   "output": "design/debate/proto/tests/data/F1_identity.json",
+   "label": "clean",
+   "defect_kinds": [],
+   "note": "source as output (fixed point)",
+   "labeller": "by construction"
+  },
+  {
+   "id": "mut:F1_lost_backdrop",
+   "source": "F1",
+   "output": "design/debate/proto/tests/data/mut_F1_lost_backdrop.json",
+   "label": "defect",
+   "defect_kinds": [
+    "LOST_BACKDROP"
+   ],
+   "note": "white subhead on the pale sun",
+   "labeller": "synthetic mutation"
+  }
+ ],
+ "pairs": [
+  {
+   "better": "r2:L2->1600x400:designer",
+   "worse": "r2:L2->1600x400:optimizer",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:designer",
+   "worse": "r2:L2->1600x400:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:designer",
+   "worse": "r2:L2->1600x400:perception",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:designer",
+   "worse": "r2:L2->1600x400:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:designer",
+   "worse": "r2:L2->1600x400:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:optimizer",
+   "worse": "r2:L2->1600x400:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:optimizer",
+   "worse": "r2:L2->1600x400:perception",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:optimizer",
+   "worse": "r2:L2->1600x400:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:optimizer",
+   "worse": "r2:L2->1600x400:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:inventor",
+   "worse": "r2:L2->1600x400:perception",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:inventor",
+   "worse": "r2:L2->1600x400:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:inventor",
+   "worse": "r2:L2->1600x400:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:perception",
+   "worse": "r2:L2->1600x400:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->1600x400:perception",
+   "worse": "r2:L2->1600x400:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:designer",
+   "worse": "r2:L2->728x90:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:designer",
+   "worse": "r2:L2->728x90:optimizer",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:designer",
+   "worse": "r2:L2->728x90:perception",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:designer",
+   "worse": "r2:L2->728x90:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:designer",
+   "worse": "r2:L2->728x90:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:inventor",
+   "worse": "r2:L2->728x90:optimizer",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:inventor",
+   "worse": "r2:L2->728x90:perception",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:inventor",
+   "worse": "r2:L2->728x90:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:inventor",
+   "worse": "r2:L2->728x90:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:optimizer",
+   "worse": "r2:L2->728x90:perception",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:optimizer",
+   "worse": "r2:L2->728x90:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:optimizer",
+   "worse": "r2:L2->728x90:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:perception",
+   "worse": "r2:L2->728x90:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->728x90:perception",
+   "worse": "r2:L2->728x90:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:optimizer",
+   "worse": "r2:L3->728x90:designer",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:optimizer",
+   "worse": "r2:L3->728x90:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:optimizer",
+   "worse": "r2:L3->728x90:perception",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:optimizer",
+   "worse": "r2:L3->728x90:judge_mock",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:optimizer",
+   "worse": "r2:L3->728x90:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:optimizer",
+   "worse": "r2:L3->728x90:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:designer",
+   "worse": "r2:L3->728x90:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:designer",
+   "worse": "r2:L3->728x90:perception",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:designer",
+   "worse": "r2:L3->728x90:judge_mock",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:designer",
+   "worse": "r2:L3->728x90:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:designer",
+   "worse": "r2:L3->728x90:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:inventor",
+   "worse": "r2:L3->728x90:perception",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:inventor",
+   "worse": "r2:L3->728x90:judge_mock",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:inventor",
+   "worse": "r2:L3->728x90:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:inventor",
+   "worse": "r2:L3->728x90:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:perception",
+   "worse": "r2:L3->728x90:judge_mock",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:perception",
+   "worse": "r2:L3->728x90:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:perception",
+   "worse": "r2:L3->728x90:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L1->1080x1350:optimizer",
+   "worse": "r2:L1->1080x1350:designer",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L1->1080x1350:optimizer",
+   "worse": "r2:L1->1080x1350:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L1->1080x1350:optimizer",
+   "worse": "r2:L1->1080x1350:baseline_stretch",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L1->1080x1350:optimizer",
+   "worse": "r2:L1->1080x1350:judge_safefit",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L1->1080x1350:designer",
+   "worse": "r2:L1->1080x1350:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L1->1080x1350:designer",
+   "worse": "r2:L1->1080x1350:baseline_stretch",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L1->1080x1350:designer",
+   "worse": "r2:L1->1080x1350:judge_safefit",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L1->1080x1350:inventor",
+   "worse": "r2:L1->1080x1350:baseline_stretch",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L1->1080x1350:inventor",
+   "worse": "r2:L1->1080x1350:judge_safefit",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L1->1080x1350:baseline_stretch",
+   "worse": "r2:L1->1080x1350:judge_safefit",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1600x400:designer",
+   "worse": "r2:L3->1600x400:optimizer",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1600x400:designer",
+   "worse": "r2:L3->1600x400:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1600x400:designer",
+   "worse": "r2:L3->1600x400:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1600x400:designer",
+   "worse": "r2:L3->1600x400:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1600x400:optimizer",
+   "worse": "r2:L3->1600x400:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1600x400:optimizer",
+   "worse": "r2:L3->1600x400:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1600x400:optimizer",
+   "worse": "r2:L3->1600x400:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1600x400:inventor",
+   "worse": "r2:L3->1600x400:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1600x400:inventor",
+   "worse": "r2:L3->1600x400:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1080x1920:optimizer",
+   "worse": "r2:L3->1080x1920:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1080x1920:optimizer",
+   "worse": "r2:L3->1080x1920:judge_safefit",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1080x1920:optimizer",
+   "worse": "r2:L3->1080x1920:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1080x1920:inventor",
+   "worse": "r2:L3->1080x1920:judge_safefit",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1080x1920:inventor",
+   "worse": "r2:L3->1080x1920:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L3->1080x1920:judge_safefit",
+   "worse": "r2:L3->1080x1920:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->300x250:optimizer",
+   "worse": "r2:L2->300x250:designer",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->300x250:optimizer",
+   "worse": "r2:L2->300x250:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->300x250:optimizer",
+   "worse": "r2:L2->300x250:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->300x250:optimizer",
+   "worse": "r2:L2->300x250:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->300x250:designer",
+   "worse": "r2:L2->300x250:inventor",
+   "kind": "taste",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->300x250:designer",
+   "worse": "r2:L2->300x250:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->300x250:designer",
+   "worse": "r2:L2->300x250:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->300x250:inventor",
+   "worse": "r2:L2->300x250:judge_safefit",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "r2:L2->300x250:inventor",
+   "worse": "r2:L2->300x250:baseline_stretch",
+   "kind": "defect",
+   "by": "perception-eye (round 2)"
+  },
+  {
+   "better": "inv:topo_F1_1600x400_calm",
+   "worse": "inv:topo_F1_1600x400_v1",
+   "kind": "defect",
+   "by": "inventor-eye (round 2)"
+  },
+  {
+   "better": "inv:topo_F2_1600x400",
+   "worse": "inv:topo_F2_1600x400_v1",
+   "kind": "taste",
+   "by": "inventor-eye (round 2)"
+  },
+  {
+   "better": "inv:U_1080x1920_optimizer",
+   "worse": "inv:U_1080x1920_galley",
+   "kind": "taste",
+   "by": "inventor-eye (round 2)"
+  },
+  {
+   "better": "inv:U_1600x400_galley",
+   "worse": "inv:U_1600x400_optimizer",
+   "kind": "taste",
+   "by": "inventor-eye (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1920:J",
+   "worse": "nt:U_1080x1920:H",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1920:J",
+   "worse": "nt:U_1080x1920:D",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1920:J",
+   "worse": "nt:U_1080x1920:G",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1920:F",
+   "worse": "nt:U_1080x1920:H",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1920:F",
+   "worse": "nt:U_1080x1920:D",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1920:F",
+   "worse": "nt:U_1080x1920:G",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1920:E",
+   "worse": "nt:U_1080x1920:H",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1920:E",
+   "worse": "nt:U_1080x1920:D",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1920:E",
+   "worse": "nt:U_1080x1920:G",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L2_1080x1920:H",
+   "worse": "nt:L2_1080x1920:G",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L2_1080x1920:H",
+   "worse": "nt:L2_1080x1920:E",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L2_1080x1920:H",
+   "worse": "nt:L2_1080x1920:B",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L2_1080x1920:C",
+   "worse": "nt:L2_1080x1920:G",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L2_1080x1920:C",
+   "worse": "nt:L2_1080x1920:E",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L2_1080x1920:C",
+   "worse": "nt:L2_1080x1920:B",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L2_1080x1920:I",
+   "worse": "nt:L2_1080x1920:G",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L2_1080x1920:I",
+   "worse": "nt:L2_1080x1920:E",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L2_1080x1920:I",
+   "worse": "nt:L2_1080x1920:B",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1080:B",
+   "worse": "nt:U_1080x1080:E",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1080:B",
+   "worse": "nt:U_1080x1080:C",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1080:A",
+   "worse": "nt:U_1080x1080:E",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1080:A",
+   "worse": "nt:U_1080x1080:C",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1080:D",
+   "worse": "nt:U_1080x1080:E",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:U_1080x1080:D",
+   "worse": "nt:U_1080x1080:C",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L3_1080x1350:H",
+   "worse": "nt:L3_1080x1350:D",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L3_1080x1350:H",
+   "worse": "nt:L3_1080x1350:E",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L3_1080x1350:H",
+   "worse": "nt:L3_1080x1350:A",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L3_1080x1350:G",
+   "worse": "nt:L3_1080x1350:D",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L3_1080x1350:G",
+   "worse": "nt:L3_1080x1350:E",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L3_1080x1350:G",
+   "worse": "nt:L3_1080x1350:A",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L3_1080x1350:C",
+   "worse": "nt:L3_1080x1350:D",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L3_1080x1350:C",
+   "worse": "nt:L3_1080x1350:E",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "nt:L3_1080x1350:C",
+   "worse": "nt:L3_1080x1350:A",
+   "kind": "taste",
+   "by": "perception-eye BLIND (round 2)"
+  },
+  {
+   "better": "r2:L3->728x90:optimizer",
+   "worse": "mut:L3_728_leak",
+   "kind": "defect",
+   "by": "synthetic mutation"
+  },
+  {
+   "better": "r2:L3->728x90:optimizer",
+   "worse": "mut:L3_728_placeholder",
+   "kind": "defect",
+   "by": "synthetic mutation"
+  },
+  {
+   "better": "r2:L3->728x90:optimizer",
+   "worse": "mut:L3_728_clipped",
+   "kind": "defect",
+   "by": "synthetic mutation"
+  },
+  {
+   "better": "r2:L2->728x90:optimizer",
+   "worse": "mut:L2_728_illegible",
+   "kind": "defect",
+   "by": "synthetic mutation"
+  },
+  {
+   "better": "r2:L2->1600x400:designer",
+   "worse": "mut:L2_1600_collide",
+   "kind": "defect",
+   "by": "synthetic mutation"
+  },
+  {
+   "better": "r2:L2->1600x400:optimizer",
+   "worse": "mut:L2_1600_spill",
+   "kind": "defect",
+   "by": "synthetic mutation"
+  },
+  {
+   "better": "r2:L3->1600x400:optimizer",
+   "worse": "mut:L3_1600_rotclip",
+   "kind": "defect",
+   "by": "synthetic mutation"
+  },
+  {
+   "better": "fx:F1_identity",
+   "worse": "mut:F1_lost_backdrop",
+   "kind": "defect",
+   "by": "synthetic mutation"
+  }
+ ]
+}

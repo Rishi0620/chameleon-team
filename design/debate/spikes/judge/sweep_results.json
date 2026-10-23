@@ -1,0 +1,2775 @@
+[
+ {
+  "level": "level1_warmup",
+  "target": "Instagram Post",
+  "size": [
+   1080,
+   1080
+  ],
+  "engine": "baseline",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Instagram Post",
+  "size": [
+   1080,
+   1080
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Instagram Portrait",
+  "size": [
+   1080,
+   1350
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 2.56 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Instagram Portrait",
+  "size": [
+   1080,
+   1350
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Instagram Story/Reel",
+  "size": [
+   1080,
+   1920
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 1.80 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Instagram Story/Reel",
+  "size": [
+   1080,
+   1920
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Instagram Landscape",
+  "size": [
+   1080,
+   566
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 6.11 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Instagram Landscape",
+  "size": [
+   1080,
+   566
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Facebook Post (link)",
+  "size": [
+   1200,
+   630
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 6.10 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Facebook Post (link)",
+  "size": [
+   1200,
+   630
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Facebook Cover",
+  "size": [
+   820,
+   312
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 8.41 vs src 3.20"
+  ],
+  "soft": [
+   "cta: perceived font 8.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Facebook Cover",
+  "size": [
+   820,
+   312
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Facebook Event Cover",
+  "size": [
+   1920,
+   1005
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 6.11 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Facebook Event Cover",
+  "size": [
+   1920,
+   1005
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "X/Twitter Post",
+  "size": [
+   1600,
+   900
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 5.69 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "X/Twitter Post",
+  "size": [
+   1600,
+   900
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "X/Twitter Header",
+  "size": [
+   1500,
+   500
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 9.60 vs src 3.20"
+  ],
+  "soft": [
+   "cta: perceived font 8.9px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "X/Twitter Header",
+  "size": [
+   1500,
+   500
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "LinkedIn Post",
+  "size": [
+   1200,
+   627
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 6.12 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "LinkedIn Post",
+  "size": [
+   1200,
+   627
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "LinkedIn Banner",
+  "size": [
+   1584,
+   396
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 12.80 vs src 3.20"
+  ],
+  "soft": [
+   "cta: perceived font 7.1px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "LinkedIn Banner",
+  "size": [
+   1584,
+   396
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "cta: perceived font 7.1px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Pinterest Pin",
+  "size": [
+   1000,
+   1500
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 2.13 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Pinterest Pin",
+  "size": [
+   1000,
+   1500
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "YouTube Thumbnail",
+  "size": [
+   1280,
+   720
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 5.69 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "YouTube Thumbnail",
+  "size": [
+   1280,
+   720
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "YouTube Channel Art",
+  "size": [
+   2560,
+   1440
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 5.69 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "YouTube Channel Art",
+  "size": [
+   2560,
+   1440
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Presentation 16:9",
+  "size": [
+   1920,
+   1080
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 5.69 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Presentation 16:9",
+  "size": [
+   1920,
+   1080
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Leaderboard",
+  "size": [
+   728,
+   90
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 25.88 vs src 3.20"
+  ],
+  "soft": [
+   "headline: perceived font 5.0px < 9.0",
+   "cta: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Leaderboard",
+  "size": [
+   728,
+   90
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 5.0px < 9.0",
+   "cta: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Large Leaderboard",
+  "size": [
+   970,
+   90
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 34.49 vs src 3.20"
+  ],
+  "soft": [
+   "headline: perceived font 5.0px < 9.0",
+   "cta: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Large Leaderboard",
+  "size": [
+   970,
+   90
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 5.0px < 9.0",
+   "cta: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Billboard",
+  "size": [
+   970,
+   250
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 12.42 vs src 3.20"
+  ],
+  "soft": [
+   "cta: perceived font 6.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Billboard",
+  "size": [
+   970,
+   250
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "cta: perceived font 7.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Medium Rectangle",
+  "size": [
+   300,
+   250
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 3.84 vs src 3.20"
+  ],
+  "soft": [
+   "cta: perceived font 6.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Medium Rectangle",
+  "size": [
+   300,
+   250
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "cta: perceived font 7.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Large Rectangle",
+  "size": [
+   336,
+   280
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 3.84 vs src 3.20"
+  ],
+  "soft": [
+   "cta: perceived font 7.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Large Rectangle",
+  "size": [
+   336,
+   280
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "cta: perceived font 8.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Half Page",
+  "size": [
+   300,
+   600
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 1.60 vs src 3.20"
+  ],
+  "soft": [
+   "cta: perceived font 8.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Half Page",
+  "size": [
+   300,
+   600
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "cta: perceived font 8.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Wide Skyscraper",
+  "size": [
+   160,
+   600
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 0.85 vs src 3.20"
+  ],
+  "soft": [
+   "headline: perceived font 8.0px < 9.0",
+   "cta: perceived font 4.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Wide Skyscraper",
+  "size": [
+   160,
+   600
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "cta: perceived font 4.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Mobile Banner",
+  "size": [
+   320,
+   50
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 20.48 vs src 3.20"
+  ],
+  "soft": [
+   "headline: perceived font 2.0px < 9.0",
+   "cta: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Mobile Banner",
+  "size": [
+   320,
+   50
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 3.0px < 9.0",
+   "cta: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Large Mobile Banner",
+  "size": [
+   320,
+   100
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 10.24 vs src 3.20"
+  ],
+  "soft": [
+   "headline: perceived font 5.0px < 9.0",
+   "cta: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "IAB Large Mobile Banner",
+  "size": [
+   320,
+   100
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 6.0px < 9.0",
+   "cta: perceived font 3.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Email Header",
+  "size": [
+   600,
+   200
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 9.60 vs src 3.20"
+  ],
+  "soft": [
+   "cta: perceived font 5.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "Email Header",
+  "size": [
+   600,
+   200
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "cta: perceived font 6.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "US Letter Flyer @150dpi",
+  "size": [
+   1275,
+   1650
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 2.47 vs src 3.20"
+  ],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level1_warmup",
+  "target": "US Letter Flyer @150dpi",
+  "size": [
+   1275,
+   1650
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.0
+ },
+ {
+  "level": "level2_core",
+  "target": "Instagram Post",
+  "size": [
+   1080,
+   1080
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Instagram Post",
+  "size": [
+   1080,
+   1080
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Instagram Portrait",
+  "size": [
+   1080,
+   1350
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 2.33 vs src 2.91",
+   "product: image aspect 0.80 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Instagram Portrait",
+  "size": [
+   1080,
+   1350
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Instagram Story/Reel",
+  "size": [
+   1080,
+   1920
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 1.64 vs src 2.91",
+   "product: image aspect 0.56 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Instagram Story/Reel",
+  "size": [
+   1080,
+   1920
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Instagram Landscape",
+  "size": [
+   1080,
+   566
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 5.55 vs src 2.91",
+   "product: image aspect 1.91 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "badge_label: perceived font 8.5px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Instagram Landscape",
+  "size": [
+   1080,
+   566
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "badge_label: perceived font 8.5px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Facebook Post (link)",
+  "size": [
+   1200,
+   630
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 5.54 vs src 2.91",
+   "product: image aspect 1.90 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "badge_label: perceived font 8.5px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Facebook Post (link)",
+  "size": [
+   1200,
+   630
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "badge_label: perceived font 8.5px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Facebook Cover",
+  "size": [
+   820,
+   312
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 7.65 vs src 2.91",
+   "product: image aspect 2.63 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "subhead: perceived font 6.0px < 9.0",
+   "badge_label: perceived font 5.0px < 9.0",
+   "cta_label: perceived font 6.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level2_core",
+  "target": "Facebook Cover",
+  "size": [
+   820,
+   312
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 7.0px < 9.0",
+   "badge_label: perceived font 5.0px < 9.0",
+   "cta_label: perceived font 6.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Facebook Event Cover",
+  "size": [
+   1920,
+   1005
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 5.56 vs src 2.91",
+   "product: image aspect 1.91 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "badge_label: perceived font 8.5px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Facebook Event Cover",
+  "size": [
+   1920,
+   1005
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "X/Twitter Post",
+  "size": [
+   1600,
+   900
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 5.17 vs src 2.91",
+   "product: image aspect 1.78 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "X/Twitter Post",
+  "size": [
+   1600,
+   900
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "X/Twitter Header",
+  "size": [
+   1500,
+   500
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 8.73 vs src 2.91",
+   "product: image aspect 3.00 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "subhead: perceived font 7.5px < 9.0",
+   "badge_label: perceived font 5.5px < 9.0",
+   "cta_label: perceived font 6.8px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "X/Twitter Header",
+  "size": [
+   1500,
+   500
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 7.5px < 9.0",
+   "badge_label: perceived font 5.5px < 9.0",
+   "cta_label: perceived font 6.8px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "LinkedIn Post",
+  "size": [
+   1200,
+   627
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 5.57 vs src 2.91",
+   "product: image aspect 1.91 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "badge_label: perceived font 8.5px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level2_core",
+  "target": "LinkedIn Post",
+  "size": [
+   1200,
+   627
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "badge_label: perceived font 8.5px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "LinkedIn Banner",
+  "size": [
+   1584,
+   396
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 11.64 vs src 2.91",
+   "product: image aspect 4.00 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "subhead: perceived font 5.2px < 9.0",
+   "badge_label: perceived font 3.9px < 9.0",
+   "cta_label: perceived font 5.2px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "LinkedIn Banner",
+  "size": [
+   1584,
+   396
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 5.8px < 9.0",
+   "badge_label: perceived font 4.5px < 9.0",
+   "cta_label: perceived font 5.2px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Pinterest Pin",
+  "size": [
+   1000,
+   1500
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 1.94 vs src 2.91",
+   "product: image aspect 0.67 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Pinterest Pin",
+  "size": [
+   1000,
+   1500
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "YouTube Thumbnail",
+  "size": [
+   1280,
+   720
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 5.17 vs src 2.91",
+   "product: image aspect 1.78 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "YouTube Thumbnail",
+  "size": [
+   1280,
+   720
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "YouTube Channel Art",
+  "size": [
+   2560,
+   1440
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 5.17 vs src 2.91",
+   "product: image aspect 1.78 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "YouTube Channel Art",
+  "size": [
+   2560,
+   1440
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Presentation 16:9",
+  "size": [
+   1920,
+   1080
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 5.17 vs src 2.91",
+   "product: image aspect 1.78 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level2_core",
+  "target": "Presentation 16:9",
+  "size": [
+   1920,
+   1080
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Leaderboard",
+  "size": [
+   728,
+   90
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 23.53 vs src 2.91",
+   "product: image aspect 8.09 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "headline: perceived font 4.0px < 9.0",
+   "subhead: perceived font 2.0px < 9.0",
+   "badge_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.0
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Leaderboard",
+  "size": [
+   728,
+   90
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 5.0px < 9.0",
+   "subhead: perceived font 2.0px < 9.0",
+   "badge_label: perceived font 2.0px < 9.0",
+   "cta_label: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Large Leaderboard",
+  "size": [
+   970,
+   90
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 31.35 vs src 2.91",
+   "product: image aspect 10.78 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "headline: perceived font 4.0px < 9.0",
+   "subhead: perceived font 2.0px < 9.0",
+   "badge_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Large Leaderboard",
+  "size": [
+   970,
+   90
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 5.0px < 9.0",
+   "subhead: perceived font 2.0px < 9.0",
+   "badge_label: perceived font 2.0px < 9.0",
+   "cta_label: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Billboard",
+  "size": [
+   970,
+   250
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 11.29 vs src 2.91",
+   "product: image aspect 3.88 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "subhead: perceived font 5.0px < 9.0",
+   "badge_label: perceived font 4.0px < 9.0",
+   "cta_label: perceived font 5.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Billboard",
+  "size": [
+   970,
+   250
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 6.0px < 9.0",
+   "badge_label: perceived font 4.0px < 9.0",
+   "cta_label: perceived font 5.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Medium Rectangle",
+  "size": [
+   300,
+   250
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 3.49 vs src 2.91",
+   "product: image aspect 1.20 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "subhead: perceived font 5.0px < 9.0",
+   "badge_label: perceived font 4.0px < 9.0",
+   "cta_label: perceived font 5.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Medium Rectangle",
+  "size": [
+   300,
+   250
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 6.0px < 9.0",
+   "badge_label: perceived font 4.0px < 9.0",
+   "cta_label: perceived font 5.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Large Rectangle",
+  "size": [
+   336,
+   280
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 3.49 vs src 2.91",
+   "product: image aspect 1.20 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "subhead: perceived font 6.0px < 9.0",
+   "badge_label: perceived font 4.0px < 9.0",
+   "cta_label: perceived font 5.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Large Rectangle",
+  "size": [
+   336,
+   280
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 6.0px < 9.0",
+   "badge_label: perceived font 5.0px < 9.0",
+   "cta_label: perceived font 6.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Half Page",
+  "size": [
+   300,
+   600
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 1.45 vs src 2.91",
+   "product: image aspect 0.50 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "subhead: perceived font 6.0px < 9.0",
+   "badge_label: perceived font 5.0px < 9.0",
+   "cta_label: perceived font 6.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Half Page",
+  "size": [
+   300,
+   600
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 7.0px < 9.0",
+   "badge_label: perceived font 5.0px < 9.0",
+   "cta_label: perceived font 6.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Wide Skyscraper",
+  "size": [
+   160,
+   600
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 0.78 vs src 2.91",
+   "product: image aspect 0.27 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "headline: perceived font 8.0px < 9.0",
+   "subhead: perceived font 3.0px < 9.0",
+   "badge_label: perceived font 2.0px < 9.0",
+   "cta_label: perceived font 3.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Wide Skyscraper",
+  "size": [
+   160,
+   600
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 8.0px < 9.0",
+   "subhead: perceived font 4.0px < 9.0",
+   "badge_label: perceived font 3.0px < 9.0",
+   "cta_label: perceived font 3.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Mobile Banner",
+  "size": [
+   320,
+   50
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 18.62 vs src 2.91",
+   "product: image aspect 6.40 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "headline: perceived font 2.0px < 9.0",
+   "subhead: perceived font 1.0px < 9.0",
+   "badge_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Mobile Banner",
+  "size": [
+   320,
+   50
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 3.0px < 9.0",
+   "subhead: perceived font 1.0px < 9.0",
+   "badge_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Large Mobile Banner",
+  "size": [
+   320,
+   100
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 9.31 vs src 2.91",
+   "product: image aspect 3.20 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "headline: perceived font 5.0px < 9.0",
+   "subhead: perceived font 2.0px < 9.0",
+   "badge_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "IAB Large Mobile Banner",
+  "size": [
+   320,
+   100
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 5.0px < 9.0",
+   "subhead: perceived font 2.0px < 9.0",
+   "badge_label: perceived font 2.0px < 9.0",
+   "cta_label: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Email Header",
+  "size": [
+   600,
+   200
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 8.73 vs src 2.91",
+   "product: image aspect 3.00 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)",
+   "subhead: perceived font 4.0px < 9.0",
+   "badge_label: perceived font 3.0px < 9.0",
+   "cta_label: perceived font 4.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "Email Header",
+  "size": [
+   600,
+   200
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 4.0px < 9.0",
+   "badge_label: perceived font 3.0px < 9.0",
+   "cta_label: perceived font 4.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "US Letter Flyer @150dpi",
+  "size": [
+   1275,
+   1650
+  ],
+  "engine": "baseline",
+  "hard": [
+   "deco_circle_1: off-canvas (unrotated box)",
+   "logo: image aspect 2.25 vs src 2.91",
+   "product: image aspect 0.77 vs src 1.00"
+  ],
+  "soft": [
+   "deco_circle_1: rotated corners leave canvas (visually clipped)"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level2_core",
+  "target": "US Letter Flyer @150dpi",
+  "size": [
+   1275,
+   1650
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Instagram Post",
+  "size": [
+   1080,
+   1080
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 4.00 vs src 3.20",
+   "product: image aspect 1.25 vs src 1.00",
+   "holiday_watermark: image aspect 2.81 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (180x64)",
+   "legal_text: perceived font 8.5px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Instagram Post",
+  "size": [
+   1080,
+   1080
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Instagram Portrait",
+  "size": [
+   1080,
+   1350
+  ],
+  "engine": "baseline",
+  "hard": [],
+  "soft": [
+   "holiday_watermark: visible MISSING-ASSET placeholder (180x80)"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Instagram Portrait",
+  "size": [
+   1080,
+   1350
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Instagram Story/Reel",
+  "size": [
+   1080,
+   1920
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 2.25 vs src 3.20",
+   "product: image aspect 0.70 vs src 1.00",
+   "holiday_watermark: image aspect 1.58 vs src 2.25"
+  ],
+  "soft": [
+   "holiday_watermark: visible MISSING-ASSET placeholder (180x114)",
+   "badge1_label: perceived font 8.0px < 9.0",
+   "badge2_label: perceived font 8.0px < 9.0",
+   "badge3_label: perceived font 8.0px < 9.0",
+   "legal_text: perceived font 6.4px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Instagram Story/Reel",
+  "size": [
+   1080,
+   1920
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "badge1_label: perceived font 8.0px < 9.0",
+   "badge2_label: perceived font 8.0px < 9.0",
+   "badge3_label: perceived font 8.0px < 9.0",
+   "legal_text: perceived font 6.4px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Instagram Landscape",
+  "size": [
+   1080,
+   566
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 7.63 vs src 3.20",
+   "product: image aspect 2.39 vs src 1.00",
+   "holiday_watermark: image aspect 5.37 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (180x34)",
+   "subhead: perceived font 8.5px < 9.0",
+   "badge1_label: perceived font 5.7px < 9.0",
+   "badge2_label: perceived font 5.7px < 9.0",
+   "badge3_label: perceived font 5.7px < 9.0",
+   "cta_label: perceived font 8.5px < 9.0",
+   "ribbon_label: perceived font 7.6px < 9.0",
+   "legal_text: perceived font 4.7px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Instagram Landscape",
+  "size": [
+   1080,
+   566
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 8.5px < 9.0",
+   "badge1_label: perceived font 5.7px < 9.0",
+   "badge2_label: perceived font 5.7px < 9.0",
+   "badge3_label: perceived font 5.7px < 9.0",
+   "cta_label: perceived font 8.5px < 9.0",
+   "ribbon_label: perceived font 7.6px < 9.0",
+   "legal_text: perceived font 4.7px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Facebook Post (link)",
+  "size": [
+   1200,
+   630
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 7.62 vs src 3.20",
+   "product: image aspect 2.38 vs src 1.00",
+   "holiday_watermark: image aspect 5.36 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (200x37)",
+   "subhead: perceived font 8.5px < 9.0",
+   "badge1_label: perceived font 6.0px < 9.0",
+   "badge2_label: perceived font 6.0px < 9.0",
+   "badge3_label: perceived font 6.0px < 9.0",
+   "cta_label: perceived font 8.5px < 9.0",
+   "ribbon_label: perceived font 7.7px < 9.0",
+   "legal_text: perceived font 4.3px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Facebook Post (link)",
+  "size": [
+   1200,
+   630
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 8.5px < 9.0",
+   "badge1_label: perceived font 6.0px < 9.0",
+   "badge2_label: perceived font 6.0px < 9.0",
+   "badge3_label: perceived font 6.0px < 9.0",
+   "cta_label: perceived font 8.5px < 9.0",
+   "ribbon_label: perceived font 7.7px < 9.0",
+   "legal_text: perceived font 5.1px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Facebook Cover",
+  "size": [
+   820,
+   312
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 10.51 vs src 3.20",
+   "product: image aspect 3.29 vs src 1.00",
+   "holiday_watermark: image aspect 7.39 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (137x18)",
+   "subhead: perceived font 5.0px < 9.0",
+   "badge1_label: perceived font 3.0px < 9.0",
+   "badge2_label: perceived font 3.0px < 9.0",
+   "badge3_label: perceived font 3.0px < 9.0",
+   "cta_label: perceived font 5.0px < 9.0",
+   "ribbon_label: perceived font 4.0px < 9.0",
+   "legal_text: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Facebook Cover",
+  "size": [
+   820,
+   312
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 5.0px < 9.0",
+   "badge1_label: perceived font 3.0px < 9.0",
+   "badge2_label: perceived font 3.0px < 9.0",
+   "badge3_label: perceived font 3.0px < 9.0",
+   "cta_label: perceived font 5.0px < 9.0",
+   "ribbon_label: perceived font 5.0px < 9.0",
+   "legal_text: perceived font 3.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Facebook Event Cover",
+  "size": [
+   1920,
+   1005
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 7.64 vs src 3.20",
+   "product: image aspect 2.39 vs src 1.00",
+   "holiday_watermark: image aspect 5.37 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (320x60)",
+   "subhead: perceived font 8.5px < 9.0",
+   "badge1_label: perceived font 5.9px < 9.0",
+   "badge2_label: perceived font 5.9px < 9.0",
+   "badge3_label: perceived font 5.9px < 9.0",
+   "cta_label: perceived font 8.5px < 9.0",
+   "ribbon_label: perceived font 7.5px < 9.0",
+   "legal_text: perceived font 4.3px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Facebook Event Cover",
+  "size": [
+   1920,
+   1005
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 8.5px < 9.0",
+   "badge1_label: perceived font 5.9px < 9.0",
+   "badge2_label: perceived font 5.9px < 9.0",
+   "badge3_label: perceived font 5.9px < 9.0",
+   "cta_label: perceived font 8.5px < 9.0",
+   "ribbon_label: perceived font 8.0px < 9.0",
+   "legal_text: perceived font 4.8px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "X/Twitter Post",
+  "size": [
+   1600,
+   900
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 7.11 vs src 3.20",
+   "product: image aspect 2.22 vs src 1.00",
+   "holiday_watermark: image aspect 5.00 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (267x53)",
+   "subhead: perceived font 9.0px < 9.0",
+   "badge1_label: perceived font 6.4px < 9.0",
+   "badge2_label: perceived font 6.4px < 9.0",
+   "badge3_label: perceived font 6.4px < 9.0",
+   "cta_label: perceived font 9.0px < 9.0",
+   "ribbon_label: perceived font 8.3px < 9.0",
+   "legal_text: perceived font 5.1px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "X/Twitter Post",
+  "size": [
+   1600,
+   900
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "badge1_label: perceived font 6.4px < 9.0",
+   "badge2_label: perceived font 6.4px < 9.0",
+   "badge3_label: perceived font 6.4px < 9.0",
+   "ribbon_label: perceived font 8.3px < 9.0",
+   "legal_text: perceived font 5.1px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "X/Twitter Header",
+  "size": [
+   1500,
+   500
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 12.00 vs src 3.20",
+   "product: image aspect 3.75 vs src 1.00",
+   "holiday_watermark: image aspect 8.44 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (250x30)",
+   "subhead: perceived font 5.5px < 9.0",
+   "badge1_label: perceived font 3.4px < 9.0",
+   "badge2_label: perceived font 3.4px < 9.0",
+   "badge3_label: perceived font 3.4px < 9.0",
+   "cta_label: perceived font 5.5px < 9.0",
+   "ribbon_label: perceived font 4.8px < 9.0",
+   "legal_text: perceived font 2.7px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "X/Twitter Header",
+  "size": [
+   1500,
+   500
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 5.5px < 9.0",
+   "badge1_label: perceived font 4.1px < 9.0",
+   "badge2_label: perceived font 4.1px < 9.0",
+   "badge3_label: perceived font 4.1px < 9.0",
+   "cta_label: perceived font 5.5px < 9.0",
+   "ribbon_label: perceived font 4.8px < 9.0",
+   "legal_text: perceived font 2.7px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "LinkedIn Post",
+  "size": [
+   1200,
+   627
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 7.66 vs src 3.20",
+   "product: image aspect 2.39 vs src 1.00",
+   "holiday_watermark: image aspect 5.38 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (200x37)",
+   "subhead: perceived font 8.5px < 9.0",
+   "badge1_label: perceived font 5.1px < 9.0",
+   "badge2_label: perceived font 5.1px < 9.0",
+   "badge3_label: perceived font 5.1px < 9.0",
+   "cta_label: perceived font 8.5px < 9.0",
+   "ribbon_label: perceived font 7.7px < 9.0",
+   "legal_text: perceived font 4.3px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "LinkedIn Post",
+  "size": [
+   1200,
+   627
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 8.5px < 9.0",
+   "badge1_label: perceived font 6.0px < 9.0",
+   "badge2_label: perceived font 6.0px < 9.0",
+   "badge3_label: perceived font 6.0px < 9.0",
+   "cta_label: perceived font 8.5px < 9.0",
+   "ribbon_label: perceived font 7.7px < 9.0",
+   "legal_text: perceived font 5.1px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "LinkedIn Banner",
+  "size": [
+   1584,
+   396
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 16.00 vs src 3.20",
+   "product: image aspect 5.00 vs src 1.00",
+   "holiday_watermark: image aspect 11.25 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (264x23)",
+   "headline: perceived font 7.1px < 9.0",
+   "subhead: perceived font 3.9px < 9.0",
+   "badge1_label: perceived font 2.6px < 9.0",
+   "badge2_label: perceived font 2.6px < 9.0",
+   "badge3_label: perceived font 2.6px < 9.0",
+   "cta_label: perceived font 3.9px < 9.0",
+   "ribbon_label: perceived font 3.2px < 9.0",
+   "legal_text: perceived font 1.9px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "LinkedIn Banner",
+  "size": [
+   1584,
+   396
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 7.8px < 9.0",
+   "subhead: perceived font 3.9px < 9.0",
+   "badge1_label: perceived font 2.6px < 9.0",
+   "badge2_label: perceived font 2.6px < 9.0",
+   "badge3_label: perceived font 2.6px < 9.0",
+   "cta_label: perceived font 3.9px < 9.0",
+   "ribbon_label: perceived font 3.9px < 9.0",
+   "legal_text: perceived font 2.6px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Pinterest Pin",
+  "size": [
+   1000,
+   1500
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 2.67 vs src 3.20",
+   "product: image aspect 0.83 vs src 1.00",
+   "holiday_watermark: image aspect 1.88 vs src 2.25"
+  ],
+  "soft": [
+   "holiday_watermark: visible MISSING-ASSET placeholder (167x89)",
+   "badge1_label: perceived font 8.9px < 9.0",
+   "badge2_label: perceived font 8.9px < 9.0",
+   "badge3_label: perceived font 8.9px < 9.0",
+   "legal_text: perceived font 7.5px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Pinterest Pin",
+  "size": [
+   1000,
+   1500
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "legal_text: perceived font 7.5px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "YouTube Thumbnail",
+  "size": [
+   1280,
+   720
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 7.11 vs src 3.20",
+   "product: image aspect 2.22 vs src 1.00",
+   "holiday_watermark: image aspect 5.00 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (213x43)",
+   "subhead: perceived font 8.8px < 9.0",
+   "badge1_label: perceived font 6.4px < 9.0",
+   "badge2_label: perceived font 6.4px < 9.0",
+   "badge3_label: perceived font 6.4px < 9.0",
+   "cta_label: perceived font 8.8px < 9.0",
+   "ribbon_label: perceived font 8.0px < 9.0",
+   "legal_text: perceived font 4.8px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "YouTube Thumbnail",
+  "size": [
+   1280,
+   720
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "badge1_label: perceived font 6.4px < 9.0",
+   "badge2_label: perceived font 6.4px < 9.0",
+   "badge3_label: perceived font 6.4px < 9.0",
+   "ribbon_label: perceived font 8.8px < 9.0",
+   "legal_text: perceived font 4.8px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "YouTube Channel Art",
+  "size": [
+   2560,
+   1440
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 7.11 vs src 3.20",
+   "product: image aspect 2.22 vs src 1.00",
+   "holiday_watermark: image aspect 5.00 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (427x85)",
+   "badge1_label: perceived font 6.4px < 9.0",
+   "badge2_label: perceived font 6.4px < 9.0",
+   "badge3_label: perceived font 6.4px < 9.0",
+   "ribbon_label: perceived font 8.4px < 9.0",
+   "legal_text: perceived font 4.8px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "YouTube Channel Art",
+  "size": [
+   2560,
+   1440
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "badge1_label: perceived font 6.4px < 9.0",
+   "badge2_label: perceived font 6.4px < 9.0",
+   "badge3_label: perceived font 6.4px < 9.0",
+   "ribbon_label: perceived font 8.4px < 9.0",
+   "legal_text: perceived font 5.2px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Presentation 16:9",
+  "size": [
+   1920,
+   1080
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 7.11 vs src 3.20",
+   "product: image aspect 2.22 vs src 1.00",
+   "holiday_watermark: image aspect 5.00 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (320x64)",
+   "badge1_label: perceived font 6.4px < 9.0",
+   "badge2_label: perceived font 6.4px < 9.0",
+   "badge3_label: perceived font 6.4px < 9.0",
+   "ribbon_label: perceived font 8.5px < 9.0",
+   "legal_text: perceived font 4.8px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Presentation 16:9",
+  "size": [
+   1920,
+   1080
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "badge1_label: perceived font 6.4px < 9.0",
+   "badge2_label: perceived font 6.4px < 9.0",
+   "badge3_label: perceived font 6.4px < 9.0",
+   "ribbon_label: perceived font 8.5px < 9.0",
+   "legal_text: perceived font 5.3px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Leaderboard",
+  "size": [
+   728,
+   90
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 32.36 vs src 3.20",
+   "product: image aspect 10.11 vs src 1.00",
+   "holiday_watermark: image aspect 22.75 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (121x5)",
+   "headline: perceived font 2.0px < 9.0",
+   "subhead: perceived font 1.0px < 9.0",
+   "badge1_label: perceived font 1.0px < 9.0",
+   "badge2_label: perceived font 1.0px < 9.0",
+   "badge3_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 1.0px < 9.0",
+   "ribbon_label: perceived font 1.0px < 9.0",
+   "legal_text: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Leaderboard",
+  "size": [
+   728,
+   90
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 3.0px < 9.0",
+   "subhead: perceived font 1.0px < 9.0",
+   "badge1_label: perceived font 1.0px < 9.0",
+   "badge2_label: perceived font 1.0px < 9.0",
+   "badge3_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 1.0px < 9.0",
+   "ribbon_label: perceived font 1.0px < 9.0",
+   "legal_text: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Large Leaderboard",
+  "size": [
+   970,
+   90
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 43.11 vs src 3.20",
+   "product: image aspect 13.47 vs src 1.00",
+   "holiday_watermark: image aspect 30.31 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (162x5)",
+   "headline: perceived font 2.0px < 9.0",
+   "subhead: perceived font 1.0px < 9.0",
+   "badge1_label: perceived font 1.0px < 9.0",
+   "badge2_label: perceived font 1.0px < 9.0",
+   "badge3_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 1.0px < 9.0",
+   "ribbon_label: perceived font 1.0px < 9.0",
+   "legal_text: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Large Leaderboard",
+  "size": [
+   970,
+   90
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 3.0px < 9.0",
+   "subhead: perceived font 1.0px < 9.0",
+   "badge1_label: perceived font 1.0px < 9.0",
+   "badge2_label: perceived font 1.0px < 9.0",
+   "badge3_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 1.0px < 9.0",
+   "ribbon_label: perceived font 1.0px < 9.0",
+   "legal_text: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Billboard",
+  "size": [
+   970,
+   250
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 15.52 vs src 3.20",
+   "product: image aspect 4.85 vs src 1.00",
+   "holiday_watermark: image aspect 10.91 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (162x15)",
+   "headline: perceived font 7.0px < 9.0",
+   "subhead: perceived font 4.0px < 9.0",
+   "badge1_label: perceived font 2.0px < 9.0",
+   "badge2_label: perceived font 2.0px < 9.0",
+   "badge3_label: perceived font 2.0px < 9.0",
+   "cta_label: perceived font 4.0px < 9.0",
+   "ribbon_label: perceived font 3.0px < 9.0",
+   "legal_text: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Billboard",
+  "size": [
+   970,
+   250
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 7.0px < 9.0",
+   "subhead: perceived font 4.0px < 9.0",
+   "badge1_label: perceived font 3.0px < 9.0",
+   "badge2_label: perceived font 3.0px < 9.0",
+   "badge3_label: perceived font 3.0px < 9.0",
+   "cta_label: perceived font 4.0px < 9.0",
+   "ribbon_label: perceived font 4.0px < 9.0",
+   "legal_text: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Medium Rectangle",
+  "size": [
+   300,
+   250
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 4.80 vs src 3.20",
+   "product: image aspect 1.50 vs src 1.00",
+   "holiday_watermark: image aspect 3.38 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (50x15)",
+   "headline: perceived font 7.0px < 9.0",
+   "subhead: perceived font 4.0px < 9.0",
+   "badge1_label: perceived font 2.0px < 9.0",
+   "badge2_label: perceived font 2.0px < 9.0",
+   "badge3_label: perceived font 2.0px < 9.0",
+   "cta_label: perceived font 4.0px < 9.0",
+   "ribbon_label: perceived font 3.0px < 9.0",
+   "legal_text: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Medium Rectangle",
+  "size": [
+   300,
+   250
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 7.0px < 9.0",
+   "subhead: perceived font 4.0px < 9.0",
+   "badge1_label: perceived font 3.0px < 9.0",
+   "badge2_label: perceived font 3.0px < 9.0",
+   "badge3_label: perceived font 3.0px < 9.0",
+   "cta_label: perceived font 4.0px < 9.0",
+   "ribbon_label: perceived font 4.0px < 9.0",
+   "legal_text: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Large Rectangle",
+  "size": [
+   336,
+   280
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 4.80 vs src 3.20",
+   "product: image aspect 1.50 vs src 1.00",
+   "holiday_watermark: image aspect 3.38 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (56x17)",
+   "headline: perceived font 8.0px < 9.0",
+   "subhead: perceived font 4.0px < 9.0",
+   "badge1_label: perceived font 3.0px < 9.0",
+   "badge2_label: perceived font 3.0px < 9.0",
+   "badge3_label: perceived font 3.0px < 9.0",
+   "cta_label: perceived font 4.0px < 9.0",
+   "ribbon_label: perceived font 4.0px < 9.0",
+   "legal_text: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Large Rectangle",
+  "size": [
+   336,
+   280
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 8.0px < 9.0",
+   "subhead: perceived font 5.0px < 9.0",
+   "badge1_label: perceived font 3.0px < 9.0",
+   "badge2_label: perceived font 3.0px < 9.0",
+   "badge3_label: perceived font 3.0px < 9.0",
+   "cta_label: perceived font 5.0px < 9.0",
+   "ribbon_label: perceived font 4.0px < 9.0",
+   "legal_text: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Half Page",
+  "size": [
+   300,
+   600
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 2.00 vs src 3.20",
+   "product: image aspect 0.62 vs src 1.00",
+   "holiday_watermark: image aspect 1.41 vs src 2.25"
+  ],
+  "soft": [
+   "holiday_watermark: visible MISSING-ASSET placeholder (50x36)",
+   "subhead: perceived font 6.0px < 9.0",
+   "badge1_label: perceived font 4.0px < 9.0",
+   "badge2_label: perceived font 4.0px < 9.0",
+   "badge3_label: perceived font 4.0px < 9.0",
+   "cta_label: perceived font 6.0px < 9.0",
+   "ribbon_label: perceived font 5.0px < 9.0",
+   "legal_text: perceived font 3.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Half Page",
+  "size": [
+   300,
+   600
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "subhead: perceived font 6.0px < 9.0",
+   "badge1_label: perceived font 4.0px < 9.0",
+   "badge2_label: perceived font 4.0px < 9.0",
+   "badge3_label: perceived font 4.0px < 9.0",
+   "cta_label: perceived font 6.0px < 9.0",
+   "ribbon_label: perceived font 6.0px < 9.0",
+   "legal_text: perceived font 3.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Wide Skyscraper",
+  "size": [
+   160,
+   600
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 1.07 vs src 3.20",
+   "product: image aspect 0.33 vs src 1.00",
+   "holiday_watermark: image aspect 0.75 vs src 2.25"
+  ],
+  "soft": [
+   "holiday_watermark: visible MISSING-ASSET placeholder (27x36)",
+   "headline: perceived font 5.0px < 9.0",
+   "subhead: perceived font 3.0px < 9.0",
+   "badge1_label: perceived font 2.0px < 9.0",
+   "badge2_label: perceived font 2.0px < 9.0",
+   "badge3_label: perceived font 2.0px < 9.0",
+   "cta_label: perceived font 3.0px < 9.0",
+   "ribbon_label: perceived font 2.0px < 9.0",
+   "legal_text: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Wide Skyscraper",
+  "size": [
+   160,
+   600
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 6.0px < 9.0",
+   "subhead: perceived font 3.0px < 9.0",
+   "badge1_label: perceived font 2.0px < 9.0",
+   "badge2_label: perceived font 2.0px < 9.0",
+   "badge3_label: perceived font 2.0px < 9.0",
+   "cta_label: perceived font 3.0px < 9.0",
+   "ribbon_label: perceived font 3.0px < 9.0",
+   "legal_text: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Mobile Banner",
+  "size": [
+   320,
+   50
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 25.60 vs src 3.20",
+   "product: image aspect 8.00 vs src 1.00",
+   "holiday_watermark: image aspect 18.00 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (53x3)",
+   "headline: perceived font 1.0px < 9.0",
+   "subhead: perceived font 1.0px < 9.0",
+   "badge1_label: perceived font 1.0px < 9.0",
+   "badge2_label: perceived font 1.0px < 9.0",
+   "badge3_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 1.0px < 9.0",
+   "ribbon_label: perceived font 1.0px < 9.0",
+   "legal_text: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Mobile Banner",
+  "size": [
+   320,
+   50
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 1.0px < 9.0",
+   "subhead: perceived font 1.0px < 9.0",
+   "badge1_label: perceived font 1.0px < 9.0",
+   "badge2_label: perceived font 1.0px < 9.0",
+   "badge3_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 1.0px < 9.0",
+   "ribbon_label: perceived font 1.0px < 9.0",
+   "legal_text: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Large Mobile Banner",
+  "size": [
+   320,
+   100
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 12.80 vs src 3.20",
+   "product: image aspect 4.00 vs src 1.00",
+   "holiday_watermark: image aspect 9.00 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (53x6)",
+   "headline: perceived font 2.0px < 9.0",
+   "subhead: perceived font 1.0px < 9.0",
+   "badge1_label: perceived font 1.0px < 9.0",
+   "badge2_label: perceived font 1.0px < 9.0",
+   "badge3_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 1.0px < 9.0",
+   "ribbon_label: perceived font 1.0px < 9.0",
+   "legal_text: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "IAB Large Mobile Banner",
+  "size": [
+   320,
+   100
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 3.0px < 9.0",
+   "subhead: perceived font 2.0px < 9.0",
+   "badge1_label: perceived font 1.0px < 9.0",
+   "badge2_label: perceived font 1.0px < 9.0",
+   "badge3_label: perceived font 1.0px < 9.0",
+   "cta_label: perceived font 2.0px < 9.0",
+   "ribbon_label: perceived font 1.0px < 9.0",
+   "legal_text: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Email Header",
+  "size": [
+   600,
+   200
+  ],
+  "engine": "baseline",
+  "hard": [
+   "logo: image aspect 12.00 vs src 3.20",
+   "product: image aspect 3.75 vs src 1.00",
+   "holiday_watermark: image aspect 8.44 vs src 2.25"
+  ],
+  "soft": [
+   "ribbon_bg: rotated corners leave canvas (visually clipped)",
+   "ribbon_label: rotated corners leave canvas (visually clipped)",
+   "holiday_watermark: visible MISSING-ASSET placeholder (100x12)",
+   "headline: perceived font 5.0px < 9.0",
+   "subhead: perceived font 3.0px < 9.0",
+   "badge1_label: perceived font 2.0px < 9.0",
+   "badge2_label: perceived font 2.0px < 9.0",
+   "badge3_label: perceived font 2.0px < 9.0",
+   "cta_label: perceived font 3.0px < 9.0",
+   "ribbon_label: perceived font 2.0px < 9.0",
+   "legal_text: perceived font 1.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "Email Header",
+  "size": [
+   600,
+   200
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "headline: perceived font 6.0px < 9.0",
+   "subhead: perceived font 3.0px < 9.0",
+   "badge1_label: perceived font 2.0px < 9.0",
+   "badge2_label: perceived font 2.0px < 9.0",
+   "badge3_label: perceived font 2.0px < 9.0",
+   "cta_label: perceived font 3.0px < 9.0",
+   "ribbon_label: perceived font 3.0px < 9.0",
+   "legal_text: perceived font 2.0px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "US Letter Flyer @150dpi",
+  "size": [
+   1275,
+   1650
+  ],
+  "engine": "baseline",
+  "hard": [],
+  "soft": [
+   "holiday_watermark: visible MISSING-ASSET placeholder (212x98)",
+   "legal_text: perceived font 8.7px < 9.0"
+  ],
+  "secs": 0.001
+ },
+ {
+  "level": "level3_advanced",
+  "target": "US Letter Flyer @150dpi",
+  "size": [
+   1275,
+   1650
+  ],
+  "engine": "safe_fit",
+  "hard": [],
+  "soft": [
+   "legal_text: perceived font 8.7px < 9.0"
+  ],
+  "secs": 0.001
+ }
+]

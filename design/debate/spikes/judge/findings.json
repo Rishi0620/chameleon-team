@@ -1,0 +1,287 @@
+[
+  {
+    "probe": "01_text_opacity0",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      53,
+      68,
+      306,
+      113
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "02_image_opacity0",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": null,
+    "self_check": []
+  },
+  {
+    "probe": "03_shape_opacity0",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": null,
+    "self_check": []
+  },
+  {
+    "probe": "04_text_color_alpha0",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": null,
+    "self_check": []
+  },
+  {
+    "probe": "05_rotated_near_edge",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      497,
+      0,
+      799,
+      90
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "06_word_wider_than_box",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      165,
+      159,
+      554,
+      202
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "07_empty_string",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": null,
+    "self_check": []
+  },
+  {
+    "probe": "08_newlines_only",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": null,
+    "self_check": []
+  },
+  {
+    "probe": "09_emoji_cjk_arabic",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      21,
+      58,
+      631,
+      92
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "10_text_width0",
+    "render": "CRASH ValidationError: 1 validation error for TextElement\nwidth\n  Input should be greater than 0 [type=greater_than, input_value=0.0, input_type=float]\n    For further information visit https://errors.pydantic.dev/2.14/v/gr",
+    "trace_tail": [
+      "width",
+      "  Input should be greater than 0 [type=greater_than, input_value=0.0, input_type=float]",
+      "    For further information visit https://errors.pydantic.dev/2.14/v/greater_than"
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "11_text_height0",
+    "render": "CRASH ValidationError: 1 validation error for TextElement\nheight\n  Input should be greater than 0 [type=greater_than, input_value=0.0, input_type=float]\n    For further information visit https://errors.pydantic.dev/2.14/v/g",
+    "trace_tail": [
+      "height",
+      "  Input should be greater than 0 [type=greater_than, input_value=0.0, input_type=float]",
+      "    For further information visit https://errors.pydantic.dev/2.14/v/greater_than"
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "12_font_size_0p5",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": null,
+    "self_check": []
+  },
+  {
+    "probe": "13_image_width0",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": null,
+    "self_check": []
+  },
+  {
+    "probe": "14_html_entity",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      51,
+      60,
+      310,
+      217
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "15_letter_spacing",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      100,
+      162,
+      689,
+      188
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "15b_no_letter_spacing",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      100,
+      162,
+      485,
+      188
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "16_rect_stroke",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": null,
+    "self_check": []
+  },
+  {
+    "probe": "17_line_h0",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": null,
+    "self_check": []
+  },
+  {
+    "probe": "18_style_run_end",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      50,
+      70,
+      383,
+      112
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "19_unknown_font",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      52,
+      62,
+      468,
+      116
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "20_named_color",
+    "render": "CRASH NotImplementedError: Unknown color format: white",
+    "trace_tail": [
+      "  File \"/Users/rishabhbhargav/Desktop/chameleon/.venv/lib/python3.11/site-packages/cr_renderer/color_utils.py\", line 61, in parse_color",
+      "    raise NotImplementedError(f\"Unknown color format: {name}\")",
+      "NotImplementedError: Unknown color format: white"
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "21_hex_color",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      52,
+      65,
+      320,
+      103
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "22_float_font_size",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      3,
+      70,
+      537,
+      111
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "22b_int_font_size",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      3,
+      70,
+      537,
+      111
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "23_extra_keys",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      52,
+      65,
+      312,
+      116
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "24_right_align_overflow",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      197,
+      161,
+      747,
+      202
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "25_text_overflows_down",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      50,
+      32,
+      230,
+      187
+    ],
+    "self_check": []
+  },
+  {
+    "probe": "26_big_canvas_2560x1440",
+    "render": "ok",
+    "warnings": [],
+    "ink_bbox": [
+      83,
+      95,
+      440,
+      164
+    ],
+    "self_check": []
+  }
+]

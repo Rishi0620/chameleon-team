@@ -1,0 +1,160 @@
+{
+ "canvas": {
+  "width": 1280,
+  "height": 720
+ },
+ "elements": [
+  {
+   "id": "n474354",
+   "type": "image",
+   "x": 0,
+   "y": 0,
+   "width": 1280,
+   "height": 720,
+   "z_index": 0,
+   "asset_id": "solstice_bg_gradient.png",
+   "fit": "cover"
+  },
+  {
+   "id": "n907796",
+   "type": "shape",
+   "x": 661.58,
+   "y": 90.5,
+   "width": 538.99,
+   "height": 538.99,
+   "z_index": 1,
+   "shape_type": "ellipse",
+   "fill_color": "rgba(255,255,255,1)",
+   "opacity": 0.15,
+   "_note": "Decorative, intentionally overlaps the product image \u2014 this is the 'intentional layering' case, not a collision to flag."
+  },
+  {
+   "id": "n586963",
+   "type": "shape",
+   "x": 387.5,
+   "y": 218.26,
+   "width": 162.4,
+   "height": 162.4,
+   "z_index": 1,
+   "shape_type": "ellipse",
+   "fill_color": "rgba(255,255,255,1)",
+   "opacity": 0.12
+  },
+  {
+   "id": "n898485",
+   "type": "image",
+   "x": 145.91,
+   "y": 84.65,
+   "width": 477.77,
+   "height": 164.23,
+   "z_index": 4,
+   "asset_id": "solstice_logo_lockup.png",
+   "fit": "contain"
+  },
+  {
+   "id": "n969105",
+   "type": "image",
+   "x": 581.28,
+   "y": 5.83,
+   "width": 698.72,
+   "height": 698.72,
+   "z_index": 3,
+   "asset_id": "solstice_bottle.png",
+   "fit": "contain"
+  },
+  {
+   "id": "n819166",
+   "type": "text",
+   "x": 68.8,
+   "y": 244.36,
+   "width": 631.98,
+   "height": 107.52,
+   "z_index": 4,
+   "content": "Chase the Light",
+   "font_family": "Solstice Serif",
+   "font_size": 84,
+   "font_weight": "bold",
+   "color": "rgba(255,255,255,1)",
+   "text_align": "center",
+   "style_runs": [
+    {
+     "start": 6,
+     "end": 16,
+     "color": "rgba(240,178,66,1)"
+    }
+   ]
+  },
+  {
+   "id": "n488269",
+   "type": "text",
+   "x": 149.06,
+   "y": 405.8,
+   "width": 471.47,
+   "height": 83.2,
+   "z_index": 4,
+   "content": "Botanical sparkling infusions, crafted for golden hour.",
+   "font_family": "Solstice Sans",
+   "font_size": 32,
+   "color": "rgba(255,255,255,0.85)",
+   "text_align": "center"
+  },
+  {
+   "id": "n473780",
+   "type": "shape",
+   "x": 58,
+   "y": 46.4,
+   "width": 135.6,
+   "height": 42.0,
+   "z_index": 3,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(232,106,58,1)",
+   "corner_radius": 21.0,
+   "group_id": "g0"
+  },
+  {
+   "id": "n532510",
+   "type": "text",
+   "x": 58,
+   "y": 57.63,
+   "width": 135.6,
+   "height": 19.6,
+   "z_index": 4,
+   "content": "NEW FLAVOR",
+   "font_family": "Solstice Sans",
+   "font_size": 14,
+   "font_weight": "bold",
+   "color": "rgba(255,255,255,1)",
+   "text_align": "center",
+   "group_id": "g0"
+  },
+  {
+   "id": "n896580",
+   "type": "shape",
+   "x": 162.89,
+   "y": 536.6,
+   "width": 443.8,
+   "height": 95.2,
+   "z_index": 3,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(232,106,58,1)",
+   "corner_radius": 47.6,
+   "group_id": "g1"
+  },
+  {
+   "id": "n615917",
+   "type": "text",
+   "x": 162.89,
+   "y": 564.67,
+   "width": 443.8,
+   "height": 39.2,
+   "z_index": 4,
+   "content": "Shop the Summer Line",
+   "font_family": "Solstice Sans",
+   "font_size": 28,
+   "font_weight": "bold",
+   "color": "rgba(255,255,255,1)",
+   "text_align": "center",
+   "group_id": "g1"
+  }
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "canvas": {
+  "width": 160,
+  "height": 600
+ },
+ "elements": [
+  {
+   "id": "p0",
+   "type": "image",
+   "x": 0.0,
+   "y": 0.0,
+   "width": 160.0,
+   "height": 600.0,
+   "z_index": 0,
+   "asset_id": "r2_busy_photo.png",
+   "fit": "cover"
+  },
+  {
+   "id": "p1",
+   "type": "shape",
+   "x": 10.4,
+   "y": 75.93,
+   "width": 139.2,
+   "height": 292.99,
+   "z_index": 1,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(20,12,24,0.78)",
+   "corner_radius": 9.786742400875415
+  },
+  {
+   "id": "p2",
+   "type": "image",
+   "x": 36.25,
+   "y": 92.21,
+   "width": 87.5,
+   "height": 29.17,
+   "z_index": 3,
+   "asset_id": "solstice_logo_lockup.png",
+   "fit": "contain"
+  },
+  {
+   "id": "p3",
+   "type": "text",
+   "x": 35.03,
+   "y": 124.79,
+   "width": 89.94,
+   "height": 95.68,
+   "z_index": 3,
+   "content": "Nights made golden.",
+   "font_family": "Solstice Serif",
+   "font_size": 26,
+   "font_weight": "bold",
+   "color": "rgba(255,255,255,1)",
+   "text_align": "left"
+  },
+  {
+   "id": "p4",
+   "type": "text",
+   "x": 44.43,
+   "y": 231.63,
+   "width": 108.0,
+   "height": 45.6,
+   "z_index": 3,
+   "content": "Botanical sparkling, poured after dark.",
+   "font_family": "Solstice Sans",
+   "font_size": 12,
+   "color": "rgba(255,255,255,0.9)",
+   "text_align": "left"
+  },
+  {
+   "id": "p5",
+   "type": "shape",
+   "x": 28.49,
+   "y": 311.39,
+   "width": 103.01,
+   "height": 41.25,
+   "z_index": 2,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(232,106,58,1)",
+   "corner_radius": 20.625,
+   "group_id": "m3"
+  },
+  {
+   "id": "p6",
+   "type": "text",
+   "x": 28.49,
+   "y": 321.56,
+   "width": 103.01,
+   "height": 21.0,
+   "z_index": 3,
+   "content": "Find a bar",
+   "font_family": "Solstice Sans",
+   "font_size": 15,
+   "font_weight": "bold",
+   "color": "rgba(255,255,255,1)",
+   "text_align": "center",
+   "group_id": "m3"
+  },
+  {
+   "id": "p7",
+   "type": "image",
+   "x": 10.4,
+   "y": 386.28,
+   "width": 139.2,
+   "height": 139.2,
+   "z_index": 2,
+   "asset_id": "solstice_bottle.png",
+   "fit": "contain"
+  }
+ ]
+}

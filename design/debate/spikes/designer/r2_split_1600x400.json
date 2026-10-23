@@ -1,0 +1,110 @@
+{
+ "canvas": {
+  "width": 1600,
+  "height": 400
+ },
+ "elements": [
+  {
+   "id": "u1",
+   "type": "shape",
+   "x": 0,
+   "y": 0,
+   "width": 1600,
+   "height": 400,
+   "z_index": 0,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(43,27,46,1)"
+  },
+  {
+   "id": "u2",
+   "type": "shape",
+   "x": 498.99,
+   "y": 5.12,
+   "width": 319.95,
+   "height": 334.88,
+   "z_index": 1,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(232,106,58,1)"
+  },
+  {
+   "id": "u3",
+   "type": "image",
+   "x": 1211.31,
+   "y": 2.98,
+   "width": 388.69,
+   "height": 388.69,
+   "z_index": 2,
+   "asset_id": "solstice_bottle.png",
+   "fit": "contain"
+  },
+  {
+   "id": "u4",
+   "type": "image",
+   "x": 563.18,
+   "y": 48.77,
+   "width": 190.5,
+   "height": 63.5,
+   "z_index": 2,
+   "asset_id": "solstice_logo_lockup.png",
+   "fit": "contain"
+  },
+  {
+   "id": "u5",
+   "type": "text",
+   "x": 397.93,
+   "y": 122.08,
+   "width": 521.0,
+   "height": 70.4,
+   "z_index": 3,
+   "content": "Summer in a bottle.",
+   "font_family": "Solstice Serif",
+   "font_size": 55,
+   "font_weight": "bold",
+   "color": "rgba(43,27,46,1)",
+   "text_align": "left"
+  },
+  {
+   "id": "u6",
+   "type": "text",
+   "x": 436.51,
+   "y": 227.07,
+   "width": 443.83,
+   "height": 32.2,
+   "z_index": 3,
+   "content": "Four botanical infusions, now in stores.",
+   "font_family": "Solstice Sans",
+   "font_size": 23,
+   "color": "rgba(43,27,46,1)",
+   "text_align": "left"
+  },
+  {
+   "id": "u7",
+   "type": "shape",
+   "x": 559.79,
+   "y": 289.72,
+   "width": 197.27,
+   "height": 61.09,
+   "z_index": 2,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(43,27,46,1)",
+   "corner_radius": 30.55,
+   "group_id": "gq"
+  },
+  {
+   "id": "u8",
+   "type": "text",
+   "x": 559.79,
+   "y": 305.61,
+   "width": 197.27,
+   "height": 29.4,
+   "z_index": 3,
+   "content": "Shop now",
+   "font_family": "Solstice Sans",
+   "font_size": 21,
+   "font_weight": "bold",
+   "color": "rgba(255,255,255,1)",
+   "text_align": "center",
+   "group_id": "gq"
+  }
+ ]
+}

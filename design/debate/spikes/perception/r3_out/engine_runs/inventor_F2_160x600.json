@@ -1,0 +1,117 @@
+{
+ "canvas": {
+  "width": 160,
+  "height": 600
+ },
+ "elements": [
+  {
+   "id": "s0",
+   "type": "image",
+   "x": 0.0,
+   "y": 0.0,
+   "width": 160.0,
+   "height": 600.0,
+   "z_index": 0,
+   "asset_id": "solstice_bg_gradient.png",
+   "fit": "cover"
+  },
+  {
+   "id": "s1",
+   "type": "shape",
+   "x": 0.0,
+   "y": 83.71,
+   "width": 149.6,
+   "height": 272.1,
+   "z_index": 1,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(43,27,46,1)"
+  },
+  {
+   "id": "s2",
+   "type": "image",
+   "x": 36.25,
+   "y": 104.51,
+   "width": 87.5,
+   "height": 29.17,
+   "z_index": 2,
+   "asset_id": "solstice_logo_lockup.png",
+   "fit": "contain"
+  },
+  {
+   "id": "s3",
+   "type": "text",
+   "x": 41.49,
+   "y": 137.8,
+   "width": 77.02,
+   "height": 77.28,
+   "z_index": 2,
+   "content": "Golden hour, bottled.",
+   "font_family": "Solstice Serif",
+   "font_size": 21,
+   "font_weight": "bold",
+   "color": "rgba(255,255,255,1)",
+   "text_align": "left",
+   "style_runs": [
+    {
+     "start": 13,
+     "end": 21,
+     "color": "rgba(240,178,66,1)"
+    }
+   ]
+  },
+  {
+   "id": "s4",
+   "type": "text",
+   "x": 32.02,
+   "y": 227.17,
+   "width": 118.0,
+   "height": 45.6,
+   "z_index": 2,
+   "content": "Four new botanical infusions, in stores this June.",
+   "font_family": "Solstice Sans",
+   "font_size": 12,
+   "color": "rgba(255,255,255,0.85)",
+   "text_align": "left"
+  },
+  {
+   "id": "s5",
+   "type": "shape",
+   "x": 29.65,
+   "y": 299.27,
+   "width": 100.71,
+   "height": 35.75,
+   "z_index": 2,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(232,106,58,1)",
+   "corner_radius": 17.875,
+   "group_id": "k"
+  },
+  {
+   "id": "s6",
+   "type": "text",
+   "x": 29.65,
+   "y": 308.08,
+   "width": 100.71,
+   "height": 18.2,
+   "z_index": 3,
+   "content": "Find a store",
+   "font_family": "Solstice Sans",
+   "font_size": 13,
+   "font_weight": "bold",
+   "color": "rgba(255,255,255,1)",
+   "text_align": "center",
+   "group_id": "k"
+  },
+  {
+   "id": "s7",
+   "type": "image",
+   "x": 10.4,
+   "y": 369.59,
+   "width": 139.2,
+   "height": 146.7,
+   "z_index": 2,
+   "asset_id": "solstice_bottle.png",
+   "fit": "contain"
+  }
+ ]
+}

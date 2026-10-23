@@ -1,0 +1,132 @@
+{
+ "canvas": {
+  "width": 160,
+  "height": 600
+ },
+ "elements": [
+  {
+   "id": "q0",
+   "type": "shape",
+   "x": 0.0,
+   "y": 0.0,
+   "width": 160.0,
+   "height": 600.0,
+   "z_index": 0,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(246,236,222,1)"
+  },
+  {
+   "id": "q1",
+   "type": "shape",
+   "x": 0.0,
+   "y": 109.51,
+   "width": 149.6,
+   "height": 212.2,
+   "z_index": 1,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(43,27,46,1)"
+  },
+  {
+   "id": "q2",
+   "type": "image",
+   "x": 36.25,
+   "y": 127.78,
+   "width": 87.5,
+   "height": 29.17,
+   "z_index": 3,
+   "asset_id": "solstice_logo_lockup.png",
+   "fit": "contain"
+  },
+  {
+   "id": "q3",
+   "type": "text",
+   "x": 31.08,
+   "y": 159.83,
+   "width": 97.85,
+   "height": 42.16,
+   "z_index": 3,
+   "content": "Bottled at golden hour",
+   "font_family": "Solstice Serif",
+   "font_size": 17,
+   "font_weight": "bold",
+   "color": "rgba(255,255,255,1)",
+   "text_align": "left",
+   "style_runs": [
+    {
+     "start": 11,
+     "end": 21,
+     "color": "rgba(240,178,66,1)"
+    }
+   ]
+  },
+  {
+   "id": "q4",
+   "type": "text",
+   "x": 27.98,
+   "y": 209.25,
+   "width": 104.04,
+   "height": 50.0,
+   "z_index": 3,
+   "content": "Small-batch sparkling botanicals with blood orange and wild honey.",
+   "font_family": "Solstice Sans",
+   "font_size": 10,
+   "color": "rgba(255,255,255,0.85)",
+   "text_align": "left"
+  },
+  {
+   "id": "q5",
+   "type": "shape",
+   "x": 37.96,
+   "y": 266.51,
+   "width": 84.08,
+   "height": 36.92,
+   "z_index": 2,
+   "shape_type": "rectangle",
+   "fill_color": "rgba(232,106,58,1)",
+   "corner_radius": 18.461538461538463,
+   "group_id": "k9"
+  },
+  {
+   "id": "q6",
+   "type": "text",
+   "x": 37.96,
+   "y": 276.6,
+   "width": 84.08,
+   "height": 16.8,
+   "z_index": 3,
+   "content": "Shop now",
+   "font_family": "Solstice Sans",
+   "font_size": 12,
+   "font_weight": "bold",
+   "color": "rgba(255,255,255,1)",
+   "text_align": "center",
+   "group_id": "k9"
+  },
+  {
+   "id": "q7",
+   "type": "image",
+   "x": 10.4,
+   "y": 351.29,
+   "width": 139.2,
+   "height": 139.2,
+   "z_index": 2,
+   "asset_id": "solstice_bottle.png",
+   "fit": "contain"
+  },
+  {
+   "id": "q8",
+   "type": "text",
+   "x": 82.96,
+   "y": 541.48,
+   "width": 71.11,
+   "height": 5.93,
+   "z_index": 3,
+   "content": "Available at select retailers.",
+   "font_family": "Solstice Sans",
+   "font_size": 2,
+   "color": "rgba(43,27,46,0)",
+   "text_align": "center",
+   "opacity": 0.0
+  }
+ ]
+}
