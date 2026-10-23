@@ -100,6 +100,17 @@ def _normalize(src):
                 e["font_size"] = float(e.get("font_size", 24))
             except (TypeError, ValueError):
                 e["font_size"] = 24.0
+            fs = max(1.0, e["font_size"])
+            if str(e.get("content", "")).strip() and (e["width"] < 1.5 * fs or e["height"] < fs):
+                try:                                  # degenerate text box: use the natural one-line width
+                    nat = T.W_k(e, int(fs), 1)
+                except Exception:  # noqa: BLE001
+                    nat = 0.6 * fs * len(str(e["content"]))
+                w1 = min(max(e["width"], nat), 0.9 * src["canvas"]["width"])
+                h1 = max(e["height"], 1.25 * fs)
+                e["x"] -= (w1 - e["width"]) / 2           # grow about the centre: relations to shapes survive
+                e["y"] -= (h1 - e["height"]) / 2
+                e["width"], e["height"] = w1, h1
     return src
 
 

@@ -271,7 +271,12 @@ def _honest_text(el, W, H):
         need = n * fs * T.line_height(el)
         dw = max(T.drawn_widths(el, fs, el["width"]))
         if need <= H and dw <= el["width"] + 1 and (T.max_word(el, fs) <= el["width"] + 1 or el["width"] >= W):
-            el["height"] = max(min(H, max(el["height"], need)), 1.0)
+            h0 = el["height"]
+            el["height"] = max(min(H, max(h0, need)), 1.0)
+            if el["height"] > h0:
+                el["y"] -= (el["height"] - h0) / 2          # grow about the centre: a label stays on its shape
+            if el["y"] < 0:
+                el["y"] = 0.0
             if el["y"] + el["height"] > H:
                 el["y"] = max(0.0, H - el["height"])
             return

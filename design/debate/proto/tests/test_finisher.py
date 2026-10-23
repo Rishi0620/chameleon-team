@@ -129,7 +129,8 @@ def test_rules_source_relative_and_api():
         for v in vs:
             assert v.severity in ("hard", "soft") and isinstance(v.ids, list) and v.rule
     # broken baseline is caught
-    base = json.load(open(ROOT / "output/chameleon_sample_level3_advanced_output.json"))
+    from engine.resize import _stretch
+    base = _stretch(_src("L3"), {"width": 728, "height": 90})
     hard = [v for v in R.check(_src("L3"), base, {}) if v.severity == "hard"]
     assert len(hard) >= 3, hard
 
