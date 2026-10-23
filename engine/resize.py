@@ -43,6 +43,19 @@ def resize(source: dict[str, Any], target_canvas: dict[str, Any]) -> dict[str, A
     concern (see RULES.md) — spend your effort on quality, not speed.
     """
 
+    try:
+        from engine.chameleon import resize as _resize
+
+        out = _resize(source, target_canvas)
+        if isinstance(out, dict) and "elements" in out:
+            return out
+    except Exception:  # noqa: BLE001
+        pass
+    return _stretch(source, target_canvas)
+
+
+def _stretch(source: dict[str, Any], target_canvas: dict[str, Any]) -> dict[str, Any]:
+    """Last resort if the engine package fails to import or raises."""
     # ------------------------------------------------------------------
     # Naive baseline so this file runs out of the box. This is a uniform
     # stretch — literally the thing the brief tells you NOT to do ("a
