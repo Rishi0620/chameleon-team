@@ -262,6 +262,7 @@ def _run_from(src, target, assets_dir, report, start_level=0):
                     rec["finished"] = True
                 else:
                     rec["finisher_reverted"] = h2[:2]
+        out = _dodge_rules(out, info, assets_dir)
         crit = _call(critic, "critique", src, out, info, None, default=None, report=report, tag=f"[{rank}] ") \
             if critic is not None else None
         vetoes = list((crit or {}).get("vetoes") or [])
@@ -295,6 +296,58 @@ def _run_from(src, target, assets_dir, report, start_level=0):
     if hard:
         return _floor(src, target, assets_dir, report)
     return out, info
+
+
+def _dodge_rules(out, info, assets_dir):
+    """Thin rules and dividers must not cross content: after finishing, slide each one to the nearest free
+    spot (perpendicular to its length first)."""
+    try:
+        W, H = out["canvas"]["width"], out["canvas"]["height"]
+        roles = info.get("roles", {})
+        ink = _ink_map(out, assets_dir)
+        els = {e["id"]: e for e in out["elements"]}
+        thin = [e for e in out["elements"] if e["type"] == "shape" and roles.get(e["id"]) == "decoration"
+                and min(e["width"], e["height"]) <= 8 and (e.get("opacity") is None or e["opacity"] > 0)]
+        if not thin:
+            return out
+        solid = [tuple(v) for i, v in ink.items() if roles.get(i) not in ("decoration", "background", "panel", "unknown")
+                 and i in els and els[i].get("opacity", 1) not in (0, 0.0)]
+        solid = [(a, b, a + w, b + h) for a, b, w, h in solid]
+        res = copy.deepcopy(out)
+        rb = {e["id"]: e for e in res["elements"]}
+        changed = False
+        for t in thin:
+            w, h, x, y = t["width"], t["height"], t["x"], t["y"]
+            rot = float(t.get("rotation", 0) or 0)
+
+            def aabb(nx, ny, t=t, w=w, h=h, rot=rot):
+                return T.rot_aabb(nx, ny, w, h, rot)
+
+            if not any(_overlap(aabb(x, y), o, 0.5) for o in solid):
+                continue
+            r0 = aabb(x, y)
+            horiz = (r0[2] - r0[0]) >= (r0[3] - r0[1])
+            spot = None
+            for step in range(1, 100):
+                for sgn in (1, -1):
+                    nx, ny = (x, y + sgn * step * 0.01 * H) if horiz else (x + sgn * step * 0.01 * W, y)
+                    rr = aabb(nx, ny)
+                    if rr[0] < 0 or rr[1] < 0 or rr[2] > W or rr[3] > H:
+                        continue
+                    if not any(_overlap(rr, o, 0.5) for o in solid):
+                        spot = (nx, ny)
+                        break
+                if spot:
+                    break
+            if spot:
+                rb[t["id"]].update(x=round(spot[0], 2), y=round(spot[1], 2))
+                changed = True
+        if changed:
+            info["ink"] = _ink_map(res, assets_dir)
+            return res
+    except Exception:  # noqa: BLE001
+        pass
+    return out
 
 
 def _sev(v):

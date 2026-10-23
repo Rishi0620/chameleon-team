@@ -1,8 +1,8 @@
 engine,band,applicable,mean,p10,hard_fail,crash,timeout
 proto,strip,60,79.8,49.2,0,0,0
-proto,wide,195,92.4,77.0,0,0,0
-proto,squareish,75,92.0,80.0,0,0,0
-proto,tall,60,89.6,69.0,0,0,0
+proto,wide,195,92.3,77.0,0,0,0
+proto,squareish,75,91.4,75.1,0,0,0
+proto,tall,60,88.9,69.0,0,0,0
 proto_zunder,strip,60,89.4,80.2,0,0,0
 proto_zunder,wide,195,93.8,81.7,0,0,0
 proto_zunder,squareish,75,93.0,80.6,0,0,0
