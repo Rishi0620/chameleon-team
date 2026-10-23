@@ -192,9 +192,14 @@ Caveat: the composite score is a proxy. Read the caveats at the bottom of `SCORE
 - Final merge decisions and red-teaming: Opus, high effort, sparingly. Ultra effort on Opus used up the usage quickly.
 - Use subagents on Sonnet for independent, file-scoped tasks.
 
-## 11. Organiser questions to ask
+## 11. Organiser answers (binding)
 
-Answered by the organisers: opacity 0 is not accepted as dropping, hidden colour alpha must not be changed, intentional overlaps are fine. Nothing left to ask.
+- Opacity 0 is not "dropped"; never change a hidden element's colour alpha; nothing may be hidden in stage one.
+- Intentional overlaps and deliberate layering are fine; unwanted collisions and text on busy images are penalised (judged on the PNG). JSON box overlap is not structurally scored.
+- Keep source styling where the rules are silent: text colour, `font_weight`, `text_align`, `line_height`, `z_index` and `fit` stay as in the source. `letter_spacing` is only ever scaled down when the font shrinks. `corner_radius` scales with its shape. Centre crop stays.
+- No numeric minimum font size; "visible" is judged on structure plus the render. Do not use near-zero boxes.
+- 728x90 with 17 elements (L3) is confirmed in scope; 320x50 and 160x600 are not confirmed. Missing assets (L3 `holiday_watermark`) stay as visible placeholders, not shrunk to nothing.
+- No hard time limit in stage one; reference-machine CPU/RAM limits are still pending.
 
 ## 12. Git
 
