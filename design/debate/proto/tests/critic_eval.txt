@@ -5,7 +5,7 @@
   mut:L3_1600_rotclip              max|diff|=  0  pixels differing >8: 0.0000%
 
 == 2. critic on every labelled output ==
-  82 calls; median 50.7 ms, p90 171.5 ms, max 289.0 ms (first-call/source-analysis costs included in max); cache {'img_hit': 1385, 'img_miss': 281, 'txt_hit': 66, 'txt_miss': 377, 'src_hit': 75, 'src_miss': 7}
+  82 calls; median 54.2 ms, p90 182.4 ms, max 324.2 ms (first-call/source-analysis costs included in max); cache {'img_hit': 1385, 'img_miss': 281, 'txt_hit': 66, 'txt_miss': 377, 'src_hit': 75, 'src_miss': 7}
 
 == 3. veto precision / recall (positive = labelled defect; predicted = >=1 veto) ==
   TP 25  FP 0  FN 0  TN 57   precision 100%   recall 100%

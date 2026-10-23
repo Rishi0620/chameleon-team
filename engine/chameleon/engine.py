@@ -376,8 +376,10 @@ def realize(plan, g, src, target, assets_dir, base):
             if abs(e["width"] - e["height"]) < 1:
                 w = h = d
         cx, cy = (e["x"] + e["width"] / 2) / W0 * W, (e["y"] + e["height"] / 2) / H0 * H
-        o.update(x=min(max(cx - w / 2, 0.0), W - w), y=min(max(cy - h / 2, 0.0), H - h), width=max(1.0, w),
-                 height=max(1.0, h))
+        nx, ny = min(max(cx - w / 2, 0.0), W - w), min(max(cy - h / 2, 0.0), H - h)
+        if min(w, h) <= 8 and any(_overlap((nx, ny, nx + w, ny + h), o, -1) for o in occupied):
+            continue                    # a rule or divider that would strike through content is hidden
+        o.update(x=nx, y=ny, width=max(1.0, w), height=max(1.0, h))
         placed.add(e["id"])
     # everything else: hidden (dropped units, hidden assets, empty text, unplaced furniture)
     for e in src["elements"]:
