@@ -105,6 +105,23 @@ def _normalize(src):
 
 # ----------------------------------------------------------------------------- main run
 def _run(src, target, assets_dir, report):
+    """Search at the first ladder level that yields plans; if the winner is still vetoed (clipped,
+    illegible, lost backdrop), escalate to the next relaxation level and keep the less vetoed result."""
+    best, level = None, 0
+    while level < 5:
+        rep = {}
+        res = _run_from(src, target, assets_dir, rep, level)
+        nveto = len((rep.get("chosen") or {}).get("vetoes") or []) if rep.get("stage") == "ok" else 99
+        if best is None or nveto < best[0]:
+            best = (nveto, res, rep)
+        if nveto == 0 or rep.get("stage") != "ok":
+            break
+        level = int(rep.get("relax_level", level)) + 1
+    report.update(best[2])
+    return best[1]
+
+
+def _run_from(src, target, assets_dir, report, start_level=0):
     W, H = target["width"], target["height"]
     W0, H0 = src["canvas"]["width"], src["canvas"]["height"]
     g = D.decompile(src, assets_dir)
@@ -131,8 +148,10 @@ def _run(src, target, assets_dir, report):
     regime = S.band(W, H)
     k0 = {"strip": 4, "wide": 5, "squareish": 6, "tall": 8}[regime]
     ladder = [(k0, 1.0, 0.8, False), (k0 + 2, 0.85, 0.8, False), (k0 + 4, 0.72, 0.8, False),
-              (k0 + 4, 0.72, 0.95, False), (k0 + 4, 0.72, 0.95, True)]       # last: brand-reminder mode
+              (k0 + 4, 0.70, 0.95, False), (k0 + 4, 0.70, 0.95, True)]       # last: brand-reminder mode
     for level, (kmax, floor_mult, must_thr, brand) in enumerate(ladder):
+        if level < start_level:
+            continue
         if brand:
             for u in g.stream:
                 if u.rent >= D.INF:
@@ -505,6 +524,12 @@ def _place_furniture(u, plan, ctx, out, occupied, W, H):
         bw, bh = d.extra.get("w_pref", d.w) * shrink, d.h * shrink
         if bw > 0.45 * W or bh > 0.45 * H:
             continue
+        if u.kind == "rigid":
+            fs = [float(e["font_size"]) * d.s * shrink for e in u.els if e["type"] == "text"]
+        else:
+            fs = [d.f * shrink]
+        if fs and min(int(f) for f in fs) * ctx.js < S.FLOOR_JPX["badge_label"]:
+            continue                                  # furniture text below the legibility floor: hide it instead
         rx0, ry0, rx1, ry1 = T.rot_aabb(0, 0, bw, bh, rot)
         aw, ah = rx1 - rx0, ry1 - ry0
         for cn in corners:

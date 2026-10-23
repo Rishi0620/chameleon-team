@@ -135,7 +135,8 @@ Current scoreboard (390 cases each, `bench/SCOREBOARD.md`):
 
 | engine | mean | p10 | crashes |
 |---|---|---|---|
-| optimizer_fixed (proto's ancestor) | **90.4** | 79.9 | 0 |
+| **proto (merged engine, current)** | **92.9** | 80.9 | 0 |
+| optimizer_fixed (proto's ancestor) | 90.4 | 79.9 | 0 |
 | galley | 88.1 | 73.2 | 3 |
 | designer | 86.5 | 69.7 | 0 |
 | perception | 52.3 | 0.0 | 50 |
@@ -147,19 +148,22 @@ Caveat: the composite score is a proxy. Read the caveats at the bottom of `SCORE
 
 ## 8. Known open bugs
 
-**Fixed in `proto/` but not yet re-benchmarked:**
-- Glyph-width cache keyed by `id()` (recycled after GC, gave wrong widths and crashes). `textfit.py` now keys by value. Verify with a bench run before trusting it.
+**Fixed (bench: proto mean 92.9, p10 80.9, zero crashes, every shape band p10 >= 80):**
+- Glyph-width cache keyed by `id()`: `textfit.py` keys by value now.
+- L3 at 320x50 fell back to the safe layout: the relaxed headline floor rounded up to 11 px. Now 10 px; output is logo + headline.
+- Furniture (ribbon) text below the legibility floor is hidden instead of shown at 4 px (`engine._place_furniture`).
+- Source structure is always a search candidate, even above the row limit (`search.patterns`); omission and structure-change penalties and the margin are source-relative near the source canvas. L3 same-size drift is now 2.9% mean.
+- Brackets (cards/panels) may omit low-rent riders instead of failing (`search.bracket_dims`): S11 at 320x50 no longer falls back.
+- The engine escalates the relaxation ladder when the winner is still vetoed (`engine._run`).
+- Finisher leaves decorations alone when the target canvas equals the source canvas.
+- Hide-mode A/B on the bench: alpha 92.9, z_under_bg 92.8, never_text 90.6 (p10 77.8, fails the gate).
 
-**Still open, from the red-team pass (`round4/redteam_designer.md`) and the critic:**
-- L3 at 320×50 shows only the headline. The logo and CTA are hidden. This is a regression.
-- L2 at 1080×1080 (same size as source) is not a fixed point. The CTA moves to a right column and a badge moves to the top right.
-- L2/L3 at 160×600: text is illegible (2 vetoed outputs were chosen).
-- L3 at 1080×1080 and 1080×1920 stories: legal text sits mid-canvas as a side column.
-- Logo is tiny in many outputs, especially tall and story formats.
-- L2 1080×1920: logo and product in a row, sparse stories.
-- Circle decoration sits behind the L2 728×90 CTA. A ribbon overlaps the product in the L3 square output.
-- The overlay live-area result is untested at 728×90 (no calm pixels exist there). Expected behaviour is a scrim or hide.
-- Hide-mode A/B has not been run: `bench/adapters/proto_nevertext.py` and `proto_zunder` exist, but results are missing.
+**Still open:**
+- L2 at its own canvas: drift 4.2% mean / 12% max (headline and subhead vertical placement). Target is under 3%.
+- L3 at 1080x1080: legal text can land as a small side column mid-canvas.
+- S04 at 160x600 still has TEXT_OVERFLOW / ILLEGIBLE / LOST_BACKDROP vetoes (3 candidates cannot be made clean).
+- Logo is small in tall and story formats; logo/product tiers are untuned.
+- Overlay live-area result at 728x90 (no calm pixels) is untested.
 
 **Design gaps the team has not closed:**
 - Perception critic is weak on designed-vs-designed pairs (36–64% agreement). It is reliable for broken-vs-designed (~92%). Use it for vetoes, not ranking.

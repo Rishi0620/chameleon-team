@@ -6,6 +6,9 @@
 
 | engine | applicable | ok | hard fail | crash | timeout | mean | p10 | median | min | kept ink | median s | max s |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| proto | 390 | 390 | 0 | 0 | 0 | **92.9** | 80.9 | 96.0 | 65.0 | 0.812 | 0.411 | 9.04 |
+| proto_zunder | 390 | 390 | 0 | 0 | 0 | **92.8** | 80.5 | 96.0 | 58.3 | 0.813 | 0.407 | 9.2 |
+| proto_nevertext | 390 | 390 | 0 | 0 | 0 | **90.6** | 77.8 | 95.9 | 26.2 | 0.824 | 0.438 | 9.09 |
 | designer | 390 | 386 | 4 | 0 | 0 | **86.5** | 69.7 | 89.5 | 0.0 | 0.758 | 0.091 | 2.96 |
 | optimizer | 390 | 385 | 0 | 5 | 0 | **88.9** | 79.3 | 92.1 | 0.0 | 0.802 | 0.174 | 82.51 |
 | optimizer_fixed | 390 | 390 | 0 | 0 | 0 | **90.4** | 79.9 | 93.0 | 37.9 | 0.804 | 0.177 | 86.55 |
@@ -24,6 +27,9 @@
 
 | engine | strip | wide | squareish | tall |
 |---|---|---|---|---|
+| proto | 90.0 / 81.1 | 94.0 / 81.2 | 93.3 / 80.5 | 91.8 / 80.7 |
+| proto_zunder | 89.8 / 80.5 | 94.0 / 81.2 | 93.3 / 80.4 | 91.6 / 78.8 |
+| proto_nevertext | 81.5 / 49.4 | 92.8 / 79.6 | 92.0 / 76.2 | 91.2 / 81.0 |
 | designer | 86.6 / 67.8 | 86.8 / 65.7 | 89.2 / 74.9 | 82.3 / 68.1 |
 | optimizer | 84.1 / 74.4 | 88.7 / 79.7 | 91.1 / 81.0 | 91.6 / 82.0 |
 | optimizer_fixed | 86.7 / 77.2 | 90.8 / 81.7 | 91.1 / 81.0 | 92.1 / 82.0 |
@@ -36,6 +42,9 @@
 
 | engine | hidden_leak | nonint_font | rotated_clip | text_overflow | text_off_canvas | placeholder_visible |
 |---|---|---|---|---|---|---|
+| proto | 0 | 0 | 0 | 2 | 0 | 0 |
+| proto_zunder | 0 | 0 | 0 | 7 | 4 | 0 |
+| proto_nevertext | 0 | 0 | 0 | 11 | 3 | 0 |
 | designer | 0 | 0 | 0 | 48 | 7 | 0 |
 | optimizer | 0 | 0 | 1 | 24 | 11 | 0 |
 | optimizer_fixed | 0 | 0 | 1 | 16 | 7 | 0 |
@@ -48,6 +57,9 @@
 
 | engine | unreadable_text | small_text | text_collision | image_collision | low_contrast | busy_under_text | hierarchy_inversion | group_broken | orphaned_text | unaligned | edge_cramped |
 |---|---|---|---|---|---|---|---|---|---|---|---|
+| proto | 6 | 86 | 14 | 12 | 17 | 1 | 9 | 0 | 8 | 50 | 10 |
+| proto_zunder | 6 | 86 | 14 | 12 | 17 | 1 | 9 | 0 | 7 | 50 | 10 |
+| proto_nevertext | 116 | 110 | 11 | 5 | 30 | 20 | 15 | 0 | 32 | 48 | 13 |
 | designer | 0 | 5 | 39 | 38 | 74 | 1 | 18 | 9 | 50 | 60 | 48 |
 | optimizer | 20 | 125 | 63 | 42 | 155 | 6 | 0 | 0 | 22 | 21 | 9 |
 | optimizer_fixed | 19 | 126 | 58 | 42 | 155 | 6 | 0 | 0 | 22 | 22 | 6 |
@@ -58,23 +70,23 @@
 
 ## By design (mean composite over applicable sizes)
 
-| design | designer | optimizer | optimizer_fixed | galley | perception | safe_floor | baseline |
-|---|---|---|---|---|---|---|---|
-| L1_warmup | 97.1 | 99.2 | 99.2 | 98.3 | 90.6 | 86.1 | 3.8 |
-| L2_core | 96.2 | 95.6 | 95.6 | 92.8 | 29.8 | 73.6 | 0.0 |
-| L3_advanced | 86.8 | 87.5 | 88.3 | 80.4 | 29.6 | 54.9 | 5.8 |
-| S01_split_photo | 91.0 | 85.2 | 85.4 | 90.5 | 25.8 | 84.1 | 15.0 |
-| S02_text_over_photo | 90.3 | 91.8 | 91.8 | 94.5 | 60.2 | 75.6 | 7.6 |
-| S03_multi_product_grid | 82.8 | 92.8 | 97.0 | 86.8 | 20.4 | 73.8 | 3.8 |
-| S04_long_copy_editorial | 75.7 | 82.3 | 86.6 | 92.6 | 86.4 | 66.2 | 70.7 |
-| S05_rotated_sticker_bleed | 90.2 | 93.3 | 93.4 | 94.0 | 68.4 | 74.2 | 0.0 |
-| S06_ungrouped_text_backgrounds | 93.0 | 83.5 | 84.3 | 97.1 | 79.1 | 73.2 | 3.8 |
-| S07_lines_zties_spacing | 80.8 | 75.4 | 76.4 | 75.5 | 81.0 | 74.9 | 15.0 |
-| S08_missing_and_empty | 69.8 | 81.6 | 81.6 | 76.9 | 50.3 | 55.4 | 3.3 |
-| S09_banner_source | 82.1 | 99.6 | 99.6 | 98.7 | 57.4 | 79.7 | 3.8 |
-| S10_story_source | 83.9 | 92.8 | 92.8 | 66.6 | 25.3 | 66.4 | 3.8 |
-| S11_card_overlay | 88.2 | 89.6 | 89.6 | 91.3 | 43.5 | 80.4 | 3.8 |
-| S12_many_badges | 90.0 | 82.9 | 94.6 | 86.1 | 36.1 | 59.6 | 7.6 |
+| design | proto | proto_zunder | proto_nevertext | designer | optimizer | optimizer_fixed | galley | perception | safe_floor | baseline |
+|---|---|---|---|---|---|---|---|---|---|---|
+| L1_warmup | 98.7 | 98.7 | 98.7 | 97.1 | 99.2 | 99.2 | 98.3 | 90.6 | 86.1 | 3.8 |
+| L2_core | 94.9 | 94.9 | 95.1 | 96.2 | 95.6 | 95.6 | 92.8 | 29.8 | 73.6 | 0.0 |
+| L3_advanced | 88.9 | 88.9 | 81.0 | 86.8 | 87.5 | 88.3 | 80.4 | 29.6 | 54.9 | 5.8 |
+| S01_split_photo | 91.8 | 91.8 | 91.2 | 91.0 | 85.2 | 85.4 | 90.5 | 25.8 | 84.1 | 15.0 |
+| S02_text_over_photo | 85.0 | 85.0 | 83.7 | 90.3 | 91.8 | 91.8 | 94.5 | 60.2 | 75.6 | 7.6 |
+| S03_multi_product_grid | 97.0 | 97.3 | 94.6 | 82.8 | 92.8 | 97.0 | 86.8 | 20.4 | 73.8 | 3.8 |
+| S04_long_copy_editorial | 92.2 | 92.1 | 88.5 | 75.7 | 82.3 | 86.6 | 92.6 | 86.4 | 66.2 | 70.7 |
+| S05_rotated_sticker_bleed | 93.3 | 93.3 | 93.4 | 90.2 | 93.3 | 93.4 | 94.0 | 68.4 | 74.2 | 0.0 |
+| S06_ungrouped_text_backgrounds | 95.9 | 95.9 | 95.8 | 93.0 | 83.5 | 84.3 | 97.1 | 79.1 | 73.2 | 3.8 |
+| S07_lines_zties_spacing | 92.2 | 90.5 | 82.4 | 80.8 | 75.4 | 76.4 | 75.5 | 81.0 | 74.9 | 15.0 |
+| S08_missing_and_empty | 79.3 | 79.3 | 79.2 | 69.8 | 81.6 | 81.6 | 76.9 | 50.3 | 55.4 | 3.3 |
+| S09_banner_source | 99.4 | 99.4 | 99.4 | 82.1 | 99.6 | 99.6 | 98.7 | 57.4 | 79.7 | 3.8 |
+| S10_story_source | 94.6 | 94.6 | 93.6 | 83.9 | 92.8 | 92.8 | 66.6 | 25.3 | 66.4 | 3.8 |
+| S11_card_overlay | 98.0 | 98.0 | 98.0 | 88.2 | 89.6 | 89.6 | 91.3 | 43.5 | 80.4 | 3.8 |
+| S12_many_badges | 92.6 | 92.6 | 85.0 | 90.0 | 82.9 | 94.6 | 86.1 | 36.1 | 59.6 | 7.6 |
 
 ## Failures (crash / timeout / hard structural)
 

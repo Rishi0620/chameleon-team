@@ -975,6 +975,8 @@ def p7_rhythm(ctx, doc):
 
 def p8_decorations(ctx, doc):
     W, H = ctx.W, ctx.H
+    if abs(W - ctx.sW) <= 0.03 * ctx.sW and abs(H - ctx.sH) <= 0.03 * ctx.sH:
+        return doc                      # same canvas as the source: the designer's decorations stay put
     ids = by_id(doc)
     protect = [e for e in doc["elements"] if visible(e) and ctx.roles.get(e["id"]) in
                ("logo", "cta_shape", "headline", "subhead", "body", "cta_label")]

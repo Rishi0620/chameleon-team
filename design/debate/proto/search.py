@@ -34,7 +34,7 @@ from .decompile import FLOOR_JPX, GAMMA_DOWN, GAMMA_UP, INF, Galley, Unit, area,
 ZGRID = [0.02 * (1.03 ** i) for i in range(260)]
 TIME_BUDGET = 8.0
 W = dict(drop=1.6, size=1.0, leg=4.0, copy=3.0, lines=0.12, strip_lines=0.6, breaks=0.15, oneword=0.2,
-         slots=0.06, rows=0.03, trans=0.05, bond=0.15, ratio=0.25, imgord=0.5, fill=0.8, busy=0.6, hier=0.5, tiny=0.3, soft=0.15)
+         slots=0.06, rows=0.03, trans=0.05, bond=0.15, ratio=0.25, imgord=0.5, fill=0.8, busy=0.6, hier=0.5, tiny=1.2, soft=0.15)
 
 
 def band(Wc, Hc):
@@ -59,6 +59,13 @@ class Ctx:
             self.m = max(6.0, min(0.13 * CH, 0.04 * CW))
         else:
             self.m = max(8.0, min(72.0, 0.065 * min(CW, CH)))
+            if g.depth == 0 and g.stream and pad is None:
+                # near the source canvas the designer's own tightest edge margin is the margin
+                m_src = min(min(u.ink[0], u.ink[1], g.W0 - u.ink[2], g.H0 - u.ink[3]) for u in g.stream)
+                m_src *= math.sqrt(CW * CH / (g.W0 * g.H0))
+                m_tgt = min(self.m, max(0.02 * min(CW, CH), m_src))
+                d_src = abs(math.log(CW / g.W0)) + abs(math.log(CH / g.H0))
+                self.m = self.m + math.exp(-d_src / 0.2) * (m_tgt - self.m)
         self.Wa, self.Ha = max(1.0, self.W - 2 * self.m), max(1.0, self.H - 2 * self.m)
         self.z_cap = max(1.0, math.sqrt(CW * CH / (W0 * H0)))
         self.s_sat = 0.85 * self.z_cap
@@ -189,22 +196,29 @@ def bracket_dims(u: Unit, zi, ctx: Ctx):
     """Flex options (outer w, outer h) for a container: min height of its nested galley per width."""
     z = ZGRID[zi]
     pad = bracket_pad(u, z, ctx)
+    optional = sorted([v for v in u.sub.stream if v.rent < INF], key=lambda v: v.rent)
     opts = []
-    for frac in (0.25, 0.32, 0.4, 0.5, 0.6, 0.72, 0.85, 1.0):
-        cw = ctx.Wa * frac
-        sc = sub_ctx(u, cw, ctx.Ha, ctx, pad)
-        best = None
-        kept = [v for v in u.sub.stream]
-        for labels in patterns(kept, sc, limit=200):
-            rows = build(kept, labels)
-            fr = fit(rows, zi, sc)
-            if fr is not None:
-                hh = fr[1] + 2 * pad
-                if best is None or hh < best:
-                    best = hh
-        if best is not None and best <= ctx.Ha + 1e-6:
-            if not opts or best < opts[-1][1] - 1e-6:
-                opts.append((cw, best))
+    for k in range(len(optional) + 1):         # riders may be omitted, lowest rent first, never the headline
+        drop = optional[:k]
+        kept = [v for v in u.sub.stream if v not in drop]
+        if not kept:
+            break
+        for frac in (0.25, 0.32, 0.4, 0.5, 0.6, 0.72, 0.85, 1.0):
+            cw = ctx.Wa * frac
+            sc = sub_ctx(u, cw, ctx.Ha, ctx, pad)
+            best = None
+            for labels in patterns(kept, sc, limit=200):
+                rows = build(kept, labels)
+                fr = fit(rows, zi, sc)
+                if fr is not None:
+                    hh = fr[1] + 2 * pad
+                    if best is None or hh < best:
+                        best = hh
+            if best is not None and best <= ctx.Ha + 1e-6:
+                if not opts or best < opts[-1][1] - 1e-6:
+                    opts.append((cw, best))
+        if opts:
+            break
     if not opts:
         return None
     return Dims("flex", opts=opts, minw=opts[0][0], extra={"pad": pad})
@@ -347,10 +361,22 @@ def patterns(kept, ctx: Ctx, limit=None, source_labels=None):
     max_rows, max_cols = limits(ctx)
     alphabet = "SC" if max_rows == 1 else "SCR"
     count = 0
+    seed = None
+    if source_labels:
+        sl = {(a, b): l for a, b, l in source_labels}
+        seed = tuple(sl.get((a.name, b.name), "R") for a, b in zip(kept, kept[1:]))
+        if "C" in seed and max_rows == 1:
+            seed = None
     if n > 9:
+        if seed is not None:
+            yield seed                      # the designer's own structure is always a candidate
         yield from _grouped_patterns(kept, ctx, source_labels, alphabet, max_rows, max_cols)
         return
+    if seed is not None:
+        yield seed
     for labels in itertools.product(alphabet, repeat=n - 1):
+        if labels == seed:
+            continue
         rows = 1 + labels.count("R")
         if rows > max_rows:
             continue
@@ -723,7 +749,7 @@ def hierarchy_ok(plan, ctx):
 
 def energy(plan, g: Galley, ctx: Ctx, src_cov=None, busy=None):
     t = dict.fromkeys(W, 0.0)
-    t["drop"] = W["drop"] * sum(min(u.rent, 5.0) for u in plan.dropped)
+    t["drop"] = W["drop"] * drop_mult(g, ctx) * sum(min(u.rent, 5.0) for u in plan.dropped)
     chars = 0
     f_c = max(14.0, 0.018 * max(ctx.CW, ctx.CH))
     strip = ctx.regime == "strip"
@@ -782,10 +808,12 @@ def energy(plan, g: Galley, ctx: Ctx, src_cov=None, busy=None):
                 t["tiny"] += W["tiny"]
     t["rows"] = W["rows"] * max(0, plan.rows - 1)
     src = {(a.name, b.name): l for a, b, l in zip(g.stream, g.stream[1:], g.labels)}
+    d_src = abs(math.log(ctx.W / g.W0)) + abs(math.log(ctx.H / g.H0))
+    trans_mult = 1.0 + 25.0 * math.exp(-d_src / 0.12)         # near the source canvas the source structure wins
     for a, b, l in zip(plan.kept, plan.kept[1:], plan.labels):
         sl = src.get((a.name, b.name))
         if sl is not None and (sl == "C") != (l == "C"):
-            t["trans"] += W["trans"]
+            t["trans"] += W["trans"] * trans_mult
         if l == "C" and a.kind == "text" and b.kind == "text" and sl != "C":
             t["bond"] += W["bond"]
     imgs = [it for it in plan.items if it.unit.kind == "image"]
@@ -801,6 +829,12 @@ def energy(plan, g: Galley, ctx: Ctx, src_cov=None, busy=None):
     if busy is not None:
         t["busy"] = W["busy"] * max(0.0, busy - 1.0)
     return sum(t.values()), t
+
+
+def drop_mult(g, ctx):
+    """Omissions get dearer near the source canvas: the designer kept everything there."""
+    d_src = abs(math.log(ctx.W / g.W0)) + abs(math.log(ctx.H / g.H0))
+    return 1.0 + 4.0 * math.exp(-d_src / 0.12)
 
 
 # ----------------------------------------------------------------------------- driver
@@ -823,7 +857,7 @@ def search(g: Galley, ctx: Ctx, src_cov, must_thr=0.8, top_n=24, deadline=None, 
     src_labels = [(a.name, b.name, l) for a, b, l in zip(g.stream, g.stream[1:], g.labels)]
     results, best_E = [], math.inf
     for sub in subsets:
-        drop_cost = W["drop"] * sum(min(u.rent, 5.0) for u in sub)
+        drop_cost = W["drop"] * drop_mult(g, ctx) * sum(min(u.rent, 5.0) for u in sub)
         if drop_cost - u_max > best_E + 0.5:
             continue
         kept = [u for u in stream if u not in sub]

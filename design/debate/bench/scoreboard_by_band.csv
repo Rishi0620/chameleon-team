@@ -1,4 +1,16 @@
 engine,band,applicable,mean,p10,hard_fail,crash,timeout
+proto,strip,60,90.0,81.1,0,0,0
+proto,wide,195,94.0,81.2,0,0,0
+proto,squareish,75,93.3,80.5,0,0,0
+proto,tall,60,91.8,80.7,0,0,0
+proto_zunder,strip,60,89.8,80.5,0,0,0
+proto_zunder,wide,195,94.0,81.2,0,0,0
+proto_zunder,squareish,75,93.3,80.4,0,0,0
+proto_zunder,tall,60,91.6,78.8,0,0,0
+proto_nevertext,strip,60,81.5,49.4,0,0,0
+proto_nevertext,wide,195,92.8,79.6,0,0,0
+proto_nevertext,squareish,75,92.0,76.2,0,0,0
+proto_nevertext,tall,60,91.2,81.0,0,0,0
 designer,strip,60,86.6,67.8,0,0,0
 designer,wide,195,86.8,65.7,1,0,0
 designer,squareish,75,89.2,74.9,0,0,0
