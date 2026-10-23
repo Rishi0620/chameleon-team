@@ -295,7 +295,16 @@ def _honest_text(el, W, H):
         if fs <= 1:
             break
         el["font_size"] = fs - 1
-    el["height"] = max(1.0, min(H, el["height"]))
+    el["font_size"] = max(1, int(el["font_size"]))
+    nat = T.one_line(el, 1) + 1.0               # at the 1 px floor: widen the box so the text sits on one line
+    el["width"] = min(float(W), max(el["width"], nat))
+    for _ in range(8):
+        if T.n_lines(el, 1, el["width"]) <= 1 or el["width"] >= W:
+            break
+        el["width"] = min(float(W), el["width"] * 1.2)
+    n = T.n_lines(el, 1, el["width"])
+    el["height"] = max(1.0, min(float(H), max(el["height"], n * T.line_height(el))))
+    el["x"] = min(max(0.0, el["x"]), W - el["width"])
     el["y"] = min(max(0.0, el["y"]), H - el["height"])
 
 

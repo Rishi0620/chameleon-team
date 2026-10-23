@@ -366,16 +366,25 @@ def _on_host(it, plan):
 
 def _floor(src, target, assets_dir, report):
     """Fallback ladder floor: uniform contain (structurally perfect), then last resort."""
+    sf = None
     try:
         out = C.safe_fit(src, target, assets_dir, HIDE_MODE)
         hard, _ = C.validate(src, out, target, assets_dir)
+        sf = (out, hard)
         report["floor"] = "safe_fit" + (" (contract issues)" if hard else "")
         if not hard:
             return out, {"assets_dir": assets_dir, "hidden": [], "scale": None, "fallback": "safe_fit"}
     except Exception as ex:  # noqa: BLE001
         report["floor_error"] = f"{type(ex).__name__}: {ex}"
+    last = C.last_resort(src, target)
+    try:
+        if sf is not None and len(sf[1]) <= len(C.validate(src, last, target, assets_dir)[0]):
+            report["floor"] = "safe_fit (contract issues)"
+            return sf[0], {"assets_dir": assets_dir, "hidden": [], "fallback": "safe_fit"}
+    except Exception:  # noqa: BLE001
+        pass
     report["floor"] = "last_resort"
-    return C.last_resort(src, target), {"assets_dir": assets_dir, "hidden": [], "fallback": "last_resort"}
+    return last, {"assets_dir": assets_dir, "hidden": [], "fallback": "last_resort"}
 
 
 # ----------------------------------------------------------------------------- info
