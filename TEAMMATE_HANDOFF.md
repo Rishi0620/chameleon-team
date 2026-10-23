@@ -199,7 +199,7 @@ Caveat: the composite score is a proxy. Read the caveats at the bottom of `SCORE
 - Keep source styling where the rules are silent: text colour, `font_weight`, `text_align`, `line_height`, `z_index` and `fit` stay as in the source. `letter_spacing` is only ever scaled down when the font shrinks. `corner_radius` scales with its shape. Centre crop stays.
 - No numeric minimum font size; "visible" is judged on structure plus the render. Do not use near-zero boxes.
 - 728x90 with 17 elements (L3) is confirmed in scope; 320x50 and 160x600 are not confirmed. Missing assets (L3 `holiday_watermark`) stay as visible placeholders, not shrunk to nothing.
-- No hard time limit in stage one; reference-machine CPU/RAM limits are still pending.
+- No hard time limit in stage one. Reference machine is an Apple M5 Pro; CPU, RAM and disk limits are not confirmed. Checked: the image runs offline with `--cpus=1 --memory=512m`; the slowest bench case (S12 at 300x600) takes 63 s there (about 42 s native).
 
 ## 12. Git
 
