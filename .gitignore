@@ -21,19 +21,5 @@ venv/
 output/*
 !output/.gitkeep
 
-# Debate workspace: keep sources, docs, fixtures and bench designs; drop renders and run results
-design/**/out/
-design/**/out_*/
-design/**/r2_out/
-design/**/results/
-design/**/sheets/
-design/**/r2_kit/
-design/**/__pycache__/
-design/debate/bench/results/
-design/debate/bench/sheets/
-design/debate/spikes/**/*.png
-design/debate/bench/**/*.png
-!design/debate/bench/assets/**/*.png
-!design/debate/bench/designs/**/*.png
-design/debate/proto/out/
-design/debate/proto/fixtures/out/
+# archived workspace lives on the dev-workspace branch
+design/
