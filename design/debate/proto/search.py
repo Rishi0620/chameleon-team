@@ -799,7 +799,7 @@ def energy(plan, g: Galley, ctx: Ctx, src_cov=None, busy=None):
                 t["hier"] += W["hier"] * max(0.0, math.log(min(1.3, r_src)) - math.log(max(r_tgt, 1e-6)))
     load = chars * f_c * f_c * 0.55 / (ctx.CW * ctx.CH)
     t["copy"] = W["copy"] * max(0.0, load - 0.5)
-    t["slots"] = W["slots"] * max(0, plan.cols - plan.rows)
+    t["slots"] = W["slots"] * (6.0 if ctx.regime == "tall" else 1.0) * max(0, plan.cols - plan.rows)
     if ctx.regime != "strip" and plan.cols > plan.rows:
         # a side column holding only a small mark or fine print reads as an accident off the strip format
         for it in plan.items:
