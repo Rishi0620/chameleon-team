@@ -37,6 +37,9 @@ W = dict(drop=1.6, size=1.0, leg=4.0, copy=3.0, lines=0.12, strip_lines=0.6, bre
          slots=0.06, rows=0.03, trans=0.05, bond=0.15, ratio=0.25, imgord=0.5, fill=0.8, busy=0.6, hier=0.5, tiny=1.2, soft=0.15)
 
 
+NEVER_DROP = False                  # set by the engine: every unit must be kept
+
+
 def band(Wc, Hc):
     r = Wc / Hc
     return "strip" if r >= 4.0 else "wide" if r >= 1.6 else "squareish" if r >= 0.7 else "tall"
@@ -72,6 +75,7 @@ class Ctx:
         self.zi_cap = max(i for i, z in enumerate(ZGRID) if z <= self.z_cap + 1e-9)
         self.rec = max(14.0, 0.035 * max(CW, CH))           # recognisable image: min visible side (px)
         self.memo: dict = {}
+        self.hier_relax = False        # heavily relaxed levels: the type hierarchy is a preference, not a gate
 
 
 # ----------------------------------------------------------------------------- per-unit sizing
@@ -159,6 +163,10 @@ def unit_dims(u: Unit, zi: int, ctx: Ctx):
             ws.append(max(sh["width"] * s * 0.85, T.one_line(lab, f) + 0.6 * fh + 2))
             hs.append(fh)
         w = sum(ws) + u.gap_src * s * (len(ws) - 1)
+        if w > ctx.Wa and NEVER_DROP and w > 0:      # nothing may be dropped: shrink the whole row to the width
+            k = 0.97 * ctx.Wa / w
+            ws, hs, w = [x * k for x in ws], [x * k for x in hs], w * k
+            f, s = max(1, int(f * k)), s * k
         if w <= ctx.Wa and max(hs) <= ctx.Ha:
             d = Dims("fixed", w=w, h=max(hs), f=f, s=s, extra={"ws": ws, "hs": hs})
     elif u.kind == "rigid":
@@ -196,7 +204,7 @@ def bracket_dims(u: Unit, zi, ctx: Ctx):
     """Flex options (outer w, outer h) for a container: min height of its nested galley per width."""
     z = ZGRID[zi]
     pad = bracket_pad(u, z, ctx)
-    optional = sorted([v for v in u.sub.stream if v.rent < INF], key=lambda v: v.rent)
+    optional = [] if NEVER_DROP else sorted([v for v in u.sub.stream if v.rent < INF], key=lambda v: v.rent)
     opts = []
     for k in range(len(optional) + 1):         # riders may be omitted, lowest rent first, never the headline
         drop = optional[:k]
@@ -670,7 +678,7 @@ def best_plan_fixed_z(g: Galley, ctx: Ctx, zi, ox, oy):
     """Nested galley at a fixed type scale: best pattern by energy (riders all kept; relax by
     dropping the lowest-rent riders if nothing fits)."""
     stream = list(g.stream)
-    optional = sorted([u for u in stream if u.rent < INF], key=lambda u: u.rent)
+    optional = [] if NEVER_DROP else sorted([u for u in stream if u.rent < INF], key=lambda u: u.rent)
     for k in range(len(optional) + 1):
         drop = optional[:k]
         kept = [u for u in stream if u not in drop]
@@ -845,7 +853,7 @@ def search(g: Galley, ctx: Ctx, src_cov, must_thr=0.8, top_n=24, deadline=None, 
     stream = list(g.stream)
     if not stream:
         return []
-    must = [u for u in stream if u.rent >= must_thr or (never_drop_text and u.kind == "text")]
+    must = [u for u in stream if NEVER_DROP or u.rent >= must_thr or (never_drop_text and u.kind == "text")]
     optional = sorted([u for u in stream if u not in must], key=lambda u: u.rent)
     if len(optional) <= 7:
         subsets = [list(c) for r in range(len(optional) + 1) for c in itertools.combinations(optional, r)]
@@ -873,11 +881,11 @@ def search(g: Galley, ctx: Ctx, src_cov, must_thr=0.8, top_n=24, deadline=None, 
             plan = make_plan(kept, labels, zi, ctx, ox, oy, dropped=sub)
             # floors can flatten the hierarchy at max z: walk z down a few steps before giving up
             tries = 0
-            while plan is not None and not hierarchy_ok(plan, ctx) and tries < 6 and zi > 0:
+            while plan is not None and not ctx.hier_relax and not hierarchy_ok(plan, ctx) and tries < 6 and zi > 0:
                 zi -= 3
                 tries += 1
                 plan = make_plan(kept, labels, zi, ctx, ox, oy, dropped=sub) if zi >= 0 else None
-            if plan is None or not hierarchy_ok(plan, ctx):
+            if plan is None or (not ctx.hier_relax and not hierarchy_ok(plan, ctx)):
                 continue
             E, terms = energy(plan, g, ctx, src_cov=src_cov)
             plan.energy, plan.terms = E, terms

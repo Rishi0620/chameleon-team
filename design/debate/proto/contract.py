@@ -169,6 +169,8 @@ def _num(v, d=0.0):
 
 
 def hide_el(el, mode="alpha", min_z=0):
+    if mode == "never":
+        return el                       # stage-one rule: nothing is hidden, every element stays visible
     el["opacity"] = 0.0
     if el["type"] == "text":
         if mode == "z_under_bg":
@@ -199,7 +201,8 @@ def repair(source, out, target, assets_dir=None, hide_mode="alpha"):
         el = by.get(s["id"])
         if el is None:
             el = copy.deepcopy(s)
-            el["opacity"] = 0.0
+            if hide_mode != "never":
+                el["opacity"] = 0.0
         for k in FROZEN:
             if k in s:
                 el[k] = s[k]

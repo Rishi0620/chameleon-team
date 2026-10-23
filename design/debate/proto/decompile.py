@@ -29,6 +29,8 @@ GAMMA_DOWN = {"headline": 0.8, "subhead": 0.6, "body": 0.6, "cta_label": 0.5, "b
               "legal": 0.3, "unknown": 0.6}
 # legibility floors in JUDGE pixels (px * min(1, 1024/long side)); moderator: CTA label >= 12
 # aligned with DESIGNER rules.FLOOR_JUDGE (the stricter of rules/critic)
+KEEP_ALL = False                    # set by the engine: never hide an unresolvable asset
+
 FLOOR_JPX = {"headline": 14, "cta_label": 12, "subhead": 11, "body": 11, "badge_label": 9, "legal": 9,
              "unknown": 10}
 
@@ -216,7 +218,7 @@ def decompile(src, assets_dir, depth=0, role_map=None, host=None):
     for e in sorted(els, key=lambda e: e.get("z_index", 0)):
         if (e["type"] in ("image", "shape") and not e.get("group_id") and canvas_cover(e, W0, H0) >= 0.85
                 and not (rest and any(r["type"] != "shape" or eff_alpha(r) > 0.3 for r in rest))):
-            if e["type"] == "image" and any_asset and T.asset_info(assets_dir, e.get("asset_id")) is None:
+            if e["type"] == "image" and any_asset and not KEEP_ALL and T.asset_info(assets_dir, e.get("asset_id")) is None:
                 g.hidden.append(e)
             else:
                 g.background.append(e)
@@ -227,7 +229,7 @@ def decompile(src, assets_dir, depth=0, role_map=None, host=None):
     #    at all (then our assets dir is probably wrong and hiding would wipe the design)
     flow_els = []
     for e in rest:
-        if e["type"] == "image" and any_asset and T.asset_info(assets_dir, e.get("asset_id")) is None:
+        if e["type"] == "image" and any_asset and not KEEP_ALL and T.asset_info(assets_dir, e.get("asset_id")) is None:
             g.hidden.append(e)
         elif e["type"] == "text" and not str(e.get("content", "")).strip():
             g.hidden.append(e)      # empty text: nothing to typeset (kept in place, honest box)

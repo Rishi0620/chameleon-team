@@ -49,12 +49,9 @@ The engine is a pipeline. Each stage has one job.
 - Source-relative tolerances. Use the source's own metric values as the threshold, not absolute numbers.
 - Far-regime exchange rates come from Crello format priors and dev-time VLM pairwise labels. Never use the source as the only objective.
 
-**Hide policy.** `engine.HIDE_MODE` is one of:
-- `alpha` (default). Hidden means `opacity: 0`. Text also gets colour alpha 0, on every `style_runs` colour. Text `opacity` is ignored by the renderer, so this is required.
-- `z_under_bg`. Hidden text gets `z_index = min_z - 1`. Only works with an opaque full-bleed background.
-- `never_text`. Text is never omitted.
+**Hide policy (decided by the organisers, stage one).** Opacity 0 does not count as "dropped" and hidden elements are treated as dishonest. Do not change a hidden element's colour alpha. Every element must stay present, on-canvas and visible; "gracefully drop away" is for the finale add-on only. JSON boxes may overlap when the overlap is intentional (layered graphics, decorative shapes), but unwanted collisions and text on a busy image are penalised.
 
-Open question for the organisers: is opacity 0 accepted as "dropped"? May a hidden element's colour alpha change?
+So `engine.HIDE_MODE` defaults to `never`: nothing is omitted, the legibility floors are relaxed step by step (`engine._run_from` ladder) until everything fits, rules and ribbons are moved rather than hidden, and unresolvable source assets stay visible. The old `alpha`, `z_under_bg` and `never_text` modes remain only for benchmark A/B. Dense designs on tiny strips end up with very small type; that is the honest cost of the rule.
 
 ## 4. File ownership (suggested split)
 
@@ -144,14 +141,15 @@ Current scoreboard (390 cases each, `bench/SCOREBOARD.md`):
 
 | engine | mean | p10 | crashes |
 |---|---|---|---|
-| **proto (merged engine, current)** | **92.9** | 80.9 | 0 |
+| **proto, stage-one never-hide mode (current)** | **89.5** | 69.0 | 0 |
+| proto with hiding (not allowed for stage one) | 93.1 | 81.2 | 0 |
 | optimizer_fixed (proto's ancestor) | 90.4 | 79.9 | 0 |
 | galley | 88.1 | 73.2 | 3 |
 | designer | 86.5 | 69.7 | 0 |
 | perception | 52.3 | 0.0 | 50 |
 | safe_floor | 71.9 | 43.5 | 0 |
 
-**Merge gates for the final engine:** mean ≥ 90.4, p10 ≥ 80, zero crashes, zero hard structural failures. The scoreboard's `unreadable_text` count for the safe floor (936) shows why the fallback must be the best *legible* candidate.
+**Merge gates** were set when hiding was allowed (mean ≥ 90.4, p10 ≥ 80). In never-hide mode the strip band is the weak spot (mean 79, p10 45); beat the current numbers there without hiding anything. Zero crashes and zero hidden elements are hard gates. The scoreboard's `unreadable_text` count for the safe floor (936) shows why the fallback must be the best *legible* candidate.
 
 Caveat: the composite score is a proxy. Read the caveats at the bottom of `SCOREBOARD.md` before quoting a number. Differences of a few points between designed engines are within the noise (rank stability: optimizer_fixed #1 in 90% of re-weightings, all sizes).
 
@@ -196,11 +194,7 @@ Caveat: the composite score is a proxy. Read the caveats at the bottom of `SCORE
 
 ## 11. Organiser questions to ask
 
-1. Is opacity 0 accepted as "dropped"?
-2. May a hidden element's colour alpha change?
-3. May JSON boxes overlap?
-
-Ask these before finalising the hide policy.
+Answered by the organisers: opacity 0 is not accepted as dropping, hidden colour alpha must not be changed, intentional overlaps are fine. Nothing left to ask.
 
 ## 12. Git
 

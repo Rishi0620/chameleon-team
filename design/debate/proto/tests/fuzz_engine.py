@@ -57,6 +57,12 @@ def main(n=60, seed=1):
             hard = [h for h in hard if h.split(":")[0] not in base]      # a broken source may break its own rule
             if hard:
                 raise AssertionError(f"contract: {hard[:2]}")
+            sv = {e["id"]: e for e in src["elements"]}
+            for e in out["elements"]:        # stage one: nothing may be hidden unless the source already was
+                gone = float(e.get("opacity", 1) if e.get("opacity") is not None else 1) <= 0 or str(e.get("color", "")).replace(" ", "").endswith(",0)")
+                was = float(sv[e["id"]].get("opacity", 1) if sv[e["id"]].get("opacity") is not None else 1) <= 0 or str(sv[e["id"]].get("color", "")).replace(" ", "").endswith(",0)")
+                if gone and not was:
+                    raise AssertionError(f"hidden element {e['id']}")
         except Exception:
             bad += 1
             print(f"[{i}] FAIL {W}x{H}\n{traceback.format_exc()[-600:]}")

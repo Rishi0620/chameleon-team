@@ -25,7 +25,7 @@ from . import search as S
 from . import textfit as T
 
 ROOT = Path(__file__).resolve().parents[2]
-HIDE_MODE = os.environ.get("CHAMELEON_HIDE_MODE", "alpha")          # alpha | z_under_bg | never_text
+HIDE_MODE = os.environ.get("CHAMELEON_HIDE_MODE", "never")          # never (stage one) | alpha | z_under_bg | never_text
 DISJOINT_BOXES = os.environ.get("CHAMELEON_DISJOINT", "1") != "0"
 TOP_K = int(os.environ.get("CHAMELEON_TOP_K", "6"))
 USE_HOOKS = os.environ.get("CHAMELEON_HOOKS", "1") != "0"
@@ -118,8 +118,9 @@ def _normalize(src):
 def _run(src, target, assets_dir, report):
     """Search at the first ladder level that yields plans; if the winner is still vetoed (clipped,
     illegible, lost backdrop), escalate to the next relaxation level and keep the less vetoed result."""
+    S.NEVER_DROP = D.KEEP_ALL = (HIDE_MODE == "never")
     best, level = None, 0
-    while level < 5:
+    while level < 11:
         rep = {}
         res = _run_from(src, target, assets_dir, rep, level)
         nveto = len((rep.get("chosen") or {}).get("vetoes") or []) if rep.get("stage") == "ok" else 99
@@ -160,6 +161,15 @@ def _run_from(src, target, assets_dir, report, start_level=0):
     k0 = {"strip": 4, "wide": 5, "squareish": 6, "tall": 8}[regime]
     ladder = [(k0, 1.0, 0.8, False), (k0 + 2, 0.85, 0.8, False), (k0 + 4, 0.72, 0.8, False),
               (k0 + 4, 0.70, 0.95, False), (k0 + 4, 0.70, 0.95, True)]       # last: brand-reminder mode
+    hier_flags = [False] * len(ladder)
+    if HIDE_MODE == "never":
+        # nothing may be dropped: relax the legibility floors step by step (keeping the type hierarchy),
+        # and only when even that fails let the hierarchy go too
+        ladder = [(k0, 1.0, 0.8, False), (k0 + 2, 0.85, 0.8, False), (k0 + 4, 0.72, 0.8, False),
+                  (k0 + 4, 0.60, 0.8, False), (k0 + 4, 0.50, 0.8, False), (k0 + 4, 0.42, 0.8, False),
+                  (k0 + 4, 0.35, 0.8, False), (k0 + 4, 0.28, 0.8, False),
+                  (k0 + 4, 0.50, 0.8, False), (k0 + 4, 0.35, 0.8, False), (k0 + 4, 0.28, 0.8, False)]
+        hier_flags = [False] * 8 + [True] * 3
     for level, (kmax, floor_mult, must_thr, brand) in enumerate(ladder):
         if level < start_level:
             continue
@@ -172,6 +182,8 @@ def _run_from(src, target, assets_dir, report, start_level=0):
             ctx._live = (lx, ly, lw, lh)
             if floor_mult != 1.0:
                 ctx.js = ctx.js / floor_mult       # lower judge-px floors (relaxation)
+                ctx.rec = ctx.rec * min(1.0, floor_mult / 0.7)
+                ctx.hier_relax = hier_flags[level]
             ps = S.search(g, ctx, src_cov, must_thr=must_thr, deadline=deadline + (2.0 if level else 0.0),
                           never_drop_text=(HIDE_MODE == "never_text"), ox=lx, oy=ly)
             for p in ps:
@@ -229,6 +241,8 @@ def _run_from(src, target, assets_dir, report, start_level=0):
         crit = _call(critic, "critique", src, out, info, None, default=None, report=report, tag=f"[{rank}] ") \
             if critic is not None else None
         vetoes = list((crit or {}).get("vetoes") or [])
+        if HIDE_MODE == "never":     # an unresolvable source asset must stay visible: its placeholder is the source's own
+            vetoes = [v for v in vetoes if not _vname(v).startswith("PLACEHOLDER")]
         penalty = float((crit or {}).get("penalty") or 0.0)
         viols = _call(rules, "check", src, out, info, default=[], report=report, tag=f"[{rank}] ") or []
         n_hard = sum(1 for v in viols if _sev(v) == "hard")
@@ -378,7 +392,22 @@ def realize(plan, g, src, target, assets_dir, base):
         cx, cy = (e["x"] + e["width"] / 2) / W0 * W, (e["y"] + e["height"] / 2) / H0 * H
         nx, ny = min(max(cx - w / 2, 0.0), W - w), min(max(cy - h / 2, 0.0), H - h)
         if min(w, h) <= 8 and any(_overlap((nx, ny, nx + w, ny + h), o, -1) for o in occupied):
-            continue                    # a rule or divider that would strike through content is hidden
+            spot = None                 # a rule or divider must not strike through content: nearest free spot
+            for step in range(1, 60):
+                for dy, dx in ((step, 0), (-step, 0), (0, step), (0, -step)):
+                    cy2 = ny + dy * 0.01 * H if dy else ny
+                    cx2 = nx + dx * 0.01 * W if dx else nx
+                    cy2, cx2 = min(max(cy2, 0.0), H - h), min(max(cx2, 0.0), W - w)
+                    if not any(_overlap((cx2, cy2, cx2 + w, cy2 + h), o, -1) for o in occupied):
+                        spot = (cx2, cy2)
+                        break
+                if spot:
+                    break
+            if spot is None:
+                if HIDE_MODE != "never":
+                    continue
+            else:
+                nx, ny = spot
         o.update(x=nx, y=ny, width=max(1.0, w), height=max(1.0, h))
         placed.add(e["id"])
     # everything else: hidden (dropped units, hidden assets, empty text, unplaced furniture)
@@ -533,24 +562,40 @@ def _place_furniture(u, plan, ctx, out, occupied, W, H):
     corners = [u.corner, u.corner[0] + ("R" if u.corner[1] == "L" else "L"),
                ("B" if u.corner[0] == "T" else "T") + u.corner[1]]
     rot = max((abs(float(e.get("rotation", 0) or 0)) for e in u.els), default=0.0)
-    for shrink in (1.0, 0.8, 0.64):
-        bw, bh = d.extra.get("w_pref", d.w) * shrink, d.h * shrink
-        if bw > 0.45 * W or bh > 0.45 * H:
-            continue
-        if u.kind == "rigid":
-            fs = [float(e["font_size"]) * d.s * shrink for e in u.els if e["type"] == "text"]
-        else:
-            fs = [d.f * shrink]
-        if fs and min(int(f) for f in fs) * ctx.js < S.FLOOR_JPX["badge_label"]:
-            continue                                  # furniture text below the legibility floor: hide it instead
-        rx0, ry0, rx1, ry1 = T.rot_aabb(0, 0, bw, bh, rot)
-        aw, ah = rx1 - rx0, ry1 - ry0
-        for cn in corners:
-            ax = m if cn[1] == "L" else W - m - aw
-            ay = m if cn[0] == "T" else H - m - ah
-            rect = (ax, ay, ax + aw, ay + ah)
-            if ax < 0 or ay < 0 or any(_overlap(rect, o, 4) for o in occupied):
+    never = HIDE_MODE == "never"
+    shrinks = (1.0, 0.8, 0.64, 0.5, 0.4, 0.3) if never else (1.0, 0.8, 0.64)
+    for legible, overlap_ok in ((True, False), (False, False), (False, True)) if never else ((True, False),):
+        for shrink in shrinks:
+            bw, bh = d.extra.get("w_pref", d.w) * shrink, d.h * shrink
+            if bw > 0.45 * W or bh > 0.45 * H:
                 continue
+            if legible:
+                if u.kind == "rigid":
+                    fs = [float(e["font_size"]) * d.s * shrink for e in u.els if e["type"] == "text"]
+                else:
+                    fs = [d.f * shrink]
+                if fs and min(int(f) for f in fs) * ctx.js < S.FLOOR_JPX["badge_label"]:
+                    continue                      # furniture text below the legibility floor: try smaller placements later
+            rx0, ry0, rx1, ry1 = T.rot_aabb(0, 0, bw, bh, rot)
+            aw, ah = rx1 - rx0, ry1 - ry0
+            best = None
+            for cn in corners:
+                ax = m if cn[1] == "L" else W - m - aw
+                ay = m if cn[0] == "T" else H - m - ah
+                rect = (ax, ay, ax + aw, ay + ah)
+                if ax < 0 or ay < 0:
+                    continue
+                hits = sum(max(0.0, min(rect[2], o[2]) - max(rect[0], o[0])) * max(0.0, min(rect[3], o[3]) - max(rect[1], o[1]))
+                           for o in occupied if _overlap(rect, o, 4 if not overlap_ok else -1))
+                if hits == 0 or overlap_ok:
+                    if best is None or hits < best[0]:
+                        best = (hits, rect, aw, ah)
+                    if hits == 0:
+                        break
+            if best is None:
+                continue
+            _, rect, aw, ah = best
+            ax, ay = rect[0], rect[1]
             bx, by = ax + (aw - bw) / 2, ay + (ah - bh) / 2          # unrotated box centred in the AABB
             if u.kind == "pill":
                 _pill(u, bx, by, bw, bh, max(1, int(d.f * shrink)), out)
