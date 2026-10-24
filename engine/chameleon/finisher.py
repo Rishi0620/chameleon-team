@@ -358,6 +358,7 @@ class Ctx:
                     groups.setdefault(e["group_id"], []).append(e["id"])
         self.group_of = {i: g for g, ids in groups.items() for i in ids}
         self.byid_src = {e["id"]: e for e in source["elements"]}
+        self.layered = set(info.get("layered") or [])      # fine-print band: obstacles, never movers
         self.src_like = source
 
     def _type(self, i):
@@ -801,7 +802,7 @@ def _units_in_strip(ctx, doc):
     """Columns of a strip = x-clusters of flow ink (groups/hosts travel with their riders)."""
     items = []
     for e in doc["elements"]:
-        if not ctx.is_flow(e) or ctx.roles.get(e["id"]) in ("furniture",):
+        if not ctx.is_flow(e) or ctx.roles.get(e["id"]) in ("furniture",) or e["id"] in ctx.layered:
             continue
         items.append((e, ink(e, ctx.assets)))
     items.sort(key=lambda p: p[1][0])
@@ -842,7 +843,7 @@ def p5_strip_unit(ctx, doc):
         y += (r[3] - r[1]) + gap
     # shared midline: logo / hero / pill columns are optically centred on H/2
     for e in doc["elements"]:
-        if not ctx.is_flow(e) or e in col or ctx.roles.get(e["id"]) in ("furniture", "badge_shape", "badge_label"):
+        if not ctx.is_flow(e) or e in col or ctx.roles.get(e["id"]) in ("furniture", "badge_shape", "badge_label")                 or e["id"] in ctx.layered:
             continue
         if ctx.host_of.get(e["id"]):
             continue
@@ -919,7 +920,7 @@ def p6_margins(ctx, doc):
 def _rows(ctx, doc):
     items = []
     for e in doc["elements"]:
-        if not ctx.is_flow(e) or ctx.roles.get(e["id"]) == "furniture" or ctx.host_of.get(e["id"]):
+        if not ctx.is_flow(e) or ctx.roles.get(e["id"]) == "furniture" or ctx.host_of.get(e["id"])                 or e["id"] in ctx.layered:
             continue
         r = ink(e, ctx.assets)
         # corner-pinned small chips (badges) are furniture-like: not part of the stack

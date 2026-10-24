@@ -97,3 +97,46 @@ hosted model, bake its weights into the image during the build step.
 - `chameleon_design_schema_v0.9.json` — full input/output field spec
 - `RULES.md` — what's checked, what's graded, and what disqualifies a submission
 - FAQ — for anything not covered above
+
+## Design reasoning and trade-offs
+
+`engine/resize.py` calls the `engine/chameleon/` package (see `ENGINE.md` for the pipeline). The engine has no
+templates: it reads the design, decides what each element is for, and lays it out again for the new canvas.
+
+**How hierarchy is inferred.** Roles come from features only, never from ids. The text with the largest perceived
+size is the headline; small, low or long text is legal; bold imperative or saturated short text is the CTA; a
+picture that is small, wide or sparse and near an edge is the logo, the largest picture is the hero. Shapes that hold
+text become pills, cards or panels. Reading order comes from a recursive cut on the visible ink, which also gives the
+source's own structure (rows, columns, stacks).
+
+**How candidates are generated and ranked.** A candidate is a grouping of the reading-order units into rows, columns
+and stacks plus one shared type scale, found by bisection against the renderer's own text wrapping. Each role scales
+with its own elasticity and has a legibility floor. Candidates are scored on size, legibility, line breaks,
+hierarchy, image-to-type ratio and closeness to the source structure (which dominates near the source canvas). The
+best few are typeset (balanced wraps, no widows, optical centring, consistent margins), rendered, and checked by a
+pixel critic and a rule set. The pick is lexicographic: hard vetoes, then rule violations, then energy. Decorations
+and stickers are placed after the content so they never decide the layout.
+
+**How collisions are resolved.** Boxes are kept disjoint by construction. Rules and dividers slide to the nearest free
+spot, a sticker goes to its source corner, the mirrored corner or the hero's shoulder, and a sticker inside a card
+stays on that card. Text on a photo is judged against the exact centre-crop the renderer draws; calm regions are
+preferred and busy placements are penalised. Intentional overlap (a sticker on a product, a label on its pill) is
+kept.
+
+**Dense small formats.** When a design cannot meet its legibility floors, the floors are relaxed step by step, fine
+print first (badges, legal) and the headline last, so the message keeps its size. A type-order repair then keeps the
+source's order of importance (a text that was smaller in the source is never drawn bigger; stickers grow, other
+texts step down). If even the relaxed search finds no plan (320x50 with a long design), the minor units are carved
+out of the flow into one fine-print band along the bottom edge, and the rest is laid out above it.
+
+**Deliberate trade-offs.**
+- *Never hide.* Nothing is dropped, faded or shrunk to a speck: every source element stays present, visible and
+  on-canvas, and a missing asset stays a visible placeholder. The cost is very small type on dense strips.
+- *Floors relaxed stepwise, not abandoned.* Each level lowers the floors a little and keeps the type hierarchy until
+  the last levels, so a result is as legible as the content allows.
+- *Source styling preserved.* Colour, weight, alignment, line height, z-order and fit are never changed;
+  letter-spacing only scales down with the font; images keep their aspect and centre crop. Because text colour is
+  fixed, text over a photo is moved to calm, high-contrast regions rather than recoloured or backed by an added
+  scrim; where a crop is busy everywhere (a meadow strip) the engine keeps the least bad spot.
+- *The source is a fixed point.* A target equal to the source canvas returns the source layout, uniformly scaled.
+- *Runs offline, one process.* No network or model weights; slower cases take tens of seconds on one CPU.

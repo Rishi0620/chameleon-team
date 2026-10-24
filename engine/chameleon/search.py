@@ -38,6 +38,10 @@ W = dict(drop=1.6, size=1.0, leg=4.0, copy=3.0, lines=0.12, strip_lines=0.6, bre
 
 
 NEVER_DROP = False                  # set by the engine: every unit must be kept
+RIGID_MIN_FONT = 4.0                # px: smallest label of a sticker / rigid group (when the area allows it)
+# how fast each role's legibility floor relaxes down the ladder (floor x relax**exp): minor text first
+RELAX_EXP = {"headline": 0.5, "cta_label": 0.8, "subhead": 0.9, "body": 0.9, "unknown": 1.0, "badge_label": 1.1,
+             "legal": 1.1}
 
 
 def band(Wc, Hc):
@@ -76,6 +80,14 @@ class Ctx:
         self.rec = max(14.0, 0.035 * max(CW, CH))           # recognisable image: min visible side (px)
         self.memo: dict = {}
         self.hier_relax = False        # heavily relaxed levels: the type hierarchy is a preference, not a gate
+        self.relax = 1.0               # floor multiplier of the current ladder level (1 = full legibility floors)
+        self.uniform = False           # deepest levels: every role relaxes alike
+
+    def rel(self, role):
+        """Floor multiplier of one text role at this level: fine print gives way first, the headline last."""
+        if self.relax >= 1.0:
+            return 1.0
+        return self.relax if self.uniform else self.relax ** RELAX_EXP.get(role, 1.0)
 
 
 # ----------------------------------------------------------------------------- per-unit sizing
@@ -92,7 +104,7 @@ def text_role(u: Unit):
 def font_at(el, role, z, ctx):
     g = (GAMMA_UP if z >= 1 else GAMMA_DOWN).get(role, 0.7)
     f = int(round(float(el.get("font_size", 12)) * z ** g))
-    floor = int(math.ceil(FLOOR_JPX.get(role, 10) / ctx.js))
+    floor = int(math.ceil(FLOOR_JPX.get(role, 10) * ctx.rel(role) / ctx.js))
     floor = min(floor, int(float(el.get("font_size", 12)) * max(1.0, ctx.z_cap)))   # never above source*cap
     return max(1, f, floor)
 
@@ -174,7 +186,8 @@ def unit_dims(u: Unit, zi: int, ctx: Ctx):
         labels = [e for e in u.els if e["type"] == "text"]
         s = z
         for e in labels:
-            s = max(s, (FLOOR_JPX["unknown"] / ctx.js) / float(e["font_size"]))
+            s = max(s, (FLOOR_JPX["unknown"] * ctx.rel("unknown") / ctx.js) / float(e["font_size"]))
+            s = max(s, RIGID_MIN_FONT / float(e["font_size"]))      # a sticker never shrinks to a speck
         s = min(s, ctx.Wa / max(1.0, x1 - x0), ctx.Ha / max(1.0, y1 - y0))
         if labels and min(int(float(e["font_size"]) * s) for e in labels) < 1:
             d = None
@@ -196,8 +209,10 @@ def bracket_pad(u: Unit, z, ctx):
 
 
 def sub_ctx(u: Unit, cw, ch, ctx: Ctx, pad):
-    return Ctx(u.sub, cw, ch, ctx.CW, ctx.CH, ctx.W0, ctx.H0, ctx.assets_dir, ctx.disjoint, ctx.kmax,
-               pad=pad, top=False)
+    c = Ctx(u.sub, cw, ch, ctx.CW, ctx.CH, ctx.W0, ctx.H0, ctx.assets_dir, ctx.disjoint, ctx.kmax,
+            pad=pad, top=False)
+    c.relax, c.uniform, c.hier_relax, c.rec = ctx.relax, ctx.uniform, ctx.hier_relax, ctx.rec   # same ladder level
+    return c
 
 
 def bracket_dims(u: Unit, zi, ctx: Ctx):
@@ -769,7 +784,7 @@ def energy(plan, g: Galley, ctx: Ctx, src_cov=None, busy=None):
             s = it.f / float(el["font_size"])
             chars += len(str(el.get("content", "")))
             role = text_role(u)
-            floor = FLOOR_JPX.get(role, 10)
+            floor = FLOOR_JPX.get(role, 10) * ctx.rel(role)
             comf = 1.35 * floor
             jpx = it.f * ctx.js
             t["leg"] += W["leg"] * imp * max(0.0, (comf - jpx) / comf) ** 2
@@ -790,7 +805,7 @@ def energy(plan, g: Galley, ctx: Ctx, src_cov=None, busy=None):
             chars += len(str(lab.get("content", "")))
             t["size"] -= W["size"] * imp * utility(it.f / float(lab["font_size"]), ctx)
             jpx = it.f * ctx.js
-            comf = 1.35 * FLOOR_JPX.get(text_role(u), 10)
+            comf = 1.35 * FLOOR_JPX.get(text_role(u), 10) * ctx.rel(text_role(u))
             t["leg"] += W["leg"] * imp * max(0.0, (comf - jpx) / comf) ** 2
         elif u.kind == "rigid":
             t["size"] -= W["size"] * imp * utility(it.s, ctx)
