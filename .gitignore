@@ -20,6 +20,3 @@ venv/
 # Generated run artifacts
 output/*
 !output/.gitkeep
-
-# archived workspace lives on the dev-workspace branch
-design/

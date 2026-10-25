@@ -356,27 +356,3 @@ def _calm_rects(m, k, thr, W, H):
     for rg in regs:
         uniq.setdefault(rg[:4], rg)
     return sorted(uniq.values(), key=lambda t: -t[4]), share
-
-
-if __name__ == "__main__":   # smoke test: python design/debate/proto/overlay.py  (from repo root)
-    import json
-    import sys
-    import time
-    sys.path.insert(0, str(_REPO))
-    fx = Path(__file__).resolve().parent / "fixtures"
-    try:   # our crop emulation must equal the renderer's own pixels
-        from renderer.converter.assets import load_asset_image
-        for fit, (w, h) in (("cover", (728, 90)), ("cover", (1080, 1920)), ("contain", (300, 250))):
-            ref = np.asarray(load_asset_image(str(fx / "assets"), "r2_photo_landscape.png", w, h, fit), np.int16)
-            ours = np.asarray(_render_bg(fx / "assets" / "r2_photo_landscape.png", fit, w, h), np.int16)
-            print(f"renderer-equivalence {fit} {w}x{h}: max |diff| = {int(np.abs(ref - ours).max())}")
-    except Exception as ex:  # noqa: BLE001
-        print("renderer-equivalence check skipped:", ex)
-    for name in sys.argv[1:] or ["inventor_F1.json", "inventor_U.json", "inventor_F2.json"]:
-        task = json.loads((fx / name).read_text())
-        for W, H in [(1600, 400), (728, 90), (1080, 1920), (1080, 1350), (300, 250)]:
-            t = time.perf_counter()
-            a = analyze(task["source"], {"width": W, "height": H}, None, task.get("assets_dir", "brand_kit/assets"))
-            dt = (time.perf_counter() - t) * 1000
-            print(f"{name} {W}x{H}: {a['status']:9s} tol={a['tolerance']} thr={a['threshold']} "
-                  f"calm={a['calm_share']:.0%} {dt:5.1f}ms  {a['regions'][:3]}")
