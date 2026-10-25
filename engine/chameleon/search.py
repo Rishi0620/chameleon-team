@@ -24,6 +24,7 @@ hierarchy incl. cross-type (logo ink <= 0.8 x headline ink).
 from __future__ import annotations
 
 import itertools
+import os
 import math
 import time
 from dataclasses import dataclass, field
@@ -152,6 +153,11 @@ def unit_dims(u: Unit, zi: int, ctx: Ctx):
         s_rec = ctx.rec / min(vw, vh)
         s_min = max(0.5 * z, s_rec)
         s_fit = min(ctx.Wa / el["width"], ctx.Ha / el["height"])
+        if u.role == "logo" and ctx.regime == "tall" and os.environ.get("CHAMELEON_LOGO_FLOOR") == "1":   # off: costs score on some portraits
+            # brand presence: a mark is never a speck on a portrait canvas (about a third of the width, <= 10% of the height)
+            s_brand = min(0.26 * ctx.Wa / vw, 0.07 * ctx.Ha / vh)
+            if s_brand <= s_fit:
+                s_min = max(s_min, s_brand)
         if s_min <= s_fit + 1e-9:
             w, h = el["width"] * s_min, el["height"] * s_min
             if not ctx.disjoint:
@@ -174,13 +180,26 @@ def unit_dims(u: Unit, zi: int, ctx: Ctx):
             fh = sh["height"] * s
             ws.append(max(sh["width"] * s * 0.85, T.one_line(lab, f) + 0.6 * fh + 2))
             hs.append(fh)
-        w = sum(ws) + u.gap_src * s * (len(ws) - 1)
-        if w > ctx.Wa and NEVER_DROP and w > 0:      # nothing may be dropped: shrink the whole row to the width
+        gap = u.gap_src * s
+        n = len(ws)
+        # badges wrap into as few rows as keep them at full size (a narrow canvas gets two or three tidy rows
+        # instead of one row of specks); only when even that is too wide are they shrunk
+        for nrows in range(1, n + 1):
+            if nrows > 1 and ctx.regime in ("strip", "wide"):
+                break                                    # wide canvases keep one row (and shrink it if need be)
+            per = -(-n // nrows)
+            rows = [list(range(i, min(n, i + per))) for i in range(0, n, per)]
+            w = max(sum(ws[i] for i in r) + gap * (len(r) - 1) for r in rows)
+            if w <= ctx.Wa or nrows == n:
+                break
+        if w > ctx.Wa and NEVER_DROP and w > 0:      # nothing may be dropped: shrink the rows to the width
             k = 0.97 * ctx.Wa / w
-            ws, hs, w = [x * k for x in ws], [x * k for x in hs], w * k
+            ws, hs, w, gap = [x * k for x in ws], [x * k for x in hs], w * k, gap * k
             f, s = max(1, int(f * k)), s * k
-        if w <= ctx.Wa and max(hs) <= ctx.Ha:
-            d = Dims("fixed", w=w, h=max(hs), f=f, s=s, extra={"ws": ws, "hs": hs})
+        rh = [max(hs[i] for i in r) for r in rows]
+        h = sum(rh) + 0.6 * gap * (len(rows) - 1)
+        if w <= ctx.Wa and h <= ctx.Ha:
+            d = Dims("fixed", w=w, h=h, f=f, s=s, extra={"ws": ws, "hs": hs, "rows": rows, "rh": rh, "gap": gap})
     elif u.kind == "rigid":
         x0, y0, x1, y1 = u.box
         labels = [e for e in u.els if e["type"] == "text"]
@@ -822,13 +841,22 @@ def energy(plan, g: Galley, ctx: Ctx, src_cov=None, busy=None):
                 t["hier"] += W["hier"] * max(0.0, math.log(min(1.3, r_src)) - math.log(max(r_tgt, 1e-6)))
     load = chars * f_c * f_c * 0.55 / (ctx.CW * ctx.CH)
     t["copy"] = W["copy"] * max(0.0, load - 0.5)
-    t["slots"] = W["slots"] * (6.0 if ctx.regime == "tall" else 1.0) * max(0, plan.cols - plan.rows)
+    t["slots"] = W["slots"] * {"tall": 6.0, "squareish": 4.0}.get(ctx.regime, 1.0) * max(0, plan.cols - plan.rows)
     if ctx.regime != "strip" and plan.cols > plan.rows:
         # a side column holding only a small mark or fine print reads as an accident off the strip format
         for it in plan.items:
             u = it.unit
             if getattr(it, "alone_in_col", False) and (u.role == "logo" or text_role(u) == "legal"):
                 t["tiny"] += W["tiny"]
+            elif getattr(it, "alone_in_col", False) and u.role == "cta" and ctx.regime in ("squareish", "tall"):
+                t["tiny"] += 1.5 * W["tiny"]            # a call to action stays with the message, not off in its own column
+    if ctx.regime in ("squareish", "tall"):
+        # fine print runs full width on its own line: never squeezed beside another unit (L3 at 1080x1080)
+        for it in plan.items:
+            if it.unit.kind == "text" and text_role(it.unit) == "legal":
+                if any(o is not it and min(o.y + o.h, it.y + it.h) - max(o.y, it.y) > 0.3 * min(o.h, it.h)
+                       for o in plan.items):
+                    t["tiny"] += 1.5 * W["tiny"]
     t["rows"] = W["rows"] * max(0, plan.rows - 1)
     src = {(a.name, b.name): l for a, b, l in zip(g.stream, g.stream[1:], g.labels)}
     d_src = abs(math.log(ctx.W / g.W0)) + abs(math.log(ctx.H / g.H0))

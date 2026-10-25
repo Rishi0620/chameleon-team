@@ -32,6 +32,7 @@ DISJOINT_BOXES = os.environ.get("CHAMELEON_DISJOINT", "1") != "0"
 TOP_K = int(os.environ.get("CHAMELEON_TOP_K", "6"))
 USE_HOOKS = os.environ.get("CHAMELEON_HOOKS", "1") != "0"
 LAYERING = os.environ.get("CHAMELEON_LAYERING", "1") != "0"
+NUDGE = os.environ.get("CHAMELEON_NUDGE", "0") != "0"     # off: measured no proxy gain (see README)
 LAYER_MARGIN = 0.02
 PATIENCE = 1                   # escalation stops after this many levels without fewer vetoes
 N_LEVELS = 15                  # relaxation ladder length (_run_from)
@@ -343,6 +344,7 @@ def _run_from(src, target, assets_dir, report, start_level=0, carve=False):
                     rec["finisher_reverted"] = h2[:2]
         out = _dodge_rules(out, info, assets_dir)
         out = _hier_fix(src, out, info, target, assets_dir)
+        out = _nudge_text(src, out, info, target, assets_dir, overlay, base)
         crit = _call(critic, "critique", src, out, info, None, default=None, report=report, tag=f"[{rank}] ") \
             if critic is not None else None
         vetoes = list((crit or {}).get("vetoes") or [])
@@ -428,6 +430,139 @@ def _dodge_rules(out, info, assets_dir):
     except Exception:  # noqa: BLE001
         pass
     return out
+
+
+def _rel_lum(color):
+    import re
+    m = re.match(r"rgba?\(([^)]*)\)", str(color or "").replace(" ", ""))
+    try:
+        r, g, b = [float(v) / 255.0 for v in m.group(1).split(",")[:3]]
+    except (AttributeError, ValueError):
+        return None
+    f = lambda c: c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4  # noqa: E731
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+
+
+def _nudge_text(src, out, info, target, assets_dir, overlay, base):
+    """Text colour and the crop are fixed, so on a photo the only lever is where the text sits: slide each free
+    text block (never the pills' labels) to the nearby spot with the best contrast and the least busy ground,
+    keeping it on the canvas and clear of every other element's ink."""
+    if overlay is None or not NUDGE or not hasattr(overlay, "ground"):
+        return out
+    try:
+        gr = overlay.ground(src, target, base, assets_dir)
+        if gr is None:
+            return out
+        W, H = target["width"], target["height"]
+        res = copy.deepcopy(out)
+        els = {e["id"]: e for e in res["elements"]}
+        riders = {r for rs in (info.get("containers") or {}).values() for r in rs}
+        roles = info.get("roles", {})
+        layered = set(info.get("layered") or [])
+        bg = info.get("bg_id")
+        moved = False
+        order = sorted((e for e in res["elements"] if e["type"] == "text" and C.visible(e)
+                        and e["id"] not in riders and e["id"] not in layered
+                        and roles.get(e["id"]) in ("headline", "subhead", "body", "legal")),
+                       key=lambda e: {"headline": 0, "subhead": 1}.get(roles.get(e["id"]), 2))
+        items = []
+        for e in order:
+            lum = _rel_lum(e.get("color"))
+            if lum is not None:
+                items.append((e, lum, T.ink_rect(e, assets_dir), 2.0 if roles.get(e["id"]) == "headline" else 1.0))
+        if not items:
+            return out
+        movers = {id(i[0]) for i in items}
+        others = []
+        for o in res["elements"]:
+            if id(o) in movers or o["id"] == bg or not C.visible(o) or roles.get(o["id"]) in ("background", "decoration", "panel"):
+                continue
+            try:
+                others.append(T.ink_rect(o, assets_dir))
+            except Exception:  # noqa: BLE001
+                others.append((o["x"], o["y"], o["x"] + o["width"], o["y"] + o["height"]))
+        # the text blocks move together (their alignment with each other is part of the design)
+        def total(dx, dy):
+            return sum(w * overlay.text_cost(gr, (r[0] + dx, r[1] + dy, r[2] + dx, r[3] + dy), lum) for _, lum, r, w in items)
+        cur = total(0.0, 0.0)
+        best = (cur, 0.0, 0.0)
+        sx, sy = max(2.0, W * 0.02), max(2.0, H * 0.02)
+        for i in range(-12, 13):
+            for j in range(-12, 13):
+                dx, dy = i * sx, j * sy
+                ok = True
+                for e, _, r, _ in items:
+                    nb = (r[0] + dx, r[1] + dy, r[2] + dx, r[3] + dy)
+                    if (e["x"] + dx < 0 or e["y"] + dy < 0 or e["x"] + e["width"] + dx > W or e["y"] + e["height"] + dy > H
+                            or any(_overlap(nb, o, 1.0) for o in others)):
+                        ok = False
+                        break
+                if ok:
+                    c = total(dx, dy) + 0.02 * (abs(i) + abs(j))
+                    if c < best[0]:
+                        best = (c, dx, dy)
+        if not (cur > 2.0 * sum(i[3] for i in items) and best[0] < 0.8 * cur and (best[1] or best[2])):
+            # the group has nowhere better to go: the headline alone may still climb or sink (same x, so the
+            # alignment with the other blocks is kept) into a calmer, lighter band
+            e0, lum0, r0, _ = items[0]
+            if roles.get(e0["id"]) == "headline":
+                c0 = overlay.text_cost(gr, r0, lum0)
+                pick = (c0, 0.0)
+                for j in range(-20, 21):
+                    dy = j * sy
+                    nb = (r0[0], r0[1] + dy, r0[2], r0[3] + dy)
+                    if e0["y"] + dy < 0 or e0["y"] + e0["height"] + dy > H or any(_overlap(nb, o, 1.0) for o in others)                             or any(_overlap(nb, o[2], 1.0) for o in items[1:]):
+                        continue
+                    c = overlay.text_cost(gr, nb, lum0) + 0.02 * abs(j)
+                    if c < pick[0]:
+                        pick = (c, dy)
+                if c0 > 2.0 and pick[0] < 0.75 * c0 and pick[1]:
+                    e0["y"] = round(e0["y"] + pick[1], 2)
+                    moved = True
+        if not moved:
+            # still on a poor ground: the headline may take a smaller size in a calm region (a band of sky) of
+            # the crop, if it stays legible there and the move clearly improves contrast and calm
+            e0, lum0, r0, _ = items[0]
+            c0 = overlay.text_cost(gr, r0, lum0)
+            a = overlay.analyze(src, target, base, assets_dir)
+            if roles.get(e0["id"]) == "headline" and c0 > 2.0 and a.get("status") == "ok":
+                f0 = int(e0["font_size"])
+                f_min = max(int(math.ceil(14 / T.judge_scale(W, H))), int(0.6 * f0))
+                pick = None
+                for (rx, ry, rw, rh, _sc) in (a.get("regions") or [])[:4]:
+                    for f in range(f0, f_min - 1, -1):
+                        for k in (1, 2, 3):
+                            w, h = T.W_k(e0, f, k) + 2, T.text_h(e0, f, k)
+                            if w > rw or h > rh:
+                                continue
+                            cx = min(max(e0["x"] + e0["width"] / 2, rx + w / 2), rx + rw - w / 2)
+                            x, y = cx - w / 2, ry + (rh - h) / 2
+                            old = e0["height"]
+                            probe = dict(e0, x=x, y=y, width=w, height=h, font_size=f)
+                            nb = T.ink_rect(probe, assets_dir)
+                            if any(_overlap(nb, o, 1.0) for o in others) or any(_overlap(nb, i[2], 1.0) for i in items[1:]):
+                                continue
+                            c = overlay.text_cost(gr, nb, lum0)
+                            if c < 0.6 * c0 and (pick is None or (f, -c) > (pick[0], -pick[1])):
+                                pick = (f, c, x, y, w, h)
+                if pick:
+                    f, c, x, y, w, h = pick
+                    e0.update(font_size=f, x=round(x, 2), y=round(y, 2), width=round(w, 2), height=round(h, 2))
+                    moved = True
+        if cur > 2.0 * sum(i[3] for i in items) and best[0] < 0.8 * cur and (best[1] or best[2]):   # only a clearly bad ground, a clearly better one
+            for e, _, _, _ in items:
+                e["x"], e["y"] = round(e["x"] + best[1], 2), round(e["y"] + best[2], 2)
+            moved = True
+        if not moved:
+            return out
+        res = C.repair(src, res, target, assets_dir, HIDE_MODE)
+        hard, _ = C.validate(src, res, target, assets_dir)
+        if hard:
+            return out
+        info["ink"] = _ink_map(res, assets_dir)
+        return res
+    except Exception:  # noqa: BLE001
+        return out
 
 
 def _hier_fix(src, out, info, target, assets_dir):
@@ -653,12 +788,17 @@ def _realize_item(it, ctx, out, placed, hidden, occupied, assets_dir):
         occupied.append((it.x, it.y, it.x + it.w, it.y + it.h))
     elif u.kind == "chips":
         ws, hs = it.extra.get("ws", []), it.extra.get("hs", [])
-        gap = u.gap_src * it.s
-        total = sum(ws) + gap * (len(ws) - 1)
-        x = it.x + max(0.0, (it.w - total) / 2)
-        for p, w, h in zip(u.members, ws, hs):
-            _pill(p, x, it.y + (it.h - h) / 2, w, h, it.f, out)
-            x += w + gap
+        gap = it.extra.get("gap", u.gap_src * it.s)
+        rows = it.extra.get("rows") or [list(range(len(ws)))]
+        rh = it.extra.get("rh") or [max(hs)]
+        y = it.y + max(0.0, (it.h - sum(rh) - 0.6 * gap * (len(rows) - 1)) / 2)
+        for r, hrow in zip(rows, rh):
+            total = sum(ws[i] for i in r) + gap * (len(r) - 1)
+            x = it.x + max(0.0, (it.w - total) / 2)
+            for i in r:
+                _pill(u.members[i], x, y + (hrow - hs[i]) / 2, ws[i], hs[i], it.f, out)
+                x += ws[i] + gap
+            y += hrow + 0.6 * gap
         placed.update(e["id"] for e in u.els)
         occupied.append((it.x, it.y, it.x + it.w, it.y + it.h))
     elif u.kind == "rigid":
@@ -792,10 +932,17 @@ def _place_furniture(u, plan, ctx, out, occupied, W, H, ox=0.0, oy=0.0):
                 _pill(u, bx, by, bw, bh, max(1, int(d.f * shrink)), out)
             elif u.kind == "chips":
                 f = max(1, int(d.f * shrink))
-                x = bx
-                for p, w, h in zip(u.members, d.extra["ws"], d.extra["hs"]):
-                    _pill(p, x, by + (bh - h * shrink) / 2, w * shrink, h * shrink, f, out)
-                    x += w * shrink + u.gap_src * d.s * shrink
+                ws, hs = d.extra["ws"], d.extra["hs"]
+                gap = d.extra.get("gap", u.gap_src * d.s) * shrink
+                rows = d.extra.get("rows") or [list(range(len(ws)))]
+                rh = d.extra.get("rh") or [max(hs)]
+                y = by
+                for r, hrow in zip(rows, rh):
+                    x = bx + max(0.0, (bw - (sum(ws[i] for i in r) * shrink + gap * (len(r) - 1))) / 2)
+                    for i in r:
+                        _pill(u.members[i], x, y + (hrow - hs[i]) * shrink / 2, ws[i] * shrink, hs[i] * shrink, f, out)
+                        x += ws[i] * shrink + gap
+                    y += hrow * shrink + 0.6 * gap
             else:
                 _rigid(u, bx, by, d.s * shrink, out)
             occupied.append(rect)
