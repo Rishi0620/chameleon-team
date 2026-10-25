@@ -343,9 +343,9 @@ def _run_from(src, target, assets_dir, report, start_level=0, carve=False):
                     rec["finished"] = True
                 else:
                     rec["finisher_reverted"] = h2[:2]
-        out = _dodge_rules(out, info, assets_dir)
         out = _hier_fix(src, out, info, target, assets_dir)
         out = _nudge_text(src, out, info, target, assets_dir, overlay, base)
+        out = _dodge_rules(out, info, assets_dir)          # last: nothing may move text after the rules settle
         crit = _call(critic, "critique", src, out, info, None, default=None, report=report, tag=f"[{rank}] ") \
             if critic is not None else None
         vetoes = list((crit or {}).get("vetoes") or [])
@@ -406,7 +406,7 @@ def _dodge_rules(out, info, assets_dir):
             def aabb(nx, ny, t=t, w=w, h=h, rot=rot):
                 return T.rot_aabb(nx, ny, w, h, rot)
 
-            if not any(_overlap(aabb(x, y), o, 0.5) for o in solid):
+            if not any(_overlap(aabb(x, y), o, 3.0) for o in solid):
                 continue
             r0 = aabb(x, y)
             horiz = (r0[2] - r0[0]) >= (r0[3] - r0[1])
@@ -417,13 +417,30 @@ def _dodge_rules(out, info, assets_dir):
                     rr = aabb(nx, ny)
                     if rr[0] < 0 or rr[1] < 0 or rr[2] > W or rr[3] > H:
                         continue
-                    if not any(_overlap(rr, o, 0.5) for o in solid):
+                    if not any(_overlap(rr, o, 3.0) for o in solid):
                         spot = (nx, ny)
                         break
                 if spot:
                     break
+            size = (w, h)
+            if spot is None:                         # no free spot at full length: shorten the rule to fit a gap
+                grid = sorted(((i * 0.02 * W) ** 2 + (j * 0.02 * H) ** 2, i, j)
+                              for i in range(-25, 26) for j in range(-25, 26))
+                for frac in (0.75, 0.5, 0.35, 0.22):
+                    w2, h2 = (w * frac, h) if w >= h else (w, h * frac)
+                    for _, i, j in grid:
+                        nx, ny = x + (w - w2) / 2 + i * 0.02 * W, y + (h - h2) / 2 + j * 0.02 * H
+                        rr = T.rot_aabb(nx, ny, w2, h2, rot)
+                        if rr[0] < 0 or rr[1] < 0 or rr[2] > W or rr[3] > H:
+                            continue
+                        if not any(_overlap(rr, o, 3.0) for o in solid):
+                            spot, size = (nx, ny), (w2, h2)
+                            break
+                    if spot:
+                        break
             if spot:
-                rb[t["id"]].update(x=round(spot[0], 2), y=round(spot[1], 2))
+                rb[t["id"]].update(x=round(spot[0], 2), y=round(spot[1], 2),
+                                   width=round(size[0], 2), height=round(size[1], 2))
                 changed = True
         if changed:
             info["ink"] = _ink_map(res, assets_dir)
