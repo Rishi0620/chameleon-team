@@ -634,12 +634,23 @@ def make_plan(kept, labels, zi, ctx: Ctx, ox=0.0, oy=0.0, dropped=()):
             add = 0.0
         col_gaps = [g + add for g in col_gaps]
         x = ox + ctx.m + max(0.0, (ctx.Wa - used - sum(col_gaps)) / 2)
+        card_edge = None                           # cards in one row keep the source's shared edge
+        cards = [cc for cc in cols if len(cc[1]) == 1 and cc[1][0].unit.kind == "rigid"]
+        if len(cards) >= 2:
+            bx = [cc[1][0].unit.box for cc in cards]
+            hmax = max(cc[2] for cc in cards)
+            if max(b[3] for b in bx) - min(b[3] for b in bx) <= 0.02 * ctx.H0:
+                card_edge = ("bottom", y + (rh + hmax) / 2)
+            elif max(b[1] for b in bx) - min(b[1] for b in bx) <= 0.02 * ctx.H0:
+                card_edge = ("top", y + (rh - hmax) / 2)
         for j, (c, its, ch) in enumerate(cols):
             if n > 1 and len(its) == 1:
                 its[0].alone_in_col = True
             texts = [i.unit.head.get("text_align", "center") for i in its if i.unit.kind == "text"]
             align = texts[0] if texts and len(set(texts)) == 1 and len(its) > 1 else "center"
             cy = y + (rh - ch) / 2
+            if card_edge and len(its) == 1 and its[0].unit.kind == "rigid":
+                cy = card_edge[1] - ch if card_edge[0] == "bottom" else card_edge[1]
             for idx, it in enumerate(its):
                 if it.unit.kind == "text":
                     it.x, it.w = x, c

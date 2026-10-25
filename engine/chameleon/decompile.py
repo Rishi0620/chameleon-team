@@ -29,6 +29,7 @@ GAMMA_DOWN = {"headline": 0.8, "subhead": 0.6, "body": 0.6, "cta_label": 0.5, "b
               "legal": 0.3, "unknown": 0.6}
 # legibility floors in JUDGE pixels (px * min(1, 1024/long side)); moderator: CTA label >= 12
 # aligned with DESIGNER rules.FLOOR_JUDGE (the stricter of rules/critic)
+CARDS = True                        # set by the engine: group a picture with its captions into one card
 KEEP_ALL = False                    # set by the engine: never hide an unresolvable asset
 
 FLOOR_JPX = {"headline": 14, "cta_label": 12, "subhead": 11, "body": 11, "badge_label": 9, "legal": 9,
@@ -302,6 +303,9 @@ def decompile(src, assets_dir, depth=0, role_map=None, host=None):
         else:
             units.append(_unit(e["type"], [e], assets_dir))
 
+    if CARDS:
+        units = _merge_cards(units, assets_dir, W0, H0)
+
     # 6. roles + rents
     _assign_roles(units, role_map, assets_dir, W0, H0)
 
@@ -379,6 +383,44 @@ def decompile(src, assets_dir, depth=0, role_map=None, host=None):
         fy1 = H0 - m0 - max(u.ink[3] for u in stream)
         g.rho = min(max(fy0 / max(1e-6, fy0 + fy1), 0.0), 1.0) if fy0 + fy1 > 1 else 0.5
     return g
+
+
+def _merge_cards(units, assets_dir, W0, H0):
+    """A picture with its own short captions underneath (name, price) is one card: a repeated grid of such
+    cards must stay together when the layout is re-flowed, so each card becomes one rigid unit."""
+    imgs = [u for u in units if u.kind == "image" and 0.004 <= area(u.ink) / (W0 * H0) <= 0.25]
+    texts = [u for u in units if u.kind == "text" and str(u.head.get("content", "")).strip()]
+    if len(imgs) < 2 or not texts:
+        return units
+    fmax = max(float(t.head["font_size"]) for t in texts)
+    attach = {id(i): [] for i in imgs}
+    for t in texts:
+        tx0, ty0, tx1, ty1 = t.ink
+        tw, cx = tx1 - tx0, (tx0 + tx1) / 2
+        if float(t.head["font_size"]) > 0.5 * fmax:
+            continue
+        best = None
+        for i in imgs:
+            ix0, iy0, ix1, iy1 = i.ink
+            iw, ih = ix1 - ix0, iy1 - iy0
+            if tw > 2.4 * iw or not (ix0 - 0.25 * iw <= cx <= ix1 + 0.25 * iw):
+                continue
+            gap = ty0 - iy1
+            if gap < -0.15 * ih or gap > max(ih, 0.12 * H0):
+                continue
+            if best is None or gap < best[0]:
+                best = (gap, i)
+        if best:
+            attach[id(best[1])].append(t)
+    cards = [(i, attach[id(i)]) for i in imgs if attach[id(i)]]
+    if len(cards) < 2:
+        return units
+    gone, new = set(), []
+    for i, ts in cards:
+        new.append(_unit("rigid", list(i.els) + [e for t in ts for e in t.els], assets_dir))
+        gone.add(id(i))
+        gone.update(id(t) for t in ts)
+    return [u for u in units if id(u) not in gone] + new
 
 
 def _unit(kind, els, assets_dir):
