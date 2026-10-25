@@ -729,6 +729,9 @@ def realize(plan, g, src, target, assets_dir, base):
                 nx, ny = spot
         o.update(x=nx, y=ny, width=max(1.0, w), height=max(1.0, h))
         placed.add(e["id"])
+    for u in g.furniture:                     # unrotated corner marks line up with the content around them
+        if all(e["id"] in placed for e in u.els):
+            _align_furniture(u, out, placed, assets_dir, W, H)
     # everything else: hidden (dropped units, hidden assets, empty text, unplaced furniture)
     for e in src["elements"]:
         if e["id"] not in placed:
@@ -948,6 +951,64 @@ def _place_furniture(u, plan, ctx, out, occupied, W, H, ox=0.0, oy=0.0):
             occupied.append(rect)
             return True
     return False
+
+
+def _align_furniture(u, out, placed, assets_dir, W, H):
+    """Snap an unrotated corner mark (placeholder, badge) to a shared edge or centre line of the nearest placed
+    element (smallest move, <= 12% of the canvas, never into other ink, never off-canvas): a corner mark that
+    lines up with the content reads as set on a grid, not dropped there."""
+    try:
+        els = [out[e["id"]] for e in u.els]
+        if any(abs(float(e.get("rotation", 0) or 0)) > 0.5 for e in els):
+            return
+        mine = {e["id"] for e in els}
+        rects = [T.ink_rect(e, assets_dir) for e in els]
+        r = (min(a[0] for a in rects), min(a[1] for a in rects), max(a[2] for a in rects), max(a[3] for a in rects))
+        others, refs = [], []
+        for eid, o in out.items():
+            if eid in mine or eid not in placed or not C.visible(o):
+                continue
+            if o["type"] != "text" and o["width"] * o["height"] >= 0.8 * W * H:
+                continue                                          # the background
+            if o["type"] == "shape" and min(o["width"], o["height"]) > 0.3 * min(W, H):
+                continue
+            others.append(T.ink_rect(o, assets_dir))
+            if abs(float(o.get("rotation", 0) or 0)) < 0.5:
+                refs.append(others[-1])                       # a rotated sticker's box is no alignment line
+        js = T.judge_scale(W, H)
+        tx, ty = 0.4 * max(2.0 / js, 0.008 * W), 0.4 * max(2.0 / js, 0.008 * H)   # tighter than the judge's own tolerance
+
+        def lines(q):
+            return (q[0], q[2], (q[0] + q[2]) / 2), (q[1], q[3], (q[1] + q[3]) / 2)
+
+        def aligned(q):
+            lx, ly = lines(q)
+            if abs(lx[2] - W / 2) <= tx or abs(ly[2] - H / 2) <= ty:
+                return True
+            for o in refs:
+                mx, my = lines(o)
+                if any(abs(p - m) <= tx for p, m in zip(lx, mx)) or any(abs(p - m) <= ty for p, m in zip(ly, my)):
+                    return True
+            return False
+        if aligned(r):
+            return
+        cands = []
+        for o in refs:
+            lx, ly = lines(r)
+            mx, my = lines(o)
+            cands += [(m - p, 0.0) for p, m in zip(lx, mx)] + [(0.0, m - p) for p, m in zip(ly, my)]
+        cands += [(W / 2 - (r[0] + r[2]) / 2, 0.0), (0.0, H / 2 - (r[1] + r[3]) / 2)]
+        for dx, dy in sorted(cands, key=lambda c: abs(c[0]) + abs(c[1])):
+            if abs(dx) > 0.12 * W or abs(dy) > 0.12 * H:
+                continue
+            nb = (r[0] + dx, r[1] + dy, r[2] + dx, r[3] + dy)
+            if nb[0] < 0 or nb[1] < 0 or nb[2] > W or nb[3] > H or any(_overlap(nb, o, 1.0) for o in others):
+                continue
+            for e in els:
+                e["x"], e["y"] = round(e["x"] + dx, 2), round(e["y"] + dy, 2)
+            return
+    except Exception:  # noqa: BLE001
+        return
 
 
 def _overlap(a, b, pad=0.0):
