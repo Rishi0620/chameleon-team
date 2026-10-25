@@ -107,6 +107,43 @@ def analyze(source, target_canvas, info=None, assets_dir="brand_kit/assets", wan
         return out
 
 
+def ground(source, target_canvas, info=None, assets_dir="brand_kit/assets"):
+    """Photo ground for text placement: (luminance map 0..1, busy map, k, tolerance) at the busy map's analysis
+    resolution, or None when there is no photo background (then nothing needs nudging)."""
+    try:
+        W, H = int(target_canvas["width"]), int(target_canvas["height"])
+        bg = _find_bg(source, info)
+        if bg is None or bg.get("type") != "image":
+            return None
+        path = _asset_path(assets_dir, bg.get("asset_id"))
+        if path is None:
+            return None
+        a = analyze(source, target_canvas, info, assets_dir, want_map=True)
+        if a.get("status") in ("no_photo", "error") or "_map" not in a:
+            return None
+        im = _render_bg_analysis(str(path), bg.get("fit", "contain"), W, H, a["_map"].shape[1], a["_map"].shape[0])
+        arr = np.asarray(im, dtype=np.float32)[..., :3] / 255.0
+        c = np.where(arr <= 0.03928, arr / 12.92, ((arr + 0.055) / 1.055) ** 2.4)
+        lum = c @ np.array([0.2126, 0.7152, 0.0722], np.float32)
+        return lum, a["_map"], a["_k"], a["tolerance"]
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def text_cost(gr, box, text_lum):
+    """Cost of text of relative luminance `text_lum` on `box` (canvas px): busyness over the designer's tolerance
+    plus a contrast deficit against the 10th-percentile-worst ground (WCAG ratio, 3:1 wanted)."""
+    lum, busy, k, tol = gr
+    h, w = lum.shape
+    x0, y0, x1, y1 = [int(round(v * k)) for v in box]
+    x0, y0 = max(0, min(x0, w - 1)), max(0, min(y0, h - 1))
+    x1, y1 = min(w, max(x0 + 1, x1)), min(h, max(y0 + 1, y1))
+    reg = lum[y0:y1, x0:x1].ravel()
+    ratios = (np.maximum(reg, text_lum) + 0.05) / (np.minimum(reg, text_lum) + 0.05)
+    worst = float(np.percentile(ratios, 10))
+    return float(busy[y0:y1, x0:x1].mean() / max(tol, 1e-6)) + 3.0 * max(0.0, 1.0 - worst / 3.0)
+
+
 # ----------------------------------------------------------------------------- internals
 def _find_bg(source, info):
     els = source.get("elements", [])

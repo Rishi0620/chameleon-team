@@ -335,6 +335,14 @@ def decompile(src, assets_dir, depth=0, role_map=None, host=None):
         near_t, near_b = y0 < 0.12 * H0, y1 > 0.88 * H0
         off_axis = abs((x0 + x1) / 2 - axis) > 0.15 * W0
         rotated = any(abs(float(e.get("rotation", 0) or 0)) > 1 for e in u.els)
+        missing = (u.kind == "image" and small and u.role != "logo"
+                   and T.asset_info(assets_dir, u.head.get("asset_id")) is None)
+        if missing and KEEP_ALL:
+            # the visible placeholder of a missing asset is a small corner mark, not a unit of the flow
+            u.corner = ("T" if (y0 + y1) / 2 < H0 / 2 else "B") + ("L" if (x0 + x1) / 2 < W0 / 2 else "R")
+            u.role, u.rent = "furniture", min(u.rent, 0.2)
+            g.furniture.append(u)
+            continue
         if (u.kind in ("pill", "rigid", "chips") and u.rent < INF and u.role != "cta" and small
                 and ((near_l or near_r) and (near_t or near_b) and (off_axis or rotated) or rotated)):
             u.corner = ("T" if (y0 + y1) / 2 < H0 / 2 else "B") + ("L" if (x0 + x1) / 2 < W0 / 2 else "R")

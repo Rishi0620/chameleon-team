@@ -21,6 +21,8 @@ from pathlib import Path
 
 from . import contract as C
 from . import decompile as D
+from . import hierarchy as HI
+from . import layers as L
 from . import search as S
 from . import textfit as T
 
@@ -29,6 +31,12 @@ HIDE_MODE = os.environ.get("CHAMELEON_HIDE_MODE", "never")          # never (sta
 DISJOINT_BOXES = os.environ.get("CHAMELEON_DISJOINT", "1") != "0"
 TOP_K = int(os.environ.get("CHAMELEON_TOP_K", "6"))
 USE_HOOKS = os.environ.get("CHAMELEON_HOOKS", "1") != "0"
+LAYERING = os.environ.get("CHAMELEON_LAYERING", "1") != "0"
+NUDGE = os.environ.get("CHAMELEON_NUDGE", "0") != "0"     # off: measured no proxy gain (see README)
+LAYER_MARGIN = 0.02
+PATIENCE = 1                   # escalation stops after this many levels without fewer vetoes
+N_LEVELS = 15                  # relaxation ladder length (_run_from)
+UNIFORM_FROM = 11              # from this level on every role relaxes alike
 NEAR_TIE = 0.03
 SEARCH_BUDGET = float(os.environ.get("CHAMELEON_BUDGET", "8"))
 LAST_REPORT: dict = {}
@@ -115,37 +123,59 @@ def _normalize(src):
 
 
 # ----------------------------------------------------------------------------- main run
-def _run(src, target, assets_dir, report):
+def _same_canvas(src, target, assets_dir, report):
+    """Target = source canvas (up to a uniform scale of <= 3% per axis difference): the designer's own layout
+    is the fixed point, so it is scaled uniformly instead of being re-solved (drift ~0)."""
+    W0, H0 = src["canvas"]["width"], src["canvas"]["height"]
+    W, H = target["width"], target["height"]
+    if abs(W / W0 - H / H0) > 0.01 * max(W / W0, H / H0):
+        return None
+    try:
+        out = C.safe_fit(src, target, assets_dir, HIDE_MODE)
+        hard, _ = C.validate(src, out, target, assets_dir)
+        if hard:
+            return None
+        g = D.decompile(src, assets_dir)
+        info = _base_info(src, g, assets_dir, W, H)
+        info["ink"] = _ink_map(out, assets_dir)
+        info["fallback"] = None
+        report.update(stage="ok", relax_level=0, chosen={"program": "source", "vetoes": [], "z": W / W0})
+        return out, info
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _ladder(src, target, assets_dir, carve=False):
     """Search at the first ladder level that yields plans; if the winner is still vetoed (clipped,
     illegible, lost backdrop), escalate to the next relaxation level and keep the less vetoed result."""
-    S.NEVER_DROP = D.KEEP_ALL = (HIDE_MODE == "never")
-    best, level = None, 0
-    while level < 11:
+    best, level, stale = None, 0, 0
+    while level < N_LEVELS:
         rep = {}
-        res = _run_from(src, target, assets_dir, rep, level)
+        res = _run_from(src, target, assets_dir, rep, level, carve)
         nveto = len((rep.get("chosen") or {}).get("vetoes") or []) if rep.get("stage") == "ok" else 99
         if best is None or nveto < best[0]:
-            best = (nveto, res, rep)
-        if nveto == 0 or rep.get("stage") != "ok":
+            best, stale = (nveto, res, rep), 0
+        else:
+            stale += 1
+        if nveto == 0 or rep.get("stage") != "ok" or stale >= PATIENCE:
             break
         level = int(rep.get("relax_level", level)) + 1
+    return best
+
+
+def _run(src, target, assets_dir, report):
+    S.NEVER_DROP = D.KEEP_ALL = (HIDE_MODE == "never")
+    same = _same_canvas(src, target, assets_dir, report)
+    if same is not None:
+        return same
+    best = _ladder(src, target, assets_dir)
     # dense case (floors had to be relaxed a lot): also try sharing transparent image padding and keep the
     # result whose type came out larger (a fixed point of the same rules, only the box packing differs)
     global DISJOINT_BOXES
     if DISJOINT_BOXES and best[2].get("relax_level", 0) >= 3 and best[2].get("stage") == "ok":
         DISJOINT_BOXES = False
         try:
-            alt = None
-            level2 = 0
-            while level2 < 11:
-                rep2 = {}
-                res2 = _run_from(src, target, assets_dir, rep2, level2)
-                n2 = len((rep2.get("chosen") or {}).get("vetoes") or []) if rep2.get("stage") == "ok" else 99
-                if alt is None or n2 < alt[0]:
-                    alt = (n2, res2, rep2)
-                if n2 == 0 or rep2.get("stage") != "ok":
-                    break
-                level2 = int(rep2.get("relax_level", level2)) + 1
+            alt = _ladder(src, target, assets_dir)
         finally:
             DISJOINT_BOXES = True
         if alt is not None and alt[2].get("stage") == "ok":
@@ -153,11 +183,27 @@ def _run(src, target, assets_dir, report):
             z1 = (alt[2].get("chosen") or {}).get("z", 0)
             if alt[0] < best[0] or (alt[0] == best[0] and z1 > 1.15 * z0):
                 best = alt
+    # dense small format: carve the minor units (legal line, badge chips, placeholders) into one fine-print
+    # band along the bottom edge and keep it if the flow's own type ends up clearly better
+    if LAYERING and (best[2].get("stage") != "ok" or best[2].get("relax_level", 0) >= 10):
+        try:
+            alt = _ladder(src, target, assets_dir, carve=True)
+        except Exception as ex:  # noqa: BLE001
+            alt = None
+            report["layer_error"] = f"{type(ex).__name__}: {ex}"
+        if alt is not None:
+            report["layer_try"] = {k: v for k, v in alt[2].items() if k in ("stage", "layer", "relax_level")}
+        if alt is not None and alt[2].get("stage") == "ok" and alt[0] <= best[0]:
+            q0 = L.quality(src, best[1][0], best[1][1]) if best[2].get("stage") == "ok" else -1.0
+            q1 = L.quality(src, alt[1][0], alt[1][1])
+            report["layer_quality"] = [round(q0, 3), round(q1, 3)]
+            if alt[0] < best[0] or q1 > q0 + LAYER_MARGIN:
+                best = alt
     report.update(best[2])
     return best[1]
 
 
-def _run_from(src, target, assets_dir, report, start_level=0):
+def _run_from(src, target, assets_dir, report, start_level=0, carve=False):
     W, H = target["width"], target["height"]
     W0, H0 = src["canvas"]["width"], src["canvas"]["height"]
     g = D.decompile(src, assets_dir)
@@ -168,6 +214,26 @@ def _run_from(src, target, assets_dir, report, start_level=0):
     # live areas: full canvas, plus calm regions of a photo background (INVENTOR overlay)
     lives = [(0.0, 0.0, float(W), float(H), None)]
     overlay = _hook("overlay") if base["bg_kind"] == "photo" else None
+    band = None
+    if carve:
+        units = L.pick(g, assets_dir) if L.applies(W, H) else []
+        band = L.Band(units, g, W, H, assets_dir) if units else None
+        lay0 = band.solve() if band is not None else None
+        if lay0 is not None and overlay is not None:
+            # fine print needs a calm ground: on a photo only when the strip it sits on is as calm as the
+            # designer's own text ground
+            box = (band.mx, H - band.mb - lay0["h"], W - band.mx, H - band.mb)
+            br = _call(overlay, "busy_ratio", src, target, [box], base, assets_dir, default=None, report=report)
+            if not br or max(br) > 1.0:
+                lay0 = None
+        if lay0 is None:
+            report["stage"] = "no layer"
+            return _floor(src, target, assets_dir, report)
+        report["layer"] = {"units": [u.name for u in units], "t": round(lay0["t"], 3), "band_h": round(lay0["h"], 1)}
+        base["layered"] = [e["id"] for u in units for e in u.els]
+        g = L.carve(g, units)
+        lives = [(0.0, 0.0, float(W), float(H - band.mb - lay0["h"]), None)]
+        overlay = None
     calm = None
     if overlay is not None:
         res = _call(overlay, "analyze", src, target, base, assets_dir, default=None, report=report)
@@ -194,6 +260,11 @@ def _run_from(src, target, assets_dir, report, start_level=0):
                   (k0 + 4, 0.35, 0.8, False), (k0 + 4, 0.28, 0.8, False),
                   (k0 + 4, 0.50, 0.8, False), (k0 + 4, 0.35, 0.8, False), (k0 + 4, 0.28, 0.8, False)]
         hier_flags = [False] * 8 + [True] * 3
+        # role-ordered relaxation (fine print first, headline last) above; the tail relaxes every role alike,
+        # exactly as the uniform ladder did, so a canvas that only fits that way still gets a plan
+        ladder += [(k0 + 4, 0.42, 0.8, False), (k0 + 4, 0.28, 0.8, False), (k0 + 4, 0.35, 0.8, False),
+                   (k0 + 4, 0.28, 0.8, False)]
+        hier_flags += [False, False, True, True]
     for level, (kmax, floor_mult, must_thr, brand) in enumerate(ladder):
         if level < start_level:
             continue
@@ -205,14 +276,23 @@ def _run_from(src, target, assets_dir, report, start_level=0):
             ctx = S.Ctx(g, lw, lh, W, H, W0, H0, assets_dir, DISJOINT_BOXES, kmax=kmax)
             ctx._live = (lx, ly, lw, lh)
             if floor_mult != 1.0:
-                ctx.js = ctx.js / floor_mult       # lower judge-px floors (relaxation)
+                ctx.relax = floor_mult             # lower judge-px floors, role by role (search.RELAX_EXP)
+                ctx.uniform = level >= UNIFORM_FROM
                 ctx.rec = ctx.rec * min(1.0, floor_mult / 0.7)
                 ctx.hier_relax = hier_flags[level]
             ps = S.search(g, ctx, src_cov, must_thr=must_thr, deadline=deadline + (2.0 if level else 0.0),
                           never_drop_text=(HIDE_MODE == "never_text"), ox=lx, oy=ly)
             for p in ps:
                 p.ctx, p.level, p.live_score = ctx, level, sc
-            plans += ps
+                if band is not None:
+                    fin = L.finalize(band, p, ctx, H - band.mb)
+                    if fin is None:
+                        p.energy = math.inf
+                        continue
+                    p.layer_items = fin[0]
+                    p.terms["band"] = L.energy(fin[0], ctx)
+                    p.energy += p.terms["band"]
+            plans += [p for p in ps if p.energy < math.inf]
         if plans:
             report["relax_level"] = level
             break
@@ -263,6 +343,8 @@ def _run_from(src, target, assets_dir, report, start_level=0):
                 else:
                     rec["finisher_reverted"] = h2[:2]
         out = _dodge_rules(out, info, assets_dir)
+        out = _hier_fix(src, out, info, target, assets_dir)
+        out = _nudge_text(src, out, info, target, assets_dir, overlay, base)
         crit = _call(critic, "critique", src, out, info, None, default=None, report=report, tag=f"[{rank}] ") \
             if critic is not None else None
         vetoes = list((crit or {}).get("vetoes") or [])
@@ -348,6 +430,155 @@ def _dodge_rules(out, info, assets_dir):
     except Exception:  # noqa: BLE001
         pass
     return out
+
+
+def _rel_lum(color):
+    import re
+    m = re.match(r"rgba?\(([^)]*)\)", str(color or "").replace(" ", ""))
+    try:
+        r, g, b = [float(v) / 255.0 for v in m.group(1).split(",")[:3]]
+    except (AttributeError, ValueError):
+        return None
+    f = lambda c: c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4  # noqa: E731
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+
+
+def _nudge_text(src, out, info, target, assets_dir, overlay, base):
+    """Text colour and the crop are fixed, so on a photo the only lever is where the text sits: slide each free
+    text block (never the pills' labels) to the nearby spot with the best contrast and the least busy ground,
+    keeping it on the canvas and clear of every other element's ink."""
+    if overlay is None or not NUDGE or not hasattr(overlay, "ground"):
+        return out
+    try:
+        gr = overlay.ground(src, target, base, assets_dir)
+        if gr is None:
+            return out
+        W, H = target["width"], target["height"]
+        res = copy.deepcopy(out)
+        els = {e["id"]: e for e in res["elements"]}
+        riders = {r for rs in (info.get("containers") or {}).values() for r in rs}
+        roles = info.get("roles", {})
+        layered = set(info.get("layered") or [])
+        bg = info.get("bg_id")
+        moved = False
+        order = sorted((e for e in res["elements"] if e["type"] == "text" and C.visible(e)
+                        and e["id"] not in riders and e["id"] not in layered
+                        and roles.get(e["id"]) in ("headline", "subhead", "body", "legal")),
+                       key=lambda e: {"headline": 0, "subhead": 1}.get(roles.get(e["id"]), 2))
+        items = []
+        for e in order:
+            lum = _rel_lum(e.get("color"))
+            if lum is not None:
+                items.append((e, lum, T.ink_rect(e, assets_dir), 2.0 if roles.get(e["id"]) == "headline" else 1.0))
+        if not items:
+            return out
+        movers = {id(i[0]) for i in items}
+        others = []
+        for o in res["elements"]:
+            if id(o) in movers or o["id"] == bg or not C.visible(o) or roles.get(o["id"]) in ("background", "decoration", "panel"):
+                continue
+            try:
+                others.append(T.ink_rect(o, assets_dir))
+            except Exception:  # noqa: BLE001
+                others.append((o["x"], o["y"], o["x"] + o["width"], o["y"] + o["height"]))
+        # the text blocks move together (their alignment with each other is part of the design)
+        def total(dx, dy):
+            return sum(w * overlay.text_cost(gr, (r[0] + dx, r[1] + dy, r[2] + dx, r[3] + dy), lum) for _, lum, r, w in items)
+        cur = total(0.0, 0.0)
+        best = (cur, 0.0, 0.0)
+        sx, sy = max(2.0, W * 0.02), max(2.0, H * 0.02)
+        for i in range(-12, 13):
+            for j in range(-12, 13):
+                dx, dy = i * sx, j * sy
+                ok = True
+                for e, _, r, _ in items:
+                    nb = (r[0] + dx, r[1] + dy, r[2] + dx, r[3] + dy)
+                    if (e["x"] + dx < 0 or e["y"] + dy < 0 or e["x"] + e["width"] + dx > W or e["y"] + e["height"] + dy > H
+                            or any(_overlap(nb, o, 1.0) for o in others)):
+                        ok = False
+                        break
+                if ok:
+                    c = total(dx, dy) + 0.02 * (abs(i) + abs(j))
+                    if c < best[0]:
+                        best = (c, dx, dy)
+        if not (cur > 2.0 * sum(i[3] for i in items) and best[0] < 0.8 * cur and (best[1] or best[2])):
+            # the group has nowhere better to go: the headline alone may still climb or sink (same x, so the
+            # alignment with the other blocks is kept) into a calmer, lighter band
+            e0, lum0, r0, _ = items[0]
+            if roles.get(e0["id"]) == "headline":
+                c0 = overlay.text_cost(gr, r0, lum0)
+                pick = (c0, 0.0)
+                for j in range(-20, 21):
+                    dy = j * sy
+                    nb = (r0[0], r0[1] + dy, r0[2], r0[3] + dy)
+                    if e0["y"] + dy < 0 or e0["y"] + e0["height"] + dy > H or any(_overlap(nb, o, 1.0) for o in others)                             or any(_overlap(nb, o[2], 1.0) for o in items[1:]):
+                        continue
+                    c = overlay.text_cost(gr, nb, lum0) + 0.02 * abs(j)
+                    if c < pick[0]:
+                        pick = (c, dy)
+                if c0 > 2.0 and pick[0] < 0.75 * c0 and pick[1]:
+                    e0["y"] = round(e0["y"] + pick[1], 2)
+                    moved = True
+        if not moved:
+            # still on a poor ground: the headline may take a smaller size in a calm region (a band of sky) of
+            # the crop, if it stays legible there and the move clearly improves contrast and calm
+            e0, lum0, r0, _ = items[0]
+            c0 = overlay.text_cost(gr, r0, lum0)
+            a = overlay.analyze(src, target, base, assets_dir)
+            if roles.get(e0["id"]) == "headline" and c0 > 2.0 and a.get("status") == "ok":
+                f0 = int(e0["font_size"])
+                f_min = max(int(math.ceil(14 / T.judge_scale(W, H))), int(0.6 * f0))
+                pick = None
+                for (rx, ry, rw, rh, _sc) in (a.get("regions") or [])[:4]:
+                    for f in range(f0, f_min - 1, -1):
+                        for k in (1, 2, 3):
+                            w, h = T.W_k(e0, f, k) + 2, T.text_h(e0, f, k)
+                            if w > rw or h > rh:
+                                continue
+                            cx = min(max(e0["x"] + e0["width"] / 2, rx + w / 2), rx + rw - w / 2)
+                            x, y = cx - w / 2, ry + (rh - h) / 2
+                            old = e0["height"]
+                            probe = dict(e0, x=x, y=y, width=w, height=h, font_size=f)
+                            nb = T.ink_rect(probe, assets_dir)
+                            if any(_overlap(nb, o, 1.0) for o in others) or any(_overlap(nb, i[2], 1.0) for i in items[1:]):
+                                continue
+                            c = overlay.text_cost(gr, nb, lum0)
+                            if c < 0.6 * c0 and (pick is None or (f, -c) > (pick[0], -pick[1])):
+                                pick = (f, c, x, y, w, h)
+                if pick:
+                    f, c, x, y, w, h = pick
+                    e0.update(font_size=f, x=round(x, 2), y=round(y, 2), width=round(w, 2), height=round(h, 2))
+                    moved = True
+        if cur > 2.0 * sum(i[3] for i in items) and best[0] < 0.8 * cur and (best[1] or best[2]):   # only a clearly bad ground, a clearly better one
+            for e, _, _, _ in items:
+                e["x"], e["y"] = round(e["x"] + best[1], 2), round(e["y"] + best[2], 2)
+            moved = True
+        if not moved:
+            return out
+        res = C.repair(src, res, target, assets_dir, HIDE_MODE)
+        hard, _ = C.validate(src, res, target, assets_dir)
+        if hard:
+            return out
+        info["ink"] = _ink_map(res, assets_dir)
+        return res
+    except Exception:  # noqa: BLE001
+        return out
+
+
+def _hier_fix(src, out, info, target, assets_dir):
+    """Keep the source's order of importance among texts (a smaller source text is never drawn bigger)."""
+    try:
+        fixed = HI.repair(src, out, info, assets_dir)
+        if fixed is out:
+            return out
+        fixed = C.repair(src, fixed, target, assets_dir, HIDE_MODE)
+        hard, _ = C.validate(src, fixed, target, assets_dir)
+        if hard:
+            return out
+        info["ink"] = _ink_map(fixed, assets_dir)
+        return fixed
+    except Exception:  # noqa: BLE001
+        return out
 
 
 def _sev(v):
@@ -458,6 +689,8 @@ def realize(plan, g, src, target, assets_dir, base):
         placed.add(e["id"])
     occupied = []
     _realize_plan(plan, g, ctx, out, placed, hidden, occupied, assets_dir, top=True)
+    for it in getattr(plan, "layer_items", []):
+        _realize_item(it, ctx, out, placed, hidden, occupied, assets_dir)
     # furniture: source corner if collision-free (rotated AABB), else mirrored corner, else hidden
     for u in g.furniture:
         if not _place_furniture(u, plan, ctx, out, occupied, W, H):
@@ -496,6 +729,9 @@ def realize(plan, g, src, target, assets_dir, base):
                 nx, ny = spot
         o.update(x=nx, y=ny, width=max(1.0, w), height=max(1.0, h))
         placed.add(e["id"])
+    for u in g.furniture:                     # unrotated corner marks line up with the content around them
+        if all(e["id"] in placed for e in u.els):
+            _align_furniture(u, out, placed, assets_dir, W, H)
     # everything else: hidden (dropped units, hidden assets, empty text, unplaced furniture)
     for e in src["elements"]:
         if e["id"] not in placed:
@@ -512,7 +748,7 @@ def realize(plan, g, src, target, assets_dir, base):
     info["program"]["chosen"] = plan.program()
     info["energy"] = round(plan.energy, 4)
     info["energy_terms"] = {k: round(v, 4) for k, v in plan.terms.items() if abs(v) > 1e-9}
-    info["floors_px"] = {e["id"]: int(math.ceil(D.FLOOR_JPX.get(S.text_role(u), 10) / ctx.js))
+    info["floors_px"] = {e["id"]: int(math.ceil(D.FLOOR_JPX.get(S.text_role(u), 10) * ctx.rel(S.text_role(u)) / ctx.js))
                          for it in S.all_items(plan) for u in [it.unit]
                          for e in ([u.text_el()] if u.text_el() is not None else [])}
     info["relax_level"] = getattr(plan, "level", 0)
@@ -555,12 +791,17 @@ def _realize_item(it, ctx, out, placed, hidden, occupied, assets_dir):
         occupied.append((it.x, it.y, it.x + it.w, it.y + it.h))
     elif u.kind == "chips":
         ws, hs = it.extra.get("ws", []), it.extra.get("hs", [])
-        gap = u.gap_src * it.s
-        total = sum(ws) + gap * (len(ws) - 1)
-        x = it.x + max(0.0, (it.w - total) / 2)
-        for p, w, h in zip(u.members, ws, hs):
-            _pill(p, x, it.y + (it.h - h) / 2, w, h, it.f, out)
-            x += w + gap
+        gap = it.extra.get("gap", u.gap_src * it.s)
+        rows = it.extra.get("rows") or [list(range(len(ws)))]
+        rh = it.extra.get("rh") or [max(hs)]
+        y = it.y + max(0.0, (it.h - sum(rh) - 0.6 * gap * (len(rows) - 1)) / 2)
+        for r, hrow in zip(rows, rh):
+            total = sum(ws[i] for i in r) + gap * (len(r) - 1)
+            x = it.x + max(0.0, (it.w - total) / 2)
+            for i in r:
+                _pill(u.members[i], x, y + (hrow - hs[i]) / 2, ws[i], hs[i], it.f, out)
+                x += ws[i] + gap
+            y += hrow + 0.6 * gap
         placed.update(e["id"] for e in u.els)
         occupied.append((it.x, it.y, it.x + it.w, it.y + it.h))
     elif u.kind == "rigid":
@@ -600,6 +841,13 @@ def _realize_item(it, ctx, out, placed, hidden, occupied, assets_dir):
                 cy = y0 + (e["y"] + e["height"] / 2) * sy
                 o.update(x=min(max(cx - w / 2, x0), x1 - w), y=min(max(cy - h / 2, y0), y1 - h), width=w, height=h)
                 placed.add(e["id"])
+            sc = S.sub_ctx(u, it.w, it.h, ctx, it.extra["pad"])
+            for f in u.sub.furniture:        # a sticker on a card sits in the card's own corner, never hidden
+                ids = [e["id"] for e in f.els]
+                if _place_furniture(f, it.sub, sc, out, sub_occ, x1 - x0, y1 - y0, x0, y0):
+                    placed.update(ids)
+                else:
+                    hidden.update(ids)
             for e in u.sub.hidden:
                 hidden.add(e["id"])
 
@@ -640,7 +888,7 @@ def _rigid(u, x, y, s, out):
             o["corner_radius"] = float(e["corner_radius"]) * s
 
 
-def _place_furniture(u, plan, ctx, out, occupied, W, H):
+def _place_furniture(u, plan, ctx, out, occupied, W, H, ox=0.0, oy=0.0):
     d = S.unit_dims(u, plan.zi, ctx)
     if d is None:
         return False
@@ -660,16 +908,16 @@ def _place_furniture(u, plan, ctx, out, occupied, W, H):
                     fs = [float(e["font_size"]) * d.s * shrink for e in u.els if e["type"] == "text"]
                 else:
                     fs = [d.f * shrink]
-                if fs and min(int(f) for f in fs) * ctx.js < S.FLOOR_JPX["badge_label"]:
+                if fs and min(int(f) for f in fs) * ctx.js < S.FLOOR_JPX["badge_label"] * ctx.rel("badge_label"):
                     continue                      # furniture text below the legibility floor: try smaller placements later
             rx0, ry0, rx1, ry1 = T.rot_aabb(0, 0, bw, bh, rot)
             aw, ah = rx1 - rx0, ry1 - ry0
             best = None
             for cn in corners:
-                ax = m if cn[1] == "L" else W - m - aw
-                ay = m if cn[0] == "T" else H - m - ah
+                ax = ox + (m if cn[1] == "L" else W - m - aw)
+                ay = oy + (m if cn[0] == "T" else H - m - ah)
                 rect = (ax, ay, ax + aw, ay + ah)
-                if ax < 0 or ay < 0:
+                if ax < ox or ay < oy:
                     continue
                 hits = sum(max(0.0, min(rect[2], o[2]) - max(rect[0], o[0])) * max(0.0, min(rect[3], o[3]) - max(rect[1], o[1]))
                            for o in occupied if _overlap(rect, o, 4 if not overlap_ok else -1))
@@ -687,15 +935,80 @@ def _place_furniture(u, plan, ctx, out, occupied, W, H):
                 _pill(u, bx, by, bw, bh, max(1, int(d.f * shrink)), out)
             elif u.kind == "chips":
                 f = max(1, int(d.f * shrink))
-                x = bx
-                for p, w, h in zip(u.members, d.extra["ws"], d.extra["hs"]):
-                    _pill(p, x, by + (bh - h * shrink) / 2, w * shrink, h * shrink, f, out)
-                    x += w * shrink + u.gap_src * d.s * shrink
+                ws, hs = d.extra["ws"], d.extra["hs"]
+                gap = d.extra.get("gap", u.gap_src * d.s) * shrink
+                rows = d.extra.get("rows") or [list(range(len(ws)))]
+                rh = d.extra.get("rh") or [max(hs)]
+                y = by
+                for r, hrow in zip(rows, rh):
+                    x = bx + max(0.0, (bw - (sum(ws[i] for i in r) * shrink + gap * (len(r) - 1))) / 2)
+                    for i in r:
+                        _pill(u.members[i], x, y + (hrow - hs[i]) * shrink / 2, ws[i] * shrink, hs[i] * shrink, f, out)
+                        x += ws[i] * shrink + gap
+                    y += hrow * shrink + 0.6 * gap
             else:
                 _rigid(u, bx, by, d.s * shrink, out)
             occupied.append(rect)
             return True
     return False
+
+
+def _align_furniture(u, out, placed, assets_dir, W, H):
+    """Snap an unrotated corner mark (placeholder, badge) to a shared edge or centre line of the nearest placed
+    element (smallest move, <= 12% of the canvas, never into other ink, never off-canvas): a corner mark that
+    lines up with the content reads as set on a grid, not dropped there."""
+    try:
+        els = [out[e["id"]] for e in u.els]
+        if any(abs(float(e.get("rotation", 0) or 0)) > 0.5 for e in els):
+            return
+        mine = {e["id"] for e in els}
+        rects = [T.ink_rect(e, assets_dir) for e in els]
+        r = (min(a[0] for a in rects), min(a[1] for a in rects), max(a[2] for a in rects), max(a[3] for a in rects))
+        others, refs = [], []
+        for eid, o in out.items():
+            if eid in mine or eid not in placed or not C.visible(o):
+                continue
+            if o["type"] != "text" and o["width"] * o["height"] >= 0.8 * W * H:
+                continue                                          # the background
+            if o["type"] == "shape" and min(o["width"], o["height"]) > 0.3 * min(W, H):
+                continue
+            others.append(T.ink_rect(o, assets_dir))
+            if abs(float(o.get("rotation", 0) or 0)) < 0.5:
+                refs.append(others[-1])                       # a rotated sticker's box is no alignment line
+        js = T.judge_scale(W, H)
+        tx, ty = 0.4 * max(2.0 / js, 0.008 * W), 0.4 * max(2.0 / js, 0.008 * H)   # tighter than the judge's own tolerance
+
+        def lines(q):
+            return (q[0], q[2], (q[0] + q[2]) / 2), (q[1], q[3], (q[1] + q[3]) / 2)
+
+        def aligned(q):
+            lx, ly = lines(q)
+            if abs(lx[2] - W / 2) <= tx or abs(ly[2] - H / 2) <= ty:
+                return True
+            for o in refs:
+                mx, my = lines(o)
+                if any(abs(p - m) <= tx for p, m in zip(lx, mx)) or any(abs(p - m) <= ty for p, m in zip(ly, my)):
+                    return True
+            return False
+        if aligned(r):
+            return
+        cands = []
+        for o in refs:
+            lx, ly = lines(r)
+            mx, my = lines(o)
+            cands += [(m - p, 0.0) for p, m in zip(lx, mx)] + [(0.0, m - p) for p, m in zip(ly, my)]
+        cands += [(W / 2 - (r[0] + r[2]) / 2, 0.0), (0.0, H / 2 - (r[1] + r[3]) / 2)]
+        for dx, dy in sorted(cands, key=lambda c: abs(c[0]) + abs(c[1])):
+            if abs(dx) > 0.12 * W or abs(dy) > 0.12 * H:
+                continue
+            nb = (r[0] + dx, r[1] + dy, r[2] + dx, r[3] + dy)
+            if nb[0] < 0 or nb[1] < 0 or nb[2] > W or nb[3] > H or any(_overlap(nb, o, 1.0) for o in others):
+                continue
+            for e in els:
+                e["x"], e["y"] = round(e["x"] + dx, 2), round(e["y"] + dy, 2)
+            return
+    except Exception:  # noqa: BLE001
+        return
 
 
 def _overlap(a, b, pad=0.0):

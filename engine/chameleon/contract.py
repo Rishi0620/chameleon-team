@@ -211,7 +211,12 @@ def repair(source, out, target, assets_dir=None, hide_mode="alpha"):
     for el, s in zip(els, source["elements"]):
         for k in ("x", "y", "width", "height"):
             el[k] = _num(el.get(k), _num(s.get(k), 1.0))
-        el["width"], el["height"] = max(1.0, el["width"]), max(1.0, el["height"])
+        if el["type"] == "image" and el.get("fit", "contain") != "cover" and min(el["width"], el["height"]) < 1.0:
+            k = 1.0 / max(1e-6, min(el["width"], el["height"]))      # keep the aspect: scale, never clamp one side
+            k = min(k, W / max(el["width"], 1e-6), H / max(el["height"], 1e-6))
+            el["width"], el["height"] = max(1e-3, el["width"] * k), max(1e-3, el["height"] * k)
+        else:
+            el["width"], el["height"] = max(1.0, el["width"]), max(1.0, el["height"])
         if isinstance(s.get("z_index"), int):
             el["z_index"] = int(_num(el.get("z_index", s["z_index"]), s["z_index"]))
         if el["type"] == "text":
@@ -331,6 +336,12 @@ def _clamp_rot(el, W, H):
 
 
 # ----------------------------------------------------------------------------- floors
+def _dim(e, s, k):
+    """Scaled box side: >= 1 px, except a picture keeps its aspect even when the canvas is absurdly small."""
+    v = float(e[k]) * s
+    return v if (e["type"] == "image" and e.get("fit", "contain") != "cover") else max(1.0, v)
+
+
 def safe_fit(source, target, assets_dir, hide_mode="alpha"):
     """Uniform contain-scale of the whole design (JUDGE's structurally perfect floor)."""
     W, H = int(target["width"]), int(target["height"])
@@ -346,7 +357,7 @@ def safe_fit(source, target, assets_dir, hide_mode="alpha"):
             el.update(x=0.0, y=0.0, width=float(W), height=float(H))
         else:
             el.update(x=ox + float(e["x"]) * s, y=oy + float(e["y"]) * s,
-                      width=max(1.0, float(e["width"]) * s), height=max(1.0, float(e["height"]) * s))
+                      width=_dim(e, s, "width"), height=_dim(e, s, "height"))
             if e["type"] == "text":
                 el["font_size"] = max(1, int(float(e["font_size"]) * s))
         if e["type"] == "image" and any_asset and T.asset_info(assets_dir, e.get("asset_id")) is None:
@@ -363,7 +374,7 @@ def last_resort(source, target):
     els = []
     for e in source["elements"]:
         el = copy.deepcopy(e)
-        w, h = max(1.0, float(e["width"]) * s), max(1.0, float(e["height"]) * s)
+        w, h = _dim(e, s, "width"), _dim(e, s, "height")
         x = min(max(0.0, ox + float(e["x"]) * s), max(0.0, W - w))
         y = min(max(0.0, oy + float(e["y"]) * s), max(0.0, H - h))
         el.update(x=round(x, 2), y=round(y, 2), width=round(min(w, W), 2), height=round(min(h, H), 2))
