@@ -206,7 +206,7 @@ def _run(src, target, assets_dir, report):
 def _run_from(src, target, assets_dir, report, start_level=0, carve=False):
     W, H = target["width"], target["height"]
     W0, H0 = src["canvas"]["width"], src["canvas"]["height"]
-    D.CARDS = W * H >= 200_000 and min(W, H) >= 300     # rigid cards break down on tiny canvases
+    D.CARDS = True                                       # captions stay with their picture at every size
     g = D.decompile(src, assets_dir)
     base = _base_info(src, g, assets_dir, W, H)
     report["program_source"] = base["program"]["source"]
