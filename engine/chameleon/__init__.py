@@ -1,2 +1,2 @@
-"""Shipped copy of design/debate/proto (see scripts/sync_engine.sh). Do not edit here."""
+"""CHAMELEON engine: decompile -> search -> finish -> verify -> contract (see ENGINE.md)."""
 from .engine import resize, resize_with_info  # noqa: F401

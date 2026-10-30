@@ -1,3 +1,19 @@
+# CHAMELEON — our engine submission
+
+**`engine/resize.py` is implemented.** It calls the `engine/chameleon/` package, which re-lays-out a design for a new
+canvas without templates: it infers each element's role from geometry and type, searches row/column/stack layouts
+with one shared type scale, typesets and verifies the best candidates with the official renderer, and falls back to
+a safe layout if anything fails. Every source element stays present and visible (nothing is hidden or dropped),
+source styling is preserved, and it runs fully offline with no model or weights. See **"Design reasoning and
+trade-offs"** at the end of this file and `ENGINE.md` for the pipeline.
+
+**How to run:** `pip install -r requirements.txt && python -m engine.main` (reads `input/*.json`, writes
+`output/<task>_output.json` and `.png`), or the Docker commands under "Docker" below.
+
+The rest of this file is the organisers' starter README, kept for reference.
+
+---
+
 # CHAMELEON — starter repo
 
 This is the scaffolding for your engine. It handles input loading, output

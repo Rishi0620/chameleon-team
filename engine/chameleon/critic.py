@@ -33,7 +33,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 # ----------------------------------------------------------------------------------------------- constants
-# Calibration targets: see design/debate/round3/perception_calibration.md. Defaults below are Round-2 values.
+# Calibration targets: defaults below were tuned against a rendered-pixel benchmark.
 JUDGE_LONG_SIDE = 1024          # assumed evaluator viewing size (JUDGE); judge_px = px * min(1, 1024/long side)
 FLOOR_PX = {"headline": 12, "cta_label": 11, "subhead": 10, "body": 10, "badge_label": 9, "legal": 8}
 DEFAULT_FLOOR_PX = 9
