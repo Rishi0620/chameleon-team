@@ -283,8 +283,11 @@ def _clamp(el, W, H):
 
 
 def _honest_text(el, W, H):
+    ls_ratio = _num(el.get("letter_spacing"), 0.0) / max(1.0, float(el["font_size"]))
     for _ in range(60):
         fs = int(el["font_size"])
+        if ls_ratio:
+            el["letter_spacing"] = round(ls_ratio * fs, 2)     # spacing shrinks with the font, so the text can still fit
         n = T.n_lines(el, fs, el["width"])
         need = n * fs * T.line_height(el)
         dw = max(T.drawn_widths(el, fs, el["width"]))

@@ -415,8 +415,8 @@ def _dodge_rules(out, info, assets_dir):
                 for sgn in (1, -1):
                     nx, ny = (x, y + sgn * step * 0.01 * H) if horiz else (x + sgn * step * 0.01 * W, y)
                     rr = aabb(nx, ny)
-                    if rr[0] < 0 or rr[1] < 0 or rr[2] > W or rr[3] > H:
-                        continue
+                    if rr[0] < 0 or rr[1] < 0 or rr[2] > W or rr[3] > H or nx < 0 or ny < 0 or nx + w > W or ny + h > H:
+                        continue                      # both the drawn and the unrotated box must stay on the canvas
                     if not any(_overlap(rr, o, 3.0) for o in solid):
                         spot = (nx, ny)
                         break
@@ -431,7 +431,8 @@ def _dodge_rules(out, info, assets_dir):
                     for _, i, j in grid:
                         nx, ny = x + (w - w2) / 2 + i * 0.02 * W, y + (h - h2) / 2 + j * 0.02 * H
                         rr = T.rot_aabb(nx, ny, w2, h2, rot)
-                        if rr[0] < 0 or rr[1] < 0 or rr[2] > W or rr[3] > H:
+                        if (rr[0] < 0 or rr[1] < 0 or rr[2] > W or rr[3] > H
+                                or nx < 0 or ny < 0 or nx + w2 > W or ny + h2 > H):
                             continue
                         if not any(_overlap(rr, o, 3.0) for o in solid):
                             spot, size = (nx, ny), (w2, h2)
